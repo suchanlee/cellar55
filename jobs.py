@@ -129,7 +129,7 @@ class WineScraper:
         for wine_type in ['red', 'white', 'sparkling', 'ros', 'dessert']:
             count = re.findall(r'\W+{0}s?\W+'.format(wine_type), search_text, re.IGNORECASE)
             count_map_item = {
-                'count': count,
+                'count': len(count),
                 'type': wine_type
             }
             count_map_list.append(count_map_item)
