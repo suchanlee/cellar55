@@ -1,0 +1,23 @@
+{
+  "name": "cellar55",
+  "version": "0.0.1",
+  "description": "",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Suchan Lee",
+  "license": "ISC",
+  "dependencies": {
+    "es6-promise": "^3.1.2",
+    "flux": "^2.1.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "whatwg-fetch": "^0.11.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^0.8.1",
+    "typescript": "^1.8.7",
+    "webpack": "^1.12.14"
+  }
+}

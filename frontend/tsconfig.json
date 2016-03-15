@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "module": "commonjs",
+    "sourceMap": true
+  },
+  "files": [
+    "./scripts/app.tsx",
+    "./scripts/types.d.ts",
+    "typings/browser.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

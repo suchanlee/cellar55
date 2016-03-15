@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, request
+from flask import jsonify, render_template, request, url_for
 from sqlalchemy import or_
 
 from app import app
@@ -6,7 +6,7 @@ from models import Wine
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html', js_build=url_for('static', filename='build/bundle.js'))
 
 @app.route('/wine', methods=['GET'])
 def wines():
