@@ -4,22 +4,25 @@ from sqlalchemy import or_
 from app import app
 from models import Wine
 
+def get_api_route(subpath):
+    return '/api/{0}'.format(subpath)
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html', js_build=url_for('static', filename='build/bundle.js'))
 
-@app.route('/wine', methods=['GET'])
+@app.route(get_api_route('wine'), methods=['GET'])
 def wines():
     if len(request.args.items()) == 0:
         wines = Wine.query.all()
     else:
         name = request.args.get('name')
         query = Wine.query
-        query = add_filters_to_query(query, 'wine_type', request.args.getlist('wine_type'))
-        query = add_filters_to_query(query, 'varietal', request.args.getlist('varietal'))
-        query = add_filters_to_query(query, 'country', request.args.getlist('country'))
-        query = add_filters_to_query(query, 'region', request.args.getlist('region'))
-        query = add_filters_to_query(query, 'subregion', request.args.getlist('subregion'))
+        query = add_filters_to_query(query, 'wine_type', request.args.getlist('wine_types'))
+        query = add_filters_to_query(query, 'varietal', request.args.getlist('varietals'))
+        query = add_filters_to_query(query, 'country', request.args.getlist('countries'))
+        query = add_filters_to_query(query, 'region', request.args.getlist('regions'))
+        query = add_filters_to_query(query, 'subregion', request.args.getlist('subregions'))
         query = add_filters_to_query(query, 'vintage', request.args.getlist('vintage'))
         if name is not None:
             query = query.filter(Wine.name.ilike('%{0}%'.format(name)))

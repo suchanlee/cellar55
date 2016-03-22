@@ -4,12 +4,21 @@ import Body from './Body.tsx';
 import Footer from './Footer.tsx';
 import Header from './Header.tsx';
 
-export default class Cellar55 extends React.Component<void, void> {
+interface Props {}
 
-    componentDidMount() {
-        fetch('/wine', {
-            method: 'get'
-        }).then((response) => console.log(response.json()));
+interface State {
+    count: number;
+    wines: Types.Wine[];
+}
+
+export default class Cellar55 extends React.Component<Props, State> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0,
+            wines: []
+        };
     }
 
     render() {

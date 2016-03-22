@@ -18,12 +18,12 @@ class Wine(db.Model):
     soil = db.Column(db.String(70), nullable=False)
     farming = db.Column(db.String(70), nullable=False)
     wine_type = db.Column(db.String(20), index=True, nullable=False)
-    fruit_rating = db.Column(db.Integer, index=True, nullable=False)
-    earth_rating = db.Column(db.Integer, index=True, nullable=False)
-    body_rating = db.Column(db.Integer, index=True, nullable=False)
-    tannin_rating = db.Column(db.Integer, index=True, nullable=False)
-    acid_rating = db.Column(db.Integer, index=True, nullable=False)
-    alcohol_rating = db.Column(db.Integer, index=True, nullable=False)
+    fruit_rating = db.Column(db.Numeric, index=True, nullable=False)
+    earth_rating = db.Column(db.Numeric, index=True, nullable=False)
+    body_rating = db.Column(db.Numeric, index=True, nullable=False)
+    tannin_rating = db.Column(db.Numeric, index=True, nullable=False)
+    acid_rating = db.Column(db.Numeric, index=True, nullable=False)
+    alcohol_rating = db.Column(db.Numeric, index=True, nullable=False)
     main_image_url = db.Column(db.String(500), nullable=True)
     alt_image_url = db.Column(db.String(500), nullable=True)
     entry = db.relationship('Entry', backref='wine', uselist=False)
@@ -51,7 +51,8 @@ class Wine(db.Model):
             'acid_rating': self.acid_rating,
             'alcohol_rating': self.alcohol_rating,
             'main_image_url': self.main_image_url,
-            'alt_image_url': self.alt_image_url
+            'alt_image_url': self.alt_image_url,
+            'quote': self.entry.quote
         }
 
     def __repr__(self):
