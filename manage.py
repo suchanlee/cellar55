@@ -3,6 +3,7 @@ from flask.ext.migrate import Migrate, MigrateCommand
 
 from app import app, db
 from config import DevelopmentConfig
+from models import *
 
 app.config.from_object(DevelopmentConfig)
 

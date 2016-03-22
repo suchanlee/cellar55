@@ -9,7 +9,12 @@ export default class WineItem extends React.Component<Props, void> {
     private renderCircles(circleClass: string, count: number): React.ReactElement<any>[] {
         let circles: React.ReactElement<any>[] = [];
         for (var i = 0; i < count; i++) {
-            circles.push(<span key={`${circleClass}-${i}`} className={circleClass}><span /></span>)
+            if (circleClass.indexOf('half-circle')) {
+                circles.push(<span key={`${circleClass}-${i}`} className={circleClass}><span /></span>);
+            } else {
+                circles.push(<span key={`${circleClass}-${i}`} className={circleClass} />);
+            }
+
         }
         return circles;
     }

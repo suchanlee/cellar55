@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: 226d54152e8a
+Revision ID: ee55f483a4e0
 Revises: None
-Create Date: 2016-03-13 19:58:55.359600
+Create Date: 2016-03-22 00:08:05.096394
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '226d54152e8a'
+revision = 'ee55f483a4e0'
 down_revision = None
 
 from alembic import op
@@ -30,13 +30,13 @@ def upgrade():
     sa.Column('soil', sa.String(length=70), nullable=False),
     sa.Column('farming', sa.String(length=70), nullable=False),
     sa.Column('wine_type', sa.String(length=20), nullable=False),
-    sa.Column('fruit_rating', sa.Integer(), nullable=False),
-    sa.Column('earth_rating', sa.Integer(), nullable=False),
-    sa.Column('body_rating', sa.Integer(), nullable=False),
-    sa.Column('tannin_rating', sa.Integer(), nullable=False),
-    sa.Column('acid_rating', sa.Integer(), nullable=False),
-    sa.Column('alcohol_rating', sa.Integer(), nullable=False),
-    sa.Column('main_image_url', sa.String(length=500), nullable=False),
+    sa.Column('fruit_rating', sa.Numeric(), nullable=False),
+    sa.Column('earth_rating', sa.Numeric(), nullable=False),
+    sa.Column('body_rating', sa.Numeric(), nullable=False),
+    sa.Column('tannin_rating', sa.Numeric(), nullable=False),
+    sa.Column('acid_rating', sa.Numeric(), nullable=False),
+    sa.Column('alcohol_rating', sa.Numeric(), nullable=False),
+    sa.Column('main_image_url', sa.String(length=500), nullable=True),
     sa.Column('alt_image_url', sa.String(length=500), nullable=True),
     sa.Column('created', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
