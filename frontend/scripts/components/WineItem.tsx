@@ -1,10 +1,33 @@
 import * as React from 'react';
 
+const QUOTE_WORD_LIMIT: number = 15;
+
 interface Props {
     wine: Types.Wine;
 }
 
-export default class WineItem extends React.Component<Props, void> {
+interface State {
+    showFullQuote: boolean;
+}
+
+export default class WineItem extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {showFullQuote: false};
+    }
+
+    private getQuote(): string {
+        if (this.state.showFullQuote) {
+            return this.props.wine.quote;
+        } else {
+            const quoteWords: string[] = this.props.wine.quote.split(' ');
+            if (quoteWords.length > QUOTE_WORD_LIMIT) {
+                return `${quoteWords.slice(0, QUOTE_WORD_LIMIT).join(' ')}...`;
+            }
+            return this.props.wine.quote;
+        }
+    }
 
     private renderCircles(circleClass: string, count: number): React.ReactElement<any>[] {
         let circles: React.ReactElement<any>[] = [];
@@ -48,7 +71,10 @@ export default class WineItem extends React.Component<Props, void> {
                         <h2>{wine.name}</h2>
                         <div>{`${wine.subregion}, ${wine.region} ${wine.vintage}`}</div>
                         <div>{wine.varietal}</div>
-                        <div className='quote'>"{wine.quote}"</div>
+                        <div className='quote'
+                             onClick={() => this.setState({showFullQuote: !this.state.showFullQuote})}>"
+                            {this.getQuote()}"
+                        </div>
                         <table className="ratings">
                             <tbody>
                                 {this.renderRating('fruit', wine.fruit_rating)}
