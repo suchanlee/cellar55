@@ -1,6 +1,7 @@
 import * as React from 'react';
 import objectAssign = require('object-assign');
 import queryString = require('query-string');
+// import fetch = require('whatwg-fetch');
 
 import Filters from './Filters';
 import WineItem from './WineItem';

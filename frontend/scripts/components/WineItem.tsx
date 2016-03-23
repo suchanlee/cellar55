@@ -67,24 +67,22 @@ export default class WineItem extends React.Component<Props, State> {
             <li className='wine-item'>
                 <div className='wine-item-image' style={backgroundStyle} alt={wine.name} />
                 <div className='wine-item-info-container'>
-                    <div className='wine-item-info'>
-                        <h2>{wine.name}</h2>
-                        <div>{`${wine.subregion}, ${wine.region} ${wine.vintage}`}</div>
-                        <div>{wine.varietal}</div>
-                        <div className='quote'
-                             onClick={() => this.setState({showFullQuote: !this.state.showFullQuote})}>"
-                            {this.getQuote()}"
+                    <div className='wine-item-info-wrapper'>
+                        <div className='wine-item-info'>
+                            <h2>{wine.name}</h2>
+                            <div>{`${wine.subregion}, ${wine.region} ${wine.vintage}`}</div>
+                            <div>{wine.varietal}</div>
+                            <table className="ratings">
+                                <tbody>
+                                    {this.renderRating('fruit', wine.fruit_rating)}
+                                    {this.renderRating('tannin', wine.tannin_rating)}
+                                    {this.renderRating('earth', wine.earth_rating)}
+                                    {this.renderRating('acid', wine.acid_rating)}
+                                    {this.renderRating('body', wine.body_rating)}
+                                    {this.renderRating('alcohol', wine.alcohol_rating)}
+                                </tbody>
+                            </table>
                         </div>
-                        <table className="ratings">
-                            <tbody>
-                                {this.renderRating('fruit', wine.fruit_rating)}
-                                {this.renderRating('tannin', wine.tannin_rating)}
-                                {this.renderRating('earth', wine.earth_rating)}
-                                {this.renderRating('acid', wine.acid_rating)}
-                                {this.renderRating('body', wine.body_rating)}
-                                {this.renderRating('alcohol', wine.alcohol_rating)}
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </li>

@@ -27,7 +27,6 @@ export default class Filters extends React.Component<Props, State> {
         const idx: number = wineTypes.indexOf(wineType);
         if (idx >= 0) {
             wineTypes.splice(idx, 1);
-            console.log(wineTypes);
         } else {
             wineTypes.push(wineType);
         }
@@ -42,7 +41,7 @@ export default class Filters extends React.Component<Props, State> {
         let wineTypeFilters: React.ReactElement<any>[] = [];
         for (var wineType of Constants.WineTypes) {
             wineTypeFilters.push(
-                <span key={wineType}>
+                <span className='item' key={wineType}>
                     <input
                         type='checkbox'
                         checked={this.state.filters.wine_types.indexOf(wineType) >= 0}
@@ -56,10 +55,11 @@ export default class Filters extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
-                <span>Filters</span>
-                <div>Wine Type</div>
-                <div>{this.getWineTypeFilters()}</div>
+            <div className='filters'>
+                <div className='filter-row'>
+                    <div className="filter-row-key">Wine Type</div>
+                    <div className="filter-row-values">{this.getWineTypeFilters()}</div>
+                </div>
                 <button onClick={() => this.props.onFiltersUpdate(this.state.filters)}>
                     Update Filters
                 </button>
