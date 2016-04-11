@@ -13,28 +13,7 @@ interface Props {
     wine: Types.Wine;
 }
 
-interface State {
-    showFullQuote: boolean;
-}
-
-export default class WineItem extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-        this.state = {showFullQuote: false};
-    }
-
-    private getQuote(): string {
-        if (this.state.showFullQuote) {
-            return this.props.wine.quote;
-        } else {
-            const quoteWords: string[] = this.props.wine.quote.split(' ');
-            if (quoteWords.length > QUOTE_WORD_LIMIT) {
-                return `${quoteWords.slice(0, QUOTE_WORD_LIMIT).join(' ')}...`;
-            }
-            return this.props.wine.quote;
-        }
-    }
+export default class WineItem extends React.Component<Props, void> {
 
     private getWineName(): WineName {
         const nameSplit = this.props.wine.name.split(',');
