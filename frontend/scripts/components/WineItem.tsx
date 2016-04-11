@@ -10,7 +10,7 @@ interface WineName {
 }
 
 interface Props {
-    wine: Types.Wine;
+    wine: Types.IWine;
 }
 
 export default class WineItem extends React.Component<Props, void> {
@@ -53,7 +53,7 @@ export default class WineItem extends React.Component<Props, void> {
     }
 
     render() {
-        const wine: Types.Wine = this.props.wine;
+        const wine: Types.IWine = this.props.wine;
         const wineName: WineName = this.getWineName();
         return (
             <li className='wine-item'>

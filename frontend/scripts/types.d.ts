@@ -1,6 +1,6 @@
 declare module Types {
 
-    interface Wine {
+    interface IWine {
         id: number;
         name: string;
         wine_type: string;
@@ -25,12 +25,12 @@ declare module Types {
         quote: string;
     }
 
-    interface WineResponse {
+    interface IWineResponse {
         count: number;
-        wines: Wine[];
+        wines: IWine[];
     }
 
-    interface FiltersDelta {
+    interface IFilterDelta {
         countries?: string[];
         regions?: string[];
         subregions?: string[];
@@ -42,7 +42,7 @@ declare module Types {
         name?: string;
     }
 
-    interface Filters {
+    interface IFilter {
         countries: string[];
         regions: string[];
         subregions: string[];
@@ -52,5 +52,15 @@ declare module Types {
         vintage_from: string;
         vintage_to: string;
         name: string;
+    }
+
+    interface IApp {
+        filter: Types.IFilter;
+        wine: {
+            isFetching: boolean;
+            wines: Types.IWine[];
+            currentWine: Types.IWine;
+            error: string;
+        };
     }
 }

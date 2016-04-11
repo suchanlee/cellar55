@@ -2,15 +2,15 @@
   "compilerOptions": {
     "target": "es5",
     "jsx": "react",
-    "module": "commonjs",
+    "module": "CommonJS",
     "sourceMap": true
   },
-  "files": [
-    "./scripts/app.tsx",
-    "./scripts/types.d.ts",
-    "typings/browser.d.ts"
-  ],
   "exclude": [
-    "node_modules"
+    "*.json",
+    "bundle.js",
+    "bundle.js.map",
+    "node_modules",
+    "typings/browser",
+    "typings/browser.d.ts"
   ]
 }
