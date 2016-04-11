@@ -9,6 +9,7 @@
   "author": "Suchan Lee",
   "license": "ISC",
   "dependencies": {
+    "classnames": "^2.2.3",
     "es6-promise": "^3.1.2",
     "flux": "^2.1.1",
     "object-assign": "^4.0.1",
