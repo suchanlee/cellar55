@@ -15,6 +15,7 @@ export const initialState: Types.IApp = {
     wine: {
         isFetching: false,
         wines: [],
+        allWines: [],
         currentWine: null,
         error: null
     }

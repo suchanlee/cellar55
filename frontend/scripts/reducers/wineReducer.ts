@@ -13,11 +13,15 @@ export default function wineReducer(state = initialState.wine, action) {
             });
 
         case ActionType.RECEIVE_WINES_SUCCESS:
-            return objectAssign({}, state, {
+            let newState = objectAssign({}, state, {
                 isFetching: false,
                 wines: action.wines,
                 error: null
             });
+            if (newState.allWines.length === 0) {
+                newState.allWines = action.wines;
+            }
+            return newState;
 
         case ActionType.RECEIVE_WINES_ERROR:
             return objectAssign({}, state, {

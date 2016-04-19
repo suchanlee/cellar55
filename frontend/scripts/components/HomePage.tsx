@@ -4,7 +4,7 @@ import objectAssign = require('object-assign');
 import { fetchWines } from '../actions/wineActions';
 import { changeFilter, clearFilter } from '../actions/filterActions';
 
-import Filters from './Filters';
+import Filters from './filters/Filters';
 import WineItem from './WineItem';
 
 import * as actions from '../actions/wineActions';
@@ -14,6 +14,7 @@ interface Props {
     filter: Types.IFilter;
     isFetching: boolean;
     wines: Types.IWine[];
+    allWines: Types.IWine[];
     currentWine: Types.IWine;
 }
 
@@ -47,6 +48,7 @@ export default class HomePage extends React.Component<Props, void> {
             <div>
                 <Filters
                     wines={this.props.wines}
+                    allWines={this.props.allWines}
                     filter={this.props.filter}
                     onFilterUpdate={(delta: Types.IFilterDelta) => this.handleFilterUpdate(delta)}
                     onFilterApply={() => this.handleFilterApply()}

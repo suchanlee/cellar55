@@ -58,6 +58,7 @@ declare module Types {
         filter: Types.IFilter;
         wine: {
             isFetching: boolean;
+            allWines: Types.IWine[];
             wines: Types.IWine[];
             currentWine: Types.IWine;
             error: string;

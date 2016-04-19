@@ -9,6 +9,7 @@ interface Props {
     filter: Types.IFilter;
     isFetching: boolean;
     wines: Types.IWine[];
+    allWines: Types.IWine[];
     currentWine: Types.IWine;
 }
 
@@ -25,11 +26,12 @@ class App extends React.Component<Props, void> {
 }
 
 function mapStateToProps(state: Types.IApp): Props {
-    const { isFetching, wines, currentWine } = state.wine;
+    const { isFetching, wines, allWines, currentWine } = state.wine;
     return {
         filter: state.filter,
         isFetching,
         wines,
+        allWines,
         currentWine
     };
 }

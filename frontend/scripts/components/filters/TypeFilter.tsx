@@ -1,17 +1,16 @@
 import * as React from 'react';
-import objectAssign = require('object-assign');
 
-import * as Constants from '../constants/Constants';
+import * as Constants from '../../constants/Constants';
+
+import BaseFilter from './BaseFilter';
 
 interface Props {
     wines: Types.IWine[];
     filter: Types.IFilter;
     onFilterUpdate: (filtersDelta: Types.IFilterDelta) => void;
-    onFilterApply: () => void;
-    onFilterClear: () => void;
 }
 
-export default class Filters extends React.Component<Props, void> {
+export default class TypeFilter extends React.Component<Props, void> {
 
     private handleWineTypeFilterClick(wineType: string): void {
         let wineTypes: string[] = this.props.filter.wine_types;
@@ -34,7 +33,8 @@ export default class Filters extends React.Component<Props, void> {
                     <input
                         type='checkbox'
                         checked={this.props.filter.wine_types.indexOf(wineType) >= 0}
-                        onChange={this.handleWineTypeFilterClick.bind(this, wineType)}/>
+                        onChange={this.handleWineTypeFilterClick.bind(this, wineType)}
+                    />
                     {wineType === 'rose' ? 'rosé' : wineType}
                 </span>
             )
@@ -44,15 +44,10 @@ export default class Filters extends React.Component<Props, void> {
 
     render() {
         return (
-            <div className='filters'>
-                <div className='filter-row'>
-                    <div className="filter-row-key">Wine Type</div>
-                    <div className="filter-row-values">{this.getWineTypeFilters()}</div>
-                </div>
-                <button onClick={() => this.props.onFilterApply()}>
-                    Update Filters
-                </button>
-            </div>
+            <BaseFilter filterKey='Wine Types'>
+                {this.getWineTypeFilters()}
+            </BaseFilter>
         );
     }
+
 }

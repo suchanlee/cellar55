@@ -5,14 +5,19 @@
     "query-string": "registry:dt/query-string#3.0.0+20160331065456",
     "react": "github:DefinitelyTyped/DefinitelyTyped/react/react.d.ts#945ebfe049964e429c2530971b9081f3c0f611df",
     "react-dom": "github:DefinitelyTyped/DefinitelyTyped/react/react-dom.d.ts#ca5bfe76d2d9bf6852cbc712d9f3e0047c93486e",
+    "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160316155526",
     "whatwg-fetch": "github:DefinitelyTyped/DefinitelyTyped/whatwg-fetch/whatwg-fetch.d.ts#273448e86711ba3d55f491e2dca27a63330f1b3c"
   },
   "ambientDevDependencies": {
     "flux": "github:DefinitelyTyped/DefinitelyTyped/flux/flux.d.ts#957c41c644b150a1ecba4377aa2c6f7f6442eef0"
   },
   "dependencies": {
+    "history": "registry:npm/history#2.0.0+20160406171533",
+    "lodash": "registry:npm/lodash#4.0.0+20160416211519",
     "object-assign": "registry:npm/object-assign#4.0.1+20160301180549",
     "react-redux": "registry:npm/react-redux#4.4.0+20160207114942",
+    "react-router": "registry:npm/react-router#2.0.0+20160214194820",
+    "react-router-redux": "registry:npm/react-router-redux#3.0.0+20160214195458",
     "redux": "registry:npm/redux#3.0.6+20160214194820",
     "redux-thunk": "registry:npm/redux-thunk#1.0.4+20160207154919"
   }

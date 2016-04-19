@@ -8,7 +8,8 @@ def get_api_route(subpath):
     return '/api/{0}'.format(subpath)
 
 @app.route('/', methods=['GET'])
-def index():
+@app.route('/wine/<int:wineid>', methods=['GET'])
+def index(wineid=None):
     return render_template('index.html', js_build=url_for('static', filename='build/bundle.js'))
 
 @app.route(get_api_route('wine'), methods=['GET'])
