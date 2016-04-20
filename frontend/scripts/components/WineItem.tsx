@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import * as Constants from '../constants/Constants';
 
+import { IWine } from '../types/wine';
+
 const QUOTE_WORD_LIMIT: number = 15;
 
 interface WineName {
@@ -10,7 +12,7 @@ interface WineName {
 }
 
 interface Props {
-    wine: Types.IWine;
+    wine: IWine;
 }
 
 export default class WineItem extends React.Component<Props, void> {
@@ -53,7 +55,7 @@ export default class WineItem extends React.Component<Props, void> {
     }
 
     render() {
-        const wine: Types.IWine = this.props.wine;
+        const wine: IWine = this.props.wine;
         const wineName: WineName = this.getWineName();
         return (
             <li className='wine-item'>

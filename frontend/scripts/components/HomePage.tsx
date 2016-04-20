@@ -3,6 +3,8 @@ import objectAssign = require('object-assign');
 
 import { fetchWines } from '../actions/wineActions';
 import { changeFilter, clearFilter } from '../actions/filterActions';
+import { IFilter, IFilterDelta } from '../types/filter';
+import { IWine } from '../types/wine';
 
 import Filters from './filters/Filters';
 import WineItem from './WineItem';
@@ -11,16 +13,16 @@ import * as actions from '../actions/wineActions';
 
 interface Props {
     dispatch: any;
-    filter: Types.IFilter;
+    filter: IFilter;
     isFetching: boolean;
-    wines: Types.IWine[];
-    allWines: Types.IWine[];
-    currentWine: Types.IWine;
+    wines: IWine[];
+    allWines: IWine[];
+    currentWine: IWine;
 }
 
 export default class HomePage extends React.Component<Props, void> {
 
-    private handleFilterUpdate(delta: Types.IFilterDelta): void {
+    private handleFilterUpdate(delta: IFilterDelta): void {
         const { dispatch } = this.props;
         dispatch(changeFilter(objectAssign({}, this.props.filter, delta)));
     }
@@ -50,7 +52,7 @@ export default class HomePage extends React.Component<Props, void> {
                     wines={this.props.wines}
                     allWines={this.props.allWines}
                     filter={this.props.filter}
-                    onFilterUpdate={(delta: Types.IFilterDelta) => this.handleFilterUpdate(delta)}
+                    onFilterUpdate={(delta: IFilterDelta) => this.handleFilterUpdate(delta)}
                     onFilterApply={() => this.handleFilterApply()}
                     onFilterClear={() => this.handleFilterClear()}
                  />

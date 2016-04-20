@@ -1,18 +1,20 @@
 import queryString = require('query-string');
 import objectAssign = require('object-assign');
 
+import { IFilter } from '../types/filter';
+import { IWine, IWineResponse } from '../types/wine';
 import { ActionType } from './ActionTypes';
 
 const baseUrl: string = '/api/wine';
 
-function requestWines(filter: Types.IFilter) {
+function requestWines(filter: IFilter) {
     return {
         type: ActionType.REQUEST_WINES,
         filter
     };
 }
 
-function receiveWinesSuccess(wineResponse: Types.IWineResponse) {
+function receiveWinesSuccess(wineResponse: IWineResponse) {
     return {
         type: ActionType.RECEIVE_WINES_SUCCESS,
         count: wineResponse.count,
@@ -27,7 +29,7 @@ function receiveWinesError(error: Response) {
     };
 }
 
-function asyncFetchWines(filter: Types.IFilter) {
+function asyncFetchWines(filter: IFilter) {
     return (dispatch) => {
         dispatch(requestWines(filter));
         return fetch(`${baseUrl}?${queryString.stringify(filter)}`)
@@ -40,10 +42,10 @@ function asyncFetchWines(filter: Types.IFilter) {
                 }
             })
             .then((response: Response) => response.json())
-            .then((data: Types.IWineResponse) => dispatch(receiveWinesSuccess(data)));
+            .then((data: IWineResponse) => dispatch(receiveWinesSuccess(data)));
     }
 }
 
-export function fetchWines(filter: Types.IFilter) {
+export function fetchWines(filter: IFilter) {
     return (dispatch, getState) => dispatch(asyncFetchWines(filter))
 }

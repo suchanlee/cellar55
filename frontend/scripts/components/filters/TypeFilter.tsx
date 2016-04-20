@@ -1,13 +1,15 @@
 import * as React from 'react';
 
 import * as Constants from '../../constants/Constants';
+import { IFilter, IFilterDelta } from '../../types/filter';
+import { IWine } from '../../types/wine';
 
 import BaseFilter from './BaseFilter';
 
 interface Props {
-    wines: Types.IWine[];
-    filter: Types.IFilter;
-    onFilterUpdate: (filtersDelta: Types.IFilterDelta) => void;
+    wines: IWine[];
+    filter: IFilter;
+    onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
 
 export default class TypeFilter extends React.Component<Props, void> {

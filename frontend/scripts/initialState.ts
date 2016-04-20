@@ -1,4 +1,7 @@
-export const emptyFilter: Types.IFilter = {
+import { IFilter } from './types/filter';
+import { IApp } from './types/main';
+
+export const emptyFilter: IFilter = {
     countries: [],
     regions: [],
     subregions: [],
@@ -10,7 +13,7 @@ export const emptyFilter: Types.IFilter = {
     name: ''
 }
 
-export const initialState: Types.IApp = {
+export const initialState: IApp = {
     filter: emptyFilter,
     wine: {
         isFetching: false,

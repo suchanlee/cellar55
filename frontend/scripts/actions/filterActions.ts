@@ -1,6 +1,7 @@
 import { ActionType } from './ActionTypes';
+import { IFilter } from '../types/filter';
 
-export function changeFilter(filter: Types.IFilter) {
+export function changeFilter(filter: IFilter) {
     return {
         type: ActionType.CHANGE_FILTER,
         filter

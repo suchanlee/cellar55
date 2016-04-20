@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as _ from 'lodash';
 
 import * as Constants from '../../constants/Constants';
+import { IFilter, IFilterDelta } from '../../types/filter';
+import { IWine } from '../../types/wine';
 
 import BaseFilter from './BaseFilter';
 
@@ -18,9 +20,9 @@ interface VarietalMap {
 }
 
 interface Props {
-    allWines: Types.IWine[];
-    filter: Types.IFilter;
-    onFilterUpdate: (filtersDelta: Types.IFilterDelta) => void;
+    allWines: IWine[];
+    filter: IFilter;
+    onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
 
 export default class VarietalFilter extends React.Component<Props, void> {
