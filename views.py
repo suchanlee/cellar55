@@ -21,10 +21,12 @@ def wines():
         query = Wine.query
         query = add_filters_to_query(query, 'wine_type', request.args.getlist('wine_types'))
         query = add_filters_to_query(query, 'varietal', request.args.getlist('varietals'))
-        query = add_filters_to_query(query, 'country', request.args.getlist('countries'))
-        query = add_filters_to_query(query, 'region', request.args.getlist('regions'))
-        query = add_filters_to_query(query, 'subregion', request.args.getlist('subregions'))
         query = add_filters_to_query(query, 'vintage', request.args.getlist('vintage'))
+        query = add_region_filters_to_query(
+            query,
+            request.args.getlist('countries'),
+            request.args.getlist('regions'),
+            request.args.getlist('subregions'))
         if name is not None:
             query = query.filter(Wine.name.ilike('%{0}%'.format(name)))
         wines = query.all()
@@ -36,6 +38,17 @@ def add_filters_to_query(query, attr, items):
     if len(items) > 0:
         for item in items:
             filters.append(getattr(Wine, attr).ilike('%{0}%'.format(item)))
+    query = query.filter(or_(*filters))
+    return query
+
+def add_region_filters_to_query(query, countries, regions, subregions):
+    filters = []
+    for country in countries:
+        filters.append(getattr(Wine, 'country').ilike('%{0}%'.format(country)))
+    for region in regions:
+        filters.append(getattr(Wine, 'region').ilike('%{0}%'.format(region)))
+    for subregion in subregions:
+        filters.append(getattr(Wine, 'subregion').ilike('%{0}%'.format(subregion)))
     query = query.filter(or_(*filters))
     return query
 

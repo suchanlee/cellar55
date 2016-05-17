@@ -7,7 +7,7 @@ import { IWine } from '../../types/wine';
 import { IRegion, RegionType } from '../../types/region';
 
 import BaseFilter from './BaseFilter';
-import RegionSearchList from './RegionSearchList';
+import RegionFilterSearch from './RegionFilterSearch';
 
 const removalReg: RegExp = /\(.+\)|n\/a/g;
 const splitReg: RegExp = /\,|\s+\-\s+/g;
@@ -18,15 +18,7 @@ interface Props {
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
 
-interface State {
-    query: string;
-}
-
-export default class RegionFilter extends React.Component<Props, State> {
-
-    state: State = {
-        query: ''
-    };
+export default class RegionFilter extends React.Component<Props, void> {
 
     private getAllRegions(): IRegion[] {
         return this.getSubregions().concat(this.getRegions()).concat(this.getCountries());
@@ -78,23 +70,20 @@ export default class RegionFilter extends React.Component<Props, State> {
                 .value();
     }
 
-    private handleChange = (evt) => {
-        this.setState({query: evt.target.value});
-    }
-
     render() {
         return (
             <BaseFilter filterKey='Region'>
-                <input
-                    type="text"
-                    value={this.state.query}
-                    onChange={this.handleChange}
-                />
-                <RegionSearchList
-                    query={this.state.query}
+                <RegionFilterSearch
+                    filter={this.props.filter}
                     onFilterUpdate={this.props.onFilterUpdate}
                     regions={this.getAllRegions()}
                 />
+                Region filters:
+                <ul>
+                    {map(this.props.filter.regions, (region, idx) => (
+                        <li key={idx}>{region.name}</li>
+                    ))}
+                </ul>
             </BaseFilter>
         );
     }

@@ -1,8 +1,10 @@
 import queryString = require('query-string');
 import objectAssign = require('object-assign');
+import { map, filter } from 'lodash';
 
-import { IFilter } from '../types/filter';
+import { IFilter, IRequestFilter } from '../types/filter';
 import { IWine, IWineResponse } from '../types/wine';
+import { IRegion, RegionType } from '../types/region';
 import { ActionType } from './ActionTypes';
 
 const baseUrl: string = '/api/wine';
@@ -32,7 +34,7 @@ function receiveWinesError(error: Response) {
 function asyncFetchWines(filter: IFilter) {
     return (dispatch) => {
         dispatch(requestWines(filter));
-        return fetch(`${baseUrl}?${queryString.stringify(filter)}`)
+        return fetch(`${baseUrl}?${queryString.stringify(convertToRequestFilter(filter))}`)
             .then((response: Response) => {
                 if (response.status >= 200) {
                     return response
@@ -44,6 +46,23 @@ function asyncFetchWines(filter: IFilter) {
             .then((response: Response) => response.json())
             .then((data: IWineResponse) => dispatch(receiveWinesSuccess(data)));
     }
+}
+
+function convertToRequestFilter(fltr: IFilter): IRequestFilter {
+    const countries = map<IRegion, string>(filter(fltr.regions, (r) => r.type === RegionType.COUNTRY), 'name');
+    const regions = map<IRegion, string>(filter(fltr.regions, (r) => r.type === RegionType.REGION), 'name');
+    const subregions = map<IRegion, string>(filter(fltr.regions, (r) => r.type === RegionType.SUBREGION), 'name');
+    return {
+        countries: countries,
+        regions: regions,
+        subregions: subregions,
+        wine_types: fltr.wine_types,
+        varietals: fltr.varietals,
+        vintage: fltr.vintage,
+        vintage_from: fltr.vintage_from,
+        vintage_to: fltr.vintage_to,
+        name: fltr.name,
+    };
 }
 
 export function fetchWines(filter: IFilter) {

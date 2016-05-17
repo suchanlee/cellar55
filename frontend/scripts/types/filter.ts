@@ -1,7 +1,7 @@
+import { IRegion } from './region';
+
 export interface IFilterDelta {
-    countries?: string[];
-    regions?: string[];
-    subregions?: string[];
+    regions?: IRegion[];
     wine_types?: string[];
     varietals?: string[];
     vintage?: string;
@@ -11,6 +11,16 @@ export interface IFilterDelta {
 }
 
 export interface IFilter {
+    regions: IRegion[];
+    wine_types: string[];
+    varietals: string[];
+    vintage: string;
+    vintage_from: string;
+    vintage_to: string;
+    name: string;
+}
+
+export interface IRequestFilter {
     countries: string[];
     regions: string[];
     subregions: string[];
