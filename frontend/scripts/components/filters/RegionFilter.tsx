@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as _ from 'lodash';
+import { map, chain } from 'lodash';
 
 import * as Constants from '../../constants/Constants';
 import { IFilter, IFilterDelta } from '../../types/filter';
@@ -45,7 +45,7 @@ export default class RegionFilter extends React.Component<Props, State> {
     }
 
     private getRegionsForType(type: RegionType): IRegion[] {
-        const regions: string[] = _.map(this.props.allWines, (wine) => {
+        const regions: string[] = map(this.props.allWines, (wine) => {
             let region: string = '';
             switch (type) {
                 case RegionType.COUNTRY:
@@ -61,17 +61,19 @@ export default class RegionFilter extends React.Component<Props, State> {
             }
             return region.replace(removalReg, '').trim();
         });
-        return _.chain(regions)
+        return chain(regions)
                 .filter((region) => region.length > 0)
                 .uniq()
                 .join(',')
                 .split(splitReg)
+                .map((region) => region.trim())
+                .uniq()
                 .filter((region) => region.length > 0)
                 .map<IRegion>((region) => {
                     return {
-                        name: region.trim(),
+                        name: region,
                         type: type
-                    }
+                    };
                 })
                 .value();
     }

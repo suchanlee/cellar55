@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as _ from 'lodash';
+import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from 'lodash';
 
 import * as Constants from '../../constants/Constants';
 import { IFilter, IFilterDelta } from '../../types/filter';
@@ -28,15 +28,15 @@ interface Props {
 export default class VarietalFilter extends React.Component<Props, void> {
 
     private getVarietalMap(): VarietalMap {
-        const varietals: string[] = _.map(this.props.allWines, (wine) => wine.varietal);
+        const varietals: string[] = map(this.props.allWines, (wine) => wine.varietal);
         let allVarietals: string = varietals.join(',');
         allVarietals = allVarietals.replace(removalReg, ',');
-        const filteredVarietals = _.chain(allVarietals.split(splitReg))
+        const filteredVarietals = chain(allVarietals.split(splitReg))
                 .map((varietal) => varietal.trim().toLowerCase())
                 .filter((varietal) => varietal.length > 0)
                 .value();
         let varietalMap: VarietalMap = {};
-        _.forEach((filteredVarietals), (varietal) => {
+        forEach((filteredVarietals), (varietal) => {
             if (!(varietal in varietalMap)) {
                 varietalMap[varietal] = {
                     name: varietal,
@@ -49,9 +49,9 @@ export default class VarietalFilter extends React.Component<Props, void> {
         return varietalMap;
     }
 
-    private handleVarietalClick(varietal: string): void {
+    private handleVarietalClick = (varietal: string) => {
         let varietals: string[] = this.props.filter.varietals;
-        const idx: number = _.indexOf(varietals, varietal);
+        const idx: number = indexOf(varietals, varietal);
         if (idx >= 0) {
             varietals.splice(idx, 1);
         } else {
@@ -64,15 +64,15 @@ export default class VarietalFilter extends React.Component<Props, void> {
     }
 
     render() {
-        const sortedVarietalEntries: VarietalEntry[] = _.reverse(_.sortBy(_.values(this.getVarietalMap()), 'count'));
+        const sortedVarietalEntries: VarietalEntry[] = reverse(sortBy(values(this.getVarietalMap()), 'count'));
         return (
             <BaseFilter filterKey='Varietal'>
                 {
-                    _.map(sortedVarietalEntries, (entry) => (
+                    map(sortedVarietalEntries, (entry) => (
                         <span className="item" key={entry.name}>
                             <input
                                 type="checkbox"
-                                checked={_.includes(this.props.filter.varietals, entry.name)}
+                                checked={includes(this.props.filter.varietals, entry.name)}
                                 onChange={() => this.handleVarietalClick(entry.name)}
                             />
                             {entry.name}

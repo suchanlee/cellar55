@@ -1,8 +1,8 @@
 import * as React from 'react';
-import * as _ from 'lodash';
+import { map, sortBy } from 'lodash';
 
 import * as Constants from '../../constants/Constants';
-import { IRegion } from '../../types/region';
+import { IRegion, RegionType } from '../../types/region';
 import { IFilter, IFilterDelta } from '../../types/filter';
 
 import BaseFilter from './BaseFilter';
@@ -38,14 +38,33 @@ export default class RegionSearchList extends React.Component<Props, void> {
                 });
             }
         }
-        return _.map(_.sortBy(searchEntries, (entry) => entry.index), (entry) => entry.region);
+        return map(sortBy(searchEntries, (entry) => entry.index), (entry) => entry.region);
+    }
+
+    private getRegionItem(region: IRegion): React.ReactElement<any> {
+        let regionType: string = '';
+        switch (region.type) {
+            case RegionType.COUNTRY:
+                regionType = 'Country';
+                break;
+            case RegionType.REGION:
+                regionType = 'Region';
+                break;
+            case RegionType.SUBREGION:
+                regionType = 'Subregion';
+                break;
+            default:
+        }
+        return <span>{regionType}: {region.name}</span>
     }
 
     render() {
         return (
             <div>
-                {_.map(this.getMatchingRegions(), (region) => (
-                    <div>{region.name}</div>
+                {map(this.getMatchingRegions(), (region) => (
+                    <div key={`${region.name}-${region.type}`}>
+                        {this.getRegionItem(region)}
+                    </div>
                 ))}
             </div>
         );
