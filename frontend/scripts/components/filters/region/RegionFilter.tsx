@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { map, chain } from 'lodash';
 
-import * as Constants from '../../constants/Constants';
-import { IFilter, IFilterDelta } from '../../types/filter';
-import { IWine } from '../../types/wine';
-import { IRegion, RegionType } from '../../types/region';
+import * as Constants from '../../../constants/Constants';
+import { IFilter, IFilterDelta } from '../../../types/filter';
+import { IWine } from '../../../types/wine';
+import { IRegion, RegionType } from '../../../types/region';
 
-import BaseFilter from './BaseFilter';
+import BaseFilter from '../BaseFilter';
 import RegionFilterSearch from './RegionFilterSearch';
 
 const removalReg: RegExp = /\(.+\)|n\/a/g;

@@ -3,9 +3,9 @@ import * as React from 'react';
 import { IFilter, IFilterDelta } from '../../types/filter';
 import { IWine } from '../../types/wine';
 
-import TypeFilter from './TypeFilter';
-import VarietalFilter from './VarietalFilter';
-import RegionFilter from './RegionFilter';
+import TypeFilter from './type/TypeFilter';
+import VarietalFilter from './varietal/VarietalFilter';
+import RegionFilter from './region/RegionFilter';
 
 interface Props {
     wines: IWine[];

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from 'lodash';
 
-import * as Constants from '../../constants/Constants';
-import { IFilter, IFilterDelta } from '../../types/filter';
-import { IWine } from '../../types/wine';
+import * as Constants from '../../../constants/Constants';
+import { IFilter, IFilterDelta } from '../../../types/filter';
+import { IWine } from '../../../types/wine';
 
-import BaseFilter from './BaseFilter';
+import BaseFilter from '../BaseFilter';
 
 const removalReg: RegExp = /\d+\%|n\/a|\-/g;
 const splitReg: RegExp = /,|with|aka|and|\/|\&/g;

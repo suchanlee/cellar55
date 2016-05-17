@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IRegion, RegionType } from '../../types/region';
+import { IRegion, RegionType } from '../../../types/region';
 
 interface Props {
     idx: number;

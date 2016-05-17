@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { map, sortBy, findIndex } from 'lodash';
 
-import * as Constants from '../../constants/Constants';
-import { IRegion, RegionType } from '../../types/region';
-import { IFilter, IFilterDelta } from '../../types/filter';
+import * as Constants from '../../../constants/Constants';
+import { IRegion, RegionType } from '../../../types/region';
+import { IFilter, IFilterDelta } from '../../../types/filter';
 
 import RegionSearchItem from './RegionSearchItem';
 

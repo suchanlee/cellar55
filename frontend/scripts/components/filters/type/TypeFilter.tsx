@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import * as Constants from '../../constants/Constants';
-import { IFilter, IFilterDelta } from '../../types/filter';
-import { IWine } from '../../types/wine';
+import * as Constants from '../../../constants/Constants';
+import { IFilter, IFilterDelta } from '../../../types/filter';
+import { IWine } from '../../../types/wine';
 
-import BaseFilter from './BaseFilter';
+import BaseFilter from '../BaseFilter';
 
 interface Props {
     wines: IWine[];
