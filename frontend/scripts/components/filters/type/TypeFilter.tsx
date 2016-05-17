@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 
 import * as Constants from '../../../constants/Constants';
 import { IFilter, IFilterDelta } from '../../../types/filter';
@@ -12,6 +13,7 @@ interface Props {
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
 
+@PureRender
 export default class TypeFilter extends React.Component<Props, void> {
 
     private handleWineTypeFilterClick(wineType: string): void {

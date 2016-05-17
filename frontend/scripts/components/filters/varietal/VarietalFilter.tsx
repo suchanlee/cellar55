@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from 'lodash';
 
 import * as Constants from '../../../constants/Constants';
@@ -25,6 +26,7 @@ interface Props {
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
 
+@PureRender
 export default class VarietalFilter extends React.Component<Props, void> {
 
     private getVarietalMap(): VarietalMap {

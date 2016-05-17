@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 
 import { IRegion, RegionType } from '../../../types/region';
 
@@ -10,6 +11,7 @@ interface Props {
     onMouseOver: (idx: number) => void;
 }
 
+@PureRender
 export default class RegionSearchItem extends React.Component<Props, void> {
 
     private getRegionLabel(region: IRegion): string{

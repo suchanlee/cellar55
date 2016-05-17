@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 import { map, sortBy, findIndex } from 'lodash';
 
 import * as Constants from '../../../constants/Constants';
@@ -30,6 +31,7 @@ interface State {
     selectedIdx: number;
 }
 
+@PureRender
 export default class RegionFilterSearch extends React.Component<Props, State> {
 
     state: State = {

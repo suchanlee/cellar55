@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 
 import { IFilter, IFilterDelta } from '../../types/filter';
 import { IWine } from '../../types/wine';
@@ -16,6 +17,7 @@ interface Props {
     onFilterClear: () => void;
 }
 
+@PureRender
 export default class Filters extends React.Component<Props, void> {
 
     render() {

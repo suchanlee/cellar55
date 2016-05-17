@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 import * as classNames from 'classnames';
 import * as Constants from '../constants/Constants';
 
@@ -15,6 +16,7 @@ interface Props {
     wine: IWine;
 }
 
+@PureRender
 export default class WineItem extends React.Component<Props, void> {
 
     private getWineName(): WineName {

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 import objectAssign = require('object-assign');
 
 import { fetchWines } from '../actions/wineActions';
@@ -7,6 +8,7 @@ import { IFilter, IFilterDelta } from '../types/filter';
 import { IWine } from '../types/wine';
 
 import Filters from './filters/Filters';
+import SearchFilter from './filters/SearchFilter';
 import WineItem from './WineItem';
 
 import * as actions from '../actions/wineActions';
@@ -20,27 +22,45 @@ interface Props {
     currentWine: IWine;
 }
 
-export default class HomePage extends React.Component<Props, void> {
+interface State {
+    searchQuery: string;
+}
 
-    private handleFilterUpdate(delta: IFilterDelta): void {
+@PureRender
+export default class HomePage extends React.Component<Props, State> {
+
+    state: State = {
+        searchQuery: ''
+    };
+
+    private handleFilterUpdate = (delta: IFilterDelta) => {
         const { dispatch } = this.props;
         dispatch(changeFilter(objectAssign({}, this.props.filter, delta)));
     }
 
-    private handleFilterClear(): void {
+    private handleFilterClear = () => {
         const { dispatch } = this.props;
         dispatch(clearFilter);
     }
 
-    private handleFilterApply(): void {
+    private handleFilterApply = () => {
         const { dispatch, filter } = this.props;
         dispatch(fetchWines(filter));
     }
 
+    private handleSearchQueryChange = (value: string) => {
+        this.setState({ searchQuery: value });
+    }
+
     private renderWineItems(): React.ReactElement<any>[] {
+        const query = this.state.searchQuery.toLowerCase().trim();
         let wineItems: React.ReactElement<any>[] = [];
         for (var wine of this.props.wines) {
-            wineItems.push(<WineItem key={wine.id} wine={wine} />)
+            const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}
+             ${wine.varietal} ${wine.wine_type} ${wine.vintage}`.toLowerCase();
+            if (content.indexOf(this.state.searchQuery) > -1) {
+                wineItems.push(<WineItem key={wine.id} wine={wine} />)
+            }
         }
         return wineItems;
     }
@@ -55,6 +75,10 @@ export default class HomePage extends React.Component<Props, void> {
                     onFilterUpdate={(delta: IFilterDelta) => this.handleFilterUpdate(delta)}
                     onFilterApply={() => this.handleFilterApply()}
                     onFilterClear={() => this.handleFilterClear()}
+                 />
+                 <SearchFilter
+                    value={this.state.searchQuery}
+                    onChange={this.handleSearchQueryChange}
                  />
                 <ul className='wine-list'>
                     {this.renderWineItems()}

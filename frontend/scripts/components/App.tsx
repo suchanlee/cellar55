@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 import { connect } from 'react-redux';
 
 import { fetchWines } from '../actions/wineActions';
@@ -17,6 +18,7 @@ interface Props {
     currentWine: IWine;
 }
 
+@PureRender
 class App extends React.Component<Props, void> {
 
     componentDidMount() {

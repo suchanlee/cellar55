@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PureRender from 'pure-render-decorator';
 import { map, chain } from 'lodash';
 
 import * as Constants from '../../../constants/Constants';
@@ -18,6 +19,7 @@ interface Props {
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
 
+@PureRender
 export default class RegionFilter extends React.Component<Props, void> {
 
     private getAllRegions(): IRegion[] {
