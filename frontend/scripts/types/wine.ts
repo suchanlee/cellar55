@@ -27,3 +27,20 @@ export interface IWineResponse {
     count: number;
     wines: IWine[];
 }
+
+export interface IEntry {
+    wine: IWine;
+    description: string;
+    quote: string;
+    wine_id: number;
+    lead: string;
+}
+
+export interface IWineState {
+    isQueryingWines: boolean;
+    isFetchingEntry: boolean;
+    allWines: IWine[];
+    wines: IWine[];
+    entry: IEntry;
+    error: string;
+}

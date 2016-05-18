@@ -14,10 +14,11 @@ export const emptyFilter: IFilter = {
 export const initialState: IApp = {
     filter: emptyFilter,
     wine: {
-        isFetching: false,
+        isQueryingWines: true,
+        isFetchingEntry: true,
         wines: [],
         allWines: [],
-        currentWine: null,
+        entry: null,
         error: null
     }
 };

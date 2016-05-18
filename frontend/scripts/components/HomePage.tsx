@@ -18,10 +18,9 @@ import * as actions from '../actions/wineActions';
 interface Props {
     dispatch?: any;
     filter: IFilter;
-    isFetching: boolean;
+    isQueryingWines: boolean;
     wines: IWine[];
     allWines: IWine[];
-    currentWine: IWine;
 }
 
 interface State {
@@ -82,8 +81,8 @@ class HomePage extends React.Component<Props, State> {
                     allWines={this.props.allWines}
                     filter={this.props.filter}
                     onFilterUpdate={(delta: IFilterDelta) => this.handleFilterUpdate(delta)}
-                    onFilterApply={() => this.handleFilterApply()}
-                    onFilterClear={() => this.handleFilterClear()}
+                    onFilterApply={this.handleFilterApply}
+                    onFilterClear={this.handleFilterClear}
                  />
                  <SearchFilter
                     value={this.state.searchQuery}
@@ -98,13 +97,12 @@ class HomePage extends React.Component<Props, State> {
 }
 
 function mapStateToProps(state: IApp): Props {
-    const { isFetching, wines, allWines, currentWine } = state.wine;
+    const { isQueryingWines, wines, allWines } = state.wine;
     return {
         filter: state.filter,
-        isFetching,
+        isQueryingWines,
         wines,
-        allWines,
-        currentWine
+        allWines
     };
 }
 

@@ -3,7 +3,7 @@ import objectAssign = require('object-assign');
 import { map, filter } from 'lodash';
 
 import { IFilter, IRequestFilter } from '../types/filter';
-import { IWine, IWineResponse } from '../types/wine';
+import { IWine, IWineResponse, IEntry } from '../types/wine';
 import { IRegion, RegionType } from '../types/region';
 import { ActionType } from './ActionTypes';
 
@@ -31,20 +31,58 @@ function receiveWinesError(error: Response) {
     };
 }
 
+function requestEntry(id: number) {
+    return {
+        type: ActionType.REQUEST_ENTRY,
+        id
+    };
+}
+
+function receiveEntrySuccess(entry: IEntry) {
+    return {
+        type: ActionType.RECEIVE_ENTRY_SUCCESS,
+        entry
+    };
+}
+
+function receiveEntryError(error: Response) {
+    return {
+        type: ActionType.RECEIVE_ENTRY_ERROR,
+        error
+    }
+}
+
 function asyncFetchWines(filter: IFilter) {
     return (dispatch) => {
         dispatch(requestWines(filter));
         return fetch(`${baseUrl}?${queryString.stringify(convertToRequestFilter(filter))}`)
             .then((response: Response) => {
                 if (response.status >= 200) {
-                    return response
+                    return response;
                 } else {
-                    receiveWinesError(response.error());
+                    dispatch(receiveWinesError(response.error()));
                     throw new Error(response.statusText);
                 }
             })
             .then((response: Response) => response.json())
             .then((data: IWineResponse) => dispatch(receiveWinesSuccess(data)));
+    }
+}
+
+function asyncFetchEntry(id: number) {
+    return (dispatch) => {
+        dispatch(requestEntry(id));
+        return fetch (`${baseUrl}/${id}`)
+            .then((response: Response) => {
+                if (response.status >= 200) {
+                    return response;
+                } else {
+                    receiveEntryError(response.error());
+                    throw new Error(response.statusText);
+                }
+            })
+            .then((response: Response) => response.json())
+            .then((data: IEntry) => dispatch(receiveEntrySuccess(data)));
     }
 }
 
@@ -66,5 +104,9 @@ function convertToRequestFilter(fltr: IFilter): IRequestFilter {
 }
 
 export function fetchWines(filter: IFilter) {
-    return (dispatch, getState) => dispatch(asyncFetchWines(filter))
+    return (dispatch, getState) => dispatch(asyncFetchWines(filter));
+}
+
+export function fetchEntry(id: number) {
+    return (dispatch, getState) => dispatch(asyncFetchEntry(id));
 }

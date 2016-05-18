@@ -8,15 +8,15 @@ import { Router, Route, browserHistory } from 'react-router';
 import { initialState } from './initialState';
 import cellarStore from './stores/cellarStore';
 import HomePage from './components/HomePage.tsx';
+import DetailPage from './components/DetailPage.tsx';
 
 const store = cellarStore(initialState);
 
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path='/' component={HomePage}>
-                <Route path='wine/:wineId' component={HomePage} />
-            </Route>
+            <Route path='/' component={HomePage} />
+            <Route path='/wine/:wineId' component={DetailPage} />
         </Router>
     </Provider>,
     document.getElementById('app'));
