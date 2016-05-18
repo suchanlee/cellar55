@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
 import objectAssign = require('object-assign');
+import { connect } from 'react-redux';
 
 import { fetchWines } from '../actions/wineActions';
 import { changeFilter, clearFilter } from '../actions/filterActions';
+import { IApp } from '../types/main';
 import { IFilter, IFilterDelta } from '../types/filter';
 import { IWine } from '../types/wine';
 
@@ -14,7 +16,7 @@ import WineItem from './WineItem';
 import * as actions from '../actions/wineActions';
 
 interface Props {
-    dispatch: any;
+    dispatch?: any;
     filter: IFilter;
     isFetching: boolean;
     wines: IWine[];
@@ -27,11 +29,18 @@ interface State {
 }
 
 @PureRender
-export default class HomePage extends React.Component<Props, State> {
+class HomePage extends React.Component<Props, State> {
 
     state: State = {
         searchQuery: ''
     };
+
+    componentDidMount() {
+        if (this.props.allWines.length === 0) {
+            const { dispatch, filter } = this.props;
+            dispatch(fetchWines(filter));
+        }
+    }
 
     private handleFilterUpdate = (delta: IFilterDelta) => {
         const { dispatch } = this.props;
@@ -87,3 +96,16 @@ export default class HomePage extends React.Component<Props, State> {
         )
     }
 }
+
+function mapStateToProps(state: IApp): Props {
+    const { isFetching, wines, allWines, currentWine } = state.wine;
+    return {
+        filter: state.filter,
+        isFetching,
+        wines,
+        allWines,
+        currentWine
+    };
+}
+
+export default connect(mapStateToProps)(HomePage);

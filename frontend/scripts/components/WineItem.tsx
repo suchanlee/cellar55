@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import { Link } from 'react-router';
 import * as classNames from 'classnames';
 import * as Constants from '../constants/Constants';
 
@@ -72,10 +73,10 @@ export default class WineItem extends React.Component<Props, void> {
                 <div className="wine-item-container">
                     <div className='wine-item-info-container'>
                         <div className='wine-item-info'>
-                            <div className="wine-name-container">
+                            <Link to={`/wine/${wine.id}`} className="wine-name-container">
                                 <div className='wine-name'>{wineName.winery}</div>
                                 <div className='wine-name'>{wineName.rest}</div>
-                            </div>
+                            </Link>
                             <div>{`${wine.subregion}, ${wine.region} ${wine.vintage}`}</div>
                             <div className='varietal'>{wine.varietal}</div>
                         </div>
