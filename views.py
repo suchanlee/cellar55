@@ -1,5 +1,6 @@
 from flask import jsonify, render_template, request, url_for
 from sqlalchemy import or_
+from werkzeug.exceptions import NotFound
 
 from app import app
 from models import Wine
@@ -32,6 +33,14 @@ def wines():
         wines = query.all()
         wines = vintage_range_filter_wines(wines,request.args.get('vintage_from'), request.args.get('vintage_to'))
     return jsonify(count=len(wines), wines=[wine.json() for wine in wines])
+
+@app.route(get_api_route('wine/<int:wineid>'), methods=['GET'])
+def wine_detail(wineid):
+    wine = Wine.query.get(wineid)
+    if wine is None:
+        # TODO: find out what the exception is and throw here
+        raise NotFound
+    return jsonify(wine=wine.json(), entry=wine.entry.json())
 
 def add_filters_to_query(query, attr, items):
     filters = []
