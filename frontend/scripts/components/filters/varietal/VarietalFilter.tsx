@@ -9,7 +9,7 @@ import { IWine } from '../../../types/wine';
 import BaseFilter from '../BaseFilter';
 
 const removalReg: RegExp = /\d+\%|n\/a|\-/g;
-const splitReg: RegExp = /,|with|aka|and|\/|\&/g;
+const splitReg: RegExp = /,|with|aka|and|balance|is|\/|\&/ig;
 
 interface VarietalEntry {
     name: string;
@@ -59,7 +59,6 @@ export default class VarietalFilter extends React.Component<Props, void> {
         } else {
             varietals.push(varietal);
         }
-        console.log(varietal);
         this.props.onFilterUpdate({
             varietals: varietals
         });
