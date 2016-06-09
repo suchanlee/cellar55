@@ -39,7 +39,8 @@ export default function wineReducer(state: IWineState = initialState.wine, actio
         case ActionType.RECEIVE_ENTRY_SUCCESS:
             return objectAssign({}, state, {
                 isFetchingEntry: false,
-                entry: action.entry
+                entry: action.res.entry,
+                selectedWine: action.res.wine
             });
 
         case ActionType.RECEIVE_ENTRY_ERROR:

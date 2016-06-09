@@ -6,8 +6,6 @@ import * as Constants from '../constants/Constants';
 
 import { IWine } from '../types/wine';
 
-const QUOTE_WORD_LIMIT: number = 15;
-
 interface WineName {
     winery: string;
     rest: string;

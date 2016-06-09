@@ -17,6 +17,7 @@ export const initialState: IApp = {
         isQueryingWines: true,
         isFetchingEntry: true,
         wines: [],
+        selectedWine: null,
         allWines: [],
         entry: null,
         error: null

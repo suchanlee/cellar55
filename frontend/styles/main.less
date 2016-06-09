@@ -105,48 +105,48 @@ h2, h3, h4 {
   width: 50%;
   margin-left: 40px;
   align-self: flex-end;
+}
 
-  .ratings {
-    margin-top: 25px;
-    border-spacing: 0px;
-    font-size: 13px;
+.ratings {
+  margin-top: 25px;
+  border-spacing: 0px;
+  font-size: 13px;
+}
+
+.rating {
+  width: 50%;
+  display: inline-block;
+  color: @gray;
+  padding: 2px 0;
+
+  .rating-type {
+    width: 50px;
   }
 
-  .rating {
-    width: 50%;
+  .circle {
+    width: @circle-diameter;
+    height: @circle-diameter;
+    border-radius: @circle-diameter;
+    border: 2px solid @rating-gray;
     display: inline-block;
-    color: @gray;
-    padding: 2px 0;
+    margin-right: 6px;
+  }
 
-    .rating-type {
-      width: 50px;
-    }
+  .full-circle {
+    background-color: @rating-gray;
+  }
 
-    .circle {
-      width: @circle-diameter;
-      height: @circle-diameter;
-      border-radius: @circle-diameter;
-      border: 2px solid @rating-gray;
-      display: inline-block;
-      margin-right: 6px;
-    }
+  .half-circle {
+    position: relative;
 
-    .full-circle {
-      background-color: @rating-gray;
-    }
-
-    .half-circle {
-      position: relative;
-
-      span {
-        width: 50%;
-        height: 100%;
-        border-radius: @circle-diameter 0 0 @circle-diameter;
-        background: @rating-gray;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
+    span {
+      width: 50%;
+      height: 100%;
+      border-radius: @circle-diameter 0 0 @circle-diameter;
+      background: @rating-gray;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }

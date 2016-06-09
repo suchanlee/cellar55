@@ -28,8 +28,12 @@ export interface IWineResponse {
     wines: IWine[];
 }
 
-export interface IEntry {
+export interface IEntryResponse {
     wine: IWine;
+    entry: IEntry;
+}
+
+export interface IEntry {
     description: string;
     quote: string;
     wine_id: number;
@@ -41,6 +45,7 @@ export interface IWineState {
     isFetchingEntry: boolean;
     allWines: IWine[];
     wines: IWine[];
+    selectedWine: IWine;
     entry: IEntry;
     error: string;
 }

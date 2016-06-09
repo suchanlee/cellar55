@@ -3,7 +3,7 @@ import objectAssign = require('object-assign');
 import { map, filter } from 'lodash';
 
 import { IFilter, IRequestFilter } from '../types/filter';
-import { IWine, IWineResponse, IEntry } from '../types/wine';
+import { IWine, IWineResponse, IEntryResponse } from '../types/wine';
 import { IRegion, RegionType } from '../types/region';
 import { ActionType } from './ActionTypes';
 
@@ -38,10 +38,10 @@ function requestEntry(id: number) {
     };
 }
 
-function receiveEntrySuccess(entry: IEntry) {
+function receiveEntrySuccess(res: IEntryResponse) {
     return {
         type: ActionType.RECEIVE_ENTRY_SUCCESS,
-        entry
+        res
     };
 }
 
@@ -82,7 +82,7 @@ function asyncFetchEntry(id: number) {
                 }
             })
             .then((response: Response) => response.json())
-            .then((data: IEntry) => dispatch(receiveEntrySuccess(data)));
+            .then((data: IEntryResponse) => dispatch(receiveEntrySuccess(data)));
     }
 }
 
