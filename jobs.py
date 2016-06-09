@@ -70,6 +70,7 @@ class WineScraper:
                 wine = wine)
             db.session.add(entry)
             db.session.commit()
+            print('Saved {0}'.format(self.get_name()))
         except:
             print('Failed to save wine: {0}'.format(self.get_name().encode('ascii', 'ignore')))
             db.session.rollback()
@@ -101,7 +102,14 @@ class WineScraper:
         return quote[1:len(quote)-1] # remove the quotation marks
 
     def get_description(self):
-        return self.soup.find(class_='product-description').text
+        divs = self.soup.find(class_='product-description').findAll('div')
+        full_text = self.soup.find(class_='product-description').text
+        paragraphs = filter(lambda x: len(x.replace(u'\xa0', '').strip()) > 0, map(lambda x: x.text.strip(), divs))
+        for paragraph in paragraphs:
+            full_text = full_text.replace(paragraph, '')
+        last_paragraph = full_text.strip()
+        paragraphs.append(last_paragraph)
+        return '\n'.join(paragraphs)
 
     def get_tech_notes(self):
         tech_notes = {}
