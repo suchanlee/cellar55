@@ -63,6 +63,9 @@ class HomePage extends React.Component<Props, State> {
     render() {
         return (
             <div>
+                <div className="logo-container">
+                    <h1 className="logo">fifty-five</h1>
+                </div>
                 <Filters
                     wines={this.props.wines}
                     allWines={this.props.allWines}
