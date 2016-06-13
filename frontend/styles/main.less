@@ -21,7 +21,7 @@ h2, h3, h4 {
 }
 
 #app {
-  padding: 0 10px;
+  padding: 0 10px 80px;
 }
 
 .wine-list {
@@ -32,6 +32,10 @@ h2, h3, h4 {
 .wine-item {
   width: 100%;
   margin-bottom: 50px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .wine-type-container {
@@ -168,6 +172,7 @@ h2, h3, h4 {
 
 .filter-row-key, .filter-row-values {
   display: inline-block;
+  vertical-align: top;
 }
 
 .filter-row-key {

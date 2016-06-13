@@ -9,9 +9,9 @@ import { IApp } from '../types/main';
 import { IFilter, IFilterDelta } from '../types/filter';
 import { IWine } from '../types/wine';
 
+import WineList from './WineList';
 import Filters from './filters/Filters';
 import SearchFilter from './filters/SearchFilter';
-import WineItem from './WineItem';
 
 import * as actions from '../actions/wineActions';
 
@@ -60,19 +60,6 @@ class HomePage extends React.Component<Props, State> {
         this.setState({ searchQuery: value });
     }
 
-    private renderWineItems(): React.ReactElement<any>[] {
-        const query = this.state.searchQuery.toLowerCase().trim();
-        let wineItems: React.ReactElement<any>[] = [];
-        for (var wine of this.props.wines) {
-            const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}
-             ${wine.varietal} ${wine.wine_type} ${wine.vintage}`.toLowerCase();
-            if (content.indexOf(this.state.searchQuery) > -1) {
-                wineItems.push(<WineItem key={wine.id} wine={wine} />)
-            }
-        }
-        return wineItems;
-    }
-
     render() {
         return (
             <div>
@@ -88,9 +75,10 @@ class HomePage extends React.Component<Props, State> {
                     value={this.state.searchQuery}
                     onChange={this.handleSearchQueryChange}
                  />
-                <ul className='wine-list'>
-                    {this.renderWineItems()}
-                </ul>
+                <WineList
+                    wines={this.props.wines}
+                    searchQuery={this.state.searchQuery}
+                 />
             </div>
         )
     }
