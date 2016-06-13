@@ -2,6 +2,7 @@ import queryString = require('query-string');
 import objectAssign = require('object-assign');
 import { map, filter } from 'lodash';
 
+import { IApp } from '../types/main';
 import { IFilter, IRequestFilter } from '../types/filter';
 import { IWine, IWineResponse, IEntryResponse } from '../types/wine';
 import { IRegion, RegionType } from '../types/region';
@@ -104,7 +105,12 @@ function convertToRequestFilter(fltr: IFilter): IRequestFilter {
 }
 
 export function fetchWines(filter: IFilter) {
-    return (dispatch, getState) => dispatch(asyncFetchWines(filter));
+    return (dispatch, getState) => {
+        const state: IApp = getState();
+        if (state.wine.allWines.length === 0) {
+            dispatch(asyncFetchWines(filter));
+        }
+    }
 }
 
 export function fetchEntry(id: number) {

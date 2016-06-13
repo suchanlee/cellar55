@@ -5,6 +5,7 @@ import * as classNames from 'classnames';
 import * as Constants from '../constants/Constants';
 
 import { IWine } from '../types/wine';
+import WineTypeBox from './WineTypeBox';
 
 interface WineName {
     winery: string;
@@ -61,12 +62,7 @@ export default class WineItem extends React.Component<Props, void> {
         return (
             <li className='wine-item'>
                 <div className="wine-type-container">
-                    <div className={classNames('wine-type-box', {
-                        'red': wine.wine_type.toUpperCase() === Constants.WineType.RED,
-                        'white': wine.wine_type.toUpperCase() === Constants.WineType.WHITE,
-                        'rose': wine.wine_type.toUpperCase() === Constants.WineType.ROSE,
-                        'sparkling': wine.wine_type.toUpperCase() === Constants.WineType.SPARKLING
-                    })}></div>
+                    <WineTypeBox wineType={wine.wine_type} />
                 </div>
                 <div className="wine-item-container">
                     <div className='wine-item-info-container'>

@@ -9,6 +9,7 @@ import { isApplicable, parseVarietal } from '../helpers/helpers';
 import { IApp } from '../types/main';
 import { IEntry, IWine } from '../types/wine';
 import RatingCircles from './ratings/RatingCircles';
+import WineTypeBox from './WineTypeBox';
 
 interface IRouteParam {
     wineId: string;
@@ -60,25 +61,64 @@ class DetailPage extends React.Component<Props, void> {
         return (
             <div className="entry-container">
                 <h1 className="entry-wine-name">{wine.name}</h1>
-                <p className="entry-wine-details">{this.getWineDetails()}</p>
-                <img src={`https://${wine.main_image_url}`} alt={wine.name} className="entry-wine-main-image" />
-                <div className="">
-                    Fruit
-                    <RatingCircles rating={wine.fruit_rating} />
-                    Earth
-                    <RatingCircles rating={wine.earth_rating} />
-                    Body
-                    <RatingCircles rating={wine.body_rating} />
-                    Tannin
-                    <RatingCircles rating={wine.tannin_rating} />
-                    Acidity
-                    <RatingCircles rating={wine.acid_rating} />
-                    Alcohol
-                    <RatingCircles rating={wine.alcohol_rating} />
+                <WineTypeBox wineType={wine.wine_type} />
+                <p className="entry-wine-details">
+                    {this.getWineDetails()}
+                </p>
+                <img src={`https://${wine.alt_image_url}`} alt={wine.name} className="entry-wine-main-image" />
+                <div className="entry-wine-ratings">
+                    <div className="entry-wine-rating-item">
+                        fruit
+                        <RatingCircles rating={wine.fruit_rating} />
+                    </div>
+                    <div className="entry-wine-rating-item">
+                        earth
+                        <RatingCircles rating={wine.earth_rating} />
+                    </div>
+                    <div className="entry-wine-rating-item">
+                        body
+                        <RatingCircles rating={wine.body_rating} />
+                    </div>
+                    <div className="entry-wine-rating-item">
+                        tannin
+                        <RatingCircles rating={wine.tannin_rating} />
+                    </div>
+                    <div className="entry-wine-rating-item">
+                        acidity
+                        <RatingCircles rating={wine.acid_rating} />
+                    </div>
+                    <div className="entry-wine-rating-item">
+                        alcohol
+                        <RatingCircles rating={wine.alcohol_rating} />
+                    </div>
                 </div>
-                {this.renderText(entry.lead, '')}
-                {this.renderText(entry.description, '')}
-                {entry.quote}
+                <h3 className="entry-subheading">The Wine</h3>
+                {this.renderText(entry.lead, 'entry-wine-lead')}
+                <div className="entry-wine-quote">"{entry.quote}"</div>
+                <h3 className="entry-subheading">Ian's Description</h3>
+                <div className="entry-wine-metadata">
+                    <dl>
+                        <dt>country</dt>
+                        <dd>{wine.country}</dd>
+                        <dt>region</dt>
+                        <dd>{wine.region}</dd>
+                        <dt>sub-region</dt>
+                        <dd>{wine.subregion}</dd>
+                        <dt>varietal</dt>
+                        <dd>{wine.varietal}</dd>
+                        <dt>production</dt>
+                        <dd>{wine.production}</dd>
+                        <dt>alcohol</dt>
+                        <dd>{wine.alcohol}</dd>
+                        <dt>oak</dt>
+                        <dd>{wine.oak}</dd>
+                        <dt>soil</dt>
+                        <dd>{wine.soil}</dd>
+                        <dt>farming</dt>
+                        <dd>{wine.farming}</dd>
+                    </dl>
+                </div>
+                {this.renderText(entry.description, 'entry-wine-description')}
             </div>
         );
     }

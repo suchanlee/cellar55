@@ -1,7 +1,8 @@
 @import 'colors.less';
 
+@abril-family: "abril-fatface", 'Georgia', serif;
 @bodoni-family: 'ltc-bodoni-175', 'Georgia', serif;
-@acumin-family: 'canada-type-gibson', 'Avenir', 'Helvetica', sans-serif;
+@acumin-family: 'Avenir', 'canada-type-gibson', 'Helvetica', sans-serif;
 
 @circle-diameter: 7px;
 @filter-key-width: 150px;
@@ -38,26 +39,27 @@ h2, h3, h4 {
   border-bottom: 1px solid @dark-gray;
   padding-bottom: 10px;
   margin-bottom: 10px;
+}
 
-  .wine-type-box {
-    width: 22px;
-    height: 22px;
+.wine-type-box {
+  width: 22px;
+  height: 22px;
 
-    &.red {
-      background-color: @wine-red;
-    }
+  &.red {
+    background-color: @wine-red;
+  }
 
-    &.white {
-      background-color: @wine-white;
-    }
+  &.white {
+    background-color: @wine-white;
+    border: 1px solid rgb(236, 239, 167);
+  }
 
-    &.rose {
-      background-color: @wine-rose;
-    }
+  &.rose {
+    background-color: @wine-rose;
+  }
 
-    &.sparkling {
-      border: 1px solid @wine-white;
-    }
+  &.sparkling {
+    border: 1px solid @wine-white;
   }
 }
 
@@ -186,16 +188,108 @@ h2, h3, h4 {
   }
 }
 
+.entry-container {
+  padding: 50px 0 80px;
 
+  .wine-type-box {
+    display: inline-block;
+    margin-right: 15px;
+    width: 11px;
+    height: 11px;
+  }
+}
 
+.entry-wine-name {
+  color: @very-dark-gray;
+  font-family: @abril-family;
+  letter-spacing: 1px;
+  font-weight: normal;
+  font-size: 45px;
+  margin-bottom: 0;
+}
 
+.entry-subheading {
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
 
+.entry-wine-details {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  font-weight: 300;
+  display: inline-block;
+}
 
+.entry-wine-main-image {
+  width: 100%;
+}
 
+.entry-wine-lead, .entry-wine-description {
+  line-height: 25px;
+  font-weight: 300;
+  color: #555;
+  letter-spacing: 0.4px;
+}
 
+.entry-wine-quote {
+  font-family: @bodoni-family;
+  color: @dark-gray;
+  font-style: italic;
+  font-size: 28px;
+  padding: 30px 60px;
+  text-align: center;
+  line-height: 40px;
+}
 
+.entry-wine-metadata {
+  float: right;
+  padding: 0 40px 0 35px;
+  margin: 0 0 25px 45px;
+  border-left: 1px solid #cecece;
+  font-size: 14px;
 
+  dl {
+    margin: 0;
+  }
 
+  dt {
+    font-weight: 500;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+    color: @dark-gray;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 300;
+    margin-bottom: 20px;
+    max-width: 200px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.entry-wine-ratings {
+  padding: 50px 0;
+}
+
+.entry-wine-rating-item {
+  width: ~'calc(100% / 6)';
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+
+  .rating {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+  }
+}
 
 
 
