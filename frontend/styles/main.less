@@ -365,13 +365,33 @@ h2, h3, h4 {
   display: inline-block;
 }
 
-.magnifying-glass-icon {
-  position: absolute;
-  width: 16px;
-  top: 4px;
-  left: 7px;
+.region-search-container {
+  .magnifying-glass-icon {
+    position: absolute;
+    width: 16px;
+    top: 4px;
+    left: 7px;
+  }
 }
 
+.region-filter-item-data {
+  display: inline-block;
+}
+
+.region-filter-item-remove {
+  display: inline-block;
+
+  .cross-icon {
+    opacity: 0.5;
+    cursor: pointer;
+    height: 11px;
+    margin-left: 10px;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
 
 
 

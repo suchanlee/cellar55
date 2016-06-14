@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
-import { map, chain } from 'lodash';
+import { map, chain, findIndex } from 'lodash';
 
 import * as Constants from '../../../constants/Constants';
 import { IFilter, IFilterDelta } from '../../../types/filter';
@@ -73,17 +73,34 @@ export default class RegionFilter extends React.Component<Props, void> {
                 .value();
     }
 
+    private toggleRegionFilter = (region: IRegion) => {
+        let regions = this.props.filter.regions.slice();
+        const index = findIndex(regions, (r) => r.name === region.name && r.type === region.type);
+        if (index > -1) {
+            regions.splice(index, 1);
+        } else {
+            regions.push(region);
+        }
+        this.props.onFilterUpdate({
+            regions: regions
+        });
+    }
+
     render() {
         return (
             <BaseFilter filterKey='Region'>
                 <RegionFilterSearch
                     filter={this.props.filter}
-                    onFilterUpdate={this.props.onFilterUpdate}
                     regions={this.getAllRegions()}
+                    toggleRegionFilter={this.toggleRegionFilter}
                 />
                 <ul className="region-filter-list">
                     {map(this.props.filter.regions, (region, idx) => (
-                        <RegionFilterItem key={idx} region={region} />
+                        <RegionFilterItem
+                            key={idx}
+                            region={region}
+                            removeRegionFilter={this.toggleRegionFilter}
+                        />
                     ))}
                 </ul>
             </BaseFilter>

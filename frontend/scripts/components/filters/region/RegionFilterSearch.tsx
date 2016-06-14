@@ -24,7 +24,7 @@ interface IRegionSearchEntry {
 interface Props {
     regions: IRegion[];
     filter: IFilter;
-    onFilterUpdate: (filtersDelta: IFilterDelta) => void;
+    toggleRegionFilter: (region: IRegion) => void;
 }
 
 interface State {
@@ -87,7 +87,7 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
                 break;
             case Keys.ENTER:
                 const region = this.getMatchingRegions()[this.state.selectedIdx];
-                this.addRegionFilter(region);
+                this.toggleRegionFilter(region);
                 break;
             default:
         }
@@ -97,17 +97,8 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
         this.setState({ selectedIdx: idx } as State);
     }
 
-    private addRegionFilter = (region: IRegion) => {
-        let regions = this.props.filter.regions.slice();
-        const index = findIndex(regions, (r) => r.name === region.name && r.type === region.type);
-        if (index > -1) {
-            regions.splice(index, 1);
-        } else {
-            regions.push(region);
-        }
-        this.props.onFilterUpdate({
-            regions: regions
-        });
+    private toggleRegionFilter = (region: IRegion) => {
+        this.props.toggleRegionFilter(region);
         this.reset();
     }
 
@@ -136,7 +127,7 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
                     isShown={this.state.isDropdownShown}
                     regions={this.getMatchingRegions()}
                     onItemMouseOver={this.handleItemMouseOver}
-                    onItemClick={this.addRegionFilter}
+                    onItemClick={this.toggleRegionFilter}
                     idx={this.state.selectedIdx}
                 />
             </div>

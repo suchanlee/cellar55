@@ -32,11 +32,14 @@ export default class RegionSearchItem extends React.Component<Props, void> {
         return regionType;
     }
 
+    private handleClick = () => this.props.onClick(this.props.region);
+    private handleMouseOver = () => this.props.onMouseOver(this.props.idx);
+
     render() {
         return (
             <div
-                onClick={() => this.props.onClick(this.props.region)}
-                onMouseOver={() => this.props.onMouseOver(this.props.idx)}
+                onClick={this.handleClick}
+                onMouseOver={() => this.handleMouseOver}
                 className={classNames('region-search-item', {
                     'selected': this.props.selected
                 })}
