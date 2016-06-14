@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
-import { map } from 'lodash';
+import { map, debounce } from 'lodash';
 
 import { IWine } from '../types/wine';
 import WineItem from './WineItem';
 
 const PAGE_SIZE = 10;
 const BOTTOM_SCROLL_PADDING = 100;
+const DEBOUNCE_MILLIS = 50;
 
 interface Props {
     searchQuery: string;
@@ -24,8 +25,11 @@ export default class WineList extends React.Component<Props, State> {
         pages: 1
     };
 
+    private debouncedScrollHandler: any;
+
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        this.debouncedScrollHandler = debounce(this.handleScroll, DEBOUNCE_MILLIS);
+        window.addEventListener('scroll', this.debouncedScrollHandler);
     }
 
     componentWillReceiveProps(nextProps: Props) {
@@ -33,7 +37,7 @@ export default class WineList extends React.Component<Props, State> {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('scroll', this.debouncedScrollHandler);
     }
 
     private renderWineItems(): React.ReactElement<any>[] {
@@ -53,6 +57,7 @@ export default class WineList extends React.Component<Props, State> {
 
     private handleScroll = (evt: Event) => {
         const pos = document.body.offsetHeight - window.screen.height - evt.srcElement['body'].scrollTop;
+        console.log("here");
         if (pos < BOTTOM_SCROLL_PADDING) {
             this.setState({ pages: this.state.pages + 1 });
         }
