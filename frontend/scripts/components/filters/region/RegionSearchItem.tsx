@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import * as classNames from 'classnames';
 
 import { IRegion, RegionType } from '../../../types/region';
 
@@ -14,21 +15,21 @@ interface Props {
 @PureRender
 export default class RegionSearchItem extends React.Component<Props, void> {
 
-    private getRegionLabel(region: IRegion): string{
+    private getRegionType(region: IRegion): string{
         let regionType: string = '';
         switch (region.type) {
             case RegionType.COUNTRY:
-                regionType = 'Country';
+                regionType = 'country';
                 break;
             case RegionType.REGION:
-                regionType = 'Region';
+                regionType = 'region';
                 break;
             case RegionType.SUBREGION:
-                regionType = 'Subregion';
+                regionType = 'subregion';
                 break;
             default:
         }
-        return `${regionType}: ${region.name}`
+        return regionType;
     }
 
     render() {
@@ -36,9 +37,12 @@ export default class RegionSearchItem extends React.Component<Props, void> {
             <div
                 onClick={() => this.props.onClick(this.props.region)}
                 onMouseOver={() => this.props.onMouseOver(this.props.idx)}
+                className={classNames('region-search-item', {
+                    'selected': this.props.selected
+                })}
             >
-                {this.props.selected ? 'selected' : ''}
-                {this.getRegionLabel(this.props.region)}
+                <div className="region-search-item-name">{this.props.region.name}</div>
+                <div className="region-search-item-type">{this.getRegionType(this.props.region)}</div>
             </div>
         );
     }

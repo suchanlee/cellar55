@@ -6,7 +6,8 @@ import * as Constants from '../../../constants/Constants';
 import { IRegion, RegionType } from '../../../types/region';
 import { IFilter, IFilterDelta } from '../../../types/filter';
 
-import RegionSearchItem from './RegionSearchItem';
+import RegionSearchDropdown from './RegionSearchDropdown';
+import MagnifyingGlassIcon from '../../icons/MagnifyingGlassIcon';
 
 const Keys = {
     ESC: 27,
@@ -15,7 +16,7 @@ const Keys = {
     ENTER: 13
 };
 
-interface RegionSearchEntry {
+interface IRegionSearchEntry {
     region: IRegion;
     index: number;
 }
@@ -29,6 +30,7 @@ interface Props {
 interface State {
     query: string;
     selectedIdx: number;
+    isDropdownShown: boolean;
 }
 
 @PureRender
@@ -36,7 +38,8 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
 
     state: State = {
         query: '',
-        selectedIdx: 0
+        selectedIdx: 0,
+        isDropdownShown: false
     };
 
     private getMatchingRegions(): IRegion[] {
@@ -44,7 +47,7 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
         if (query.length === 0) {
             return [];
         }
-        let searchEntries: RegionSearchEntry[] = [];
+        let searchEntries: IRegionSearchEntry[] = [];
         for (const region of this.props.regions) {
             const index: number = region.name.toLowerCase().indexOf(query);
             if (index > -1) {
@@ -60,7 +63,8 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
     private handleChange = (evt) => {
         this.setState({
             query: evt.target.value,
-            selectedIdx: 0
+            selectedIdx: 0,
+            isDropdownShown: true
         });
     }
 
@@ -110,29 +114,31 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
     private reset = () => {
         this.setState({
             selectedIdx: 0,
-            query: ''
+            query: '',
+            isDropdownShown: false
         });
     }
 
     render() {
         return (
-            <div>
+            <div className="region-search-container">
+                <MagnifyingGlassIcon />
                 <input
                     type="text"
+                    className="region-search-input"
                     value={this.state.query}
                     onChange={this.handleChange}
                     onKeyDown={this.handleInputKeyDown}
+                    onBlur={() => this.setState({ isDropdownShown: false } as State)}
+                    onFocus={() => this.setState({ isDropdownShown: true } as State)}
                 />
-                {map(this.getMatchingRegions(), (region, idx) => (
-                    <RegionSearchItem
-                        key={idx}
-                        idx={idx}
-                        region={region}
-                        selected={idx === this.state.selectedIdx}
-                        onClick={this.addRegionFilter}
-                        onMouseOver={this.handleItemMouseOver}
-                    />
-                ))}
+                <RegionSearchDropdown
+                    isShown={this.state.isDropdownShown}
+                    regions={this.getMatchingRegions()}
+                    onItemMouseOver={this.handleItemMouseOver}
+                    onItemClick={this.addRegionFilter}
+                    idx={this.state.selectedIdx}
+                />
             </div>
         );
     }

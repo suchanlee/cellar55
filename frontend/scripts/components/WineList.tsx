@@ -57,7 +57,6 @@ export default class WineList extends React.Component<Props, State> {
 
     private handleScroll = (evt: Event) => {
         const pos = document.body.offsetHeight - window.screen.height - evt.srcElement['body'].scrollTop;
-        console.log("here");
         if (pos < BOTTOM_SCROLL_PADDING) {
             this.setState({ pages: this.state.pages + 1 });
         }

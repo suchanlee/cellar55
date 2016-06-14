@@ -6,6 +6,7 @@
 
 @circle-diameter: 7px;
 @filter-key-width: 150px;
+@region-filter-width: 280px;
 
 body {
   margin: 0 auto;
@@ -310,16 +311,66 @@ h2, h3, h4 {
   }
 }
 
+.region-search-container {
+  position: relative;
+}
 
+.region-search-input {
+  width: @region-filter-width;
+  height: 25px;
+  padding: 5px 8px 5px 30px;
+  font-family: @acumin-family;
+  font-size: 14px;
+}
 
+.region-search-dropdown {
+  position: absolute;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  width: @region-filter-width;
+  background-color: white;
+  border: 1px solid #eee;
+  z-index: 2;
+  max-height: 300px;
+  overflow-y: auto;
 
+}
 
+.region-search-item {
+  padding: 5px 15px;
+  cursor: pointer;
 
+  &.selected {
+    color: white;
+    background-color: blue;
+  }
+}
 
+.region-search-item-type {
+  font-size: 12px;
+}
 
+.region-filter-list {
+  padding: 0;
+  margin: 15px 0 0;
+  list-style-type: none;
+}
 
+.region-filter-item {
+  padding: 4px 15px;
+  margin-right: 10px;
+  border-radius: 15px;
+  background-color: #eee;
+  display: inline-block;
+}
 
-
+.magnifying-glass-icon {
+  position: absolute;
+  width: 16px;
+  top: 4px;
+  left: 7px;
+}
 
 
 

@@ -9,6 +9,7 @@ import { IRegion, RegionType } from '../../../types/region';
 
 import BaseFilter from '../BaseFilter';
 import RegionFilterSearch from './RegionFilterSearch';
+import RegionFilterItem from './RegionFilterItem';
 
 const removalReg: RegExp = /\(.+\)|n\/a/g;
 const splitReg: RegExp = /\,|\s+\-\s+/g;
@@ -80,10 +81,9 @@ export default class RegionFilter extends React.Component<Props, void> {
                     onFilterUpdate={this.props.onFilterUpdate}
                     regions={this.getAllRegions()}
                 />
-                Region filters:
-                <ul>
+                <ul className="region-filter-list">
                     {map(this.props.filter.regions, (region, idx) => (
-                        <li key={idx}>{region.name}</li>
+                        <RegionFilterItem key={idx} region={region} />
                     ))}
                 </ul>
             </BaseFilter>
