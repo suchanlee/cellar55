@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
 
 import { IRegion } from '../../../types/region';
+import { getRegionType } from "../../../helpers/helpers";
 
 import CrossIcon from '../../icons/CrossIcon';
 
@@ -22,7 +23,7 @@ export default class RegionFilterItem extends React.Component<Props, void> {
         return (
             <li className="region-filter-item">
                 <div className="region-filter-item-data">
-                    <span>{region.name}</span>
+                    <div classname="region-filter-item-name">{region.name}</div>
                 </div>
                 <div
                     className="region-filter-item-remove"

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import * as classNames from "classnames";
 import { map, sortBy, findIndex } from 'lodash';
 
 import * as Constants from '../../../constants/Constants';
@@ -31,6 +32,7 @@ interface State {
     query: string;
     selectedIdx: number;
     isDropdownShown: boolean;
+    focus: boolean;
 }
 
 @PureRender
@@ -39,7 +41,8 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
     state: State = {
         query: '',
         selectedIdx: 0,
-        isDropdownShown: false
+        isDropdownShown: false,
+        focus: false
     };
 
     private getMatchingRegions(): IRegion[] {
@@ -64,7 +67,8 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
         this.setState({
             query: evt.target.value,
             selectedIdx: 0,
-            isDropdownShown: true
+            isDropdownShown: true,
+            focus: this.state.focus
         });
     }
 
@@ -106,24 +110,44 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
         this.setState({
             selectedIdx: 0,
             query: '',
-            isDropdownShown: false
+            isDropdownShown: false,
+            focus: this.state.focus
         });
+    }
+
+    private handleFocus = () => {
+        this.setState({
+            isDropdownShown: false,
+            focus: true
+         } as State);
+    }
+
+    private handleBlur = (evt: React.SyntheticEvent) => {
+        console.log(evt.currentTarget);
+        this.setState({
+            isDropdownShown: true,
+            focus: false
+         } as State);
     }
 
     render() {
         return (
-            <div className="region-search-container">
+            <div className={classNames("region-search-container", {
+                "focus": this.state.focus
+            })}>
                 <MagnifyingGlassIcon />
                 <input
                     type="text"
-                    className="region-search-input"
+                    className="region-search-input search-input"
+                    placeholder="Search for regions..."
                     value={this.state.query}
                     onChange={this.handleChange}
                     onKeyDown={this.handleInputKeyDown}
-                    onBlur={() => this.setState({ isDropdownShown: false } as State)}
-                    onFocus={() => this.setState({ isDropdownShown: true } as State)}
+                    onBlur={this.handleBlur}
+                    onFocus={this.handleFocus}
                 />
                 <RegionSearchDropdown
+                    ref="dropdown"
                     isShown={this.state.isDropdownShown}
                     regions={this.getMatchingRegions()}
                     onItemMouseOver={this.handleItemMouseOver}

@@ -1,6 +1,8 @@
 import { map, last, difference, chain } from 'lodash';
 import * as _ from 'lodash';
 
+import { RegionType } from '../types/region';
+
 
 const NOT_APPLICABLE = "n/a";
 
@@ -48,4 +50,17 @@ export const parseVarietal = function(varietal: string): string {
         }
     }
     return varietals.join(' | ');
+}
+
+export const getRegionType = function(regionType: RegionType): string {
+    switch (regionType) {
+        case RegionType.COUNTRY:
+            return 'country';
+        case RegionType.REGION:
+            return 'region';
+        case RegionType.SUBREGION:
+            return 'subregion';
+        default:
+            return "";
+    }
 }

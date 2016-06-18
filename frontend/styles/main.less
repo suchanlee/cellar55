@@ -8,6 +8,9 @@
 @filter-key-width: 150px;
 @region-filter-width: 280px;
 
+@input-border: 1px solid @light-gray - #111;
+@input-border-color-active: @gray;
+
 body {
   margin: 0 auto;
   padding: 0;
@@ -29,13 +32,13 @@ h2, h3, h4 {
   cursor: pointer;
 
   .checkbox {
-    border: 1px solid @light-gray - #111;
+    border: @input-border;
     border-radius: 2px;
     width: 12px;
     height: 12px;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 8px;
+    margin-right: 10px;
     margin-top: -2px;
   }
 
@@ -51,12 +54,34 @@ h2, h3, h4 {
 
   &:hover {
     .checkbox {
-      border-color: @gray;
+      border-color: @input-border-color-active;
     }
     color: @gray - #333;
   }
 }
 
+.region-search-container {
+  position: relative;
+}
+
+.region-search-input {
+  width: @region-filter-width;
+}
+
+.search-input {
+  width: 280px;
+  height: 32px;
+  padding: 9px 8px 8px 33px;
+  font-family: @acumin-family;
+  font-size: 14px;
+  border: @input-border;
+  border-radius: 5px;
+  outline: none;
+
+  &:hover, &:focus {
+    border-color: @input-border-color-active;
+  }
+}
 
 .logo-container {
   padding: 12px 0;
@@ -226,6 +251,8 @@ h2, h3, h4 {
 
 .filter-row-key {
   width: @filter-key-width;
+  letter-spacing: 0.7px;
+  text-transform: lowercase;
 }
 
 .filter-row-values {
@@ -345,18 +372,6 @@ h2, h3, h4 {
   }
 }
 
-.region-search-container {
-  position: relative;
-}
-
-.region-search-input {
-  width: @region-filter-width;
-  height: 25px;
-  padding: 5px 8px 5px 30px;
-  font-family: @acumin-family;
-  font-size: 14px;
-}
-
 .region-search-dropdown {
   position: absolute;
   left: 0;
@@ -376,8 +391,8 @@ h2, h3, h4 {
   cursor: pointer;
 
   &.selected {
-    color: white;
-    background-color: blue;
+    color: @very-dark-gray;
+    background-color: #ddd;
   }
 }
 
@@ -393,7 +408,8 @@ h2, h3, h4 {
 
 .region-filter-item {
   padding: 4px 15px;
-  margin-right: 10px;
+  margin-right: 8px;
+  margin-bottom: 8px;
   border-radius: 15px;
   background-color: #eee;
   display: inline-block;
@@ -403,8 +419,15 @@ h2, h3, h4 {
   .magnifying-glass-icon {
     position: absolute;
     width: 16px;
-    top: 4px;
-    left: 7px;
+    top: 8px;
+    left: 10px;
+    opacity: 0.3;
+  }
+
+  &:hover, &.focus {
+    .magnifying-glass-icon {
+      opacity: 0.8;
+    }
   }
 }
 
