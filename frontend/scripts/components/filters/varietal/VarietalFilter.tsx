@@ -83,14 +83,13 @@ export default class VarietalFilter extends React.Component<Props, void> {
             <BaseFilter filterKey='Varietal'>
                 {map(sortedVarietalEntries, (entry) => {
                     const checked = includes(this.props.filter.varietals, entry.name);
-                    return <span className={classNames("item varietal-filter-item", {
-                        "checked": checked
-                    })} key={entry.name}>
+                    return <span className="item varietal-filter-item" key={entry.name}>
                         <CheckboxInput
                             checked={checked}
                             onChange={() => this.handleVarietalClick(entry.name)}
-                        />
-                        {entry.name}
+                        >
+                            {entry.name}
+                        </CheckboxInput>
                     </span>
                 })}
             </BaseFilter>

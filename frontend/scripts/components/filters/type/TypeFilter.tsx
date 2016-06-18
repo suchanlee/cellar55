@@ -43,9 +43,10 @@ export default class TypeFilter extends React.Component<Props, void> {
                 <CheckboxInput
                     checked={checked}
                     onChange={() => this.handleWineTypeFilterClick(wineType)}
-                />
-                <WineTypeBox wineType={wineType} />
-                {wineType === 'rose' ? 'rosé' : wineType}
+                >
+                    <WineTypeBox wineType={wineType} />
+                    {wineType === 'rose' ? 'rosé' : wineType}
+                </CheckboxInput>
             </span>
         });
     }

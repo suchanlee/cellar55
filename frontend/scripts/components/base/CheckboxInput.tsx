@@ -5,6 +5,7 @@ import * as PureRender from 'pure-render-decorator';
 export interface ICheckboxInputProps {
     onChange: (isChecked: boolean) => void;
     checked: boolean;
+    children?: React.ReactChildren;
     className?: string;
 }
 
@@ -41,12 +42,15 @@ export class CheckboxInput extends React.Component<ICheckboxInputProps, State> {
 
     render() {
         return (
-            <span
-                className={classNames("checkbox", this.props.className, {
+            <label
+                onClick={this.handleClick}
+                className={classNames("checkbox-container", this.props.className, {
                     "checked": this.state.checked
                 })}
-                onClick={this.handleClick}
-            />
+            >
+                <span className="checkbox" />
+                {this.props.children}
+            </label>
         )
     }
 }
