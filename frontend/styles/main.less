@@ -25,6 +25,26 @@ h2, h3, h4 {
   padding: 0 10px 80px;
 }
 
+.checkbox {
+  border: 1px solid @gray + #444;
+  border-radius: 2px;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-top: -2px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: @gray;
+  }
+
+  &.checked {
+    background-color: @gray + #444;
+  }
+}
+
 .logo-container {
   padding: 12px 0;
   border-bottom: 1px solid #eee;
@@ -61,6 +81,7 @@ h2, h3, h4 {
 }
 
 .wine-type-box {
+  display: inline-block;
   width: 22px;
   height: 22px;
 
@@ -393,7 +414,15 @@ h2, h3, h4 {
   }
 }
 
-
+.wine-type-filter-item {
+  .wine-type-box {
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    margin-right: 7px;
+    margin-top: -2px;
+  }
+}
 
 
 
