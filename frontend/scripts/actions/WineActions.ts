@@ -87,20 +87,20 @@ function asyncFetchEntry(id: number) {
     }
 }
 
-function convertToRequestFilter(fltr: IFilter): IRequestFilter {
-    const countries = map<IRegion, string>(filter(fltr.regions, (r) => r.type === RegionType.COUNTRY), 'name');
-    const regions = map<IRegion, string>(filter(fltr.regions, (r) => r.type === RegionType.REGION), 'name');
-    const subregions = map<IRegion, string>(filter(fltr.regions, (r) => r.type === RegionType.SUBREGION), 'name');
+function convertToRequestFilter(f: IFilter): IRequestFilter {
+    const countries = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.COUNTRY), 'name');
+    const regions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.REGION), 'name');
+    const subregions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.SUBREGION), 'name');
     return {
         countries: countries,
         regions: regions,
         subregions: subregions,
-        wine_types: fltr.wine_types,
-        varietals: fltr.varietals,
-        vintage: fltr.vintage,
-        vintage_from: fltr.vintage_from,
-        vintage_to: fltr.vintage_to,
-        name: fltr.name,
+        wine_types: f.wine_types,
+        varietals: f.varietals,
+        vintage: f.vintage,
+        vintage_from: f.vintage_from,
+        vintage_to: f.vintage_to,
+        name: f.name,
     };
 }
 
@@ -110,6 +110,12 @@ export function fetchWines(filter: IFilter) {
         if (state.wine.allWines.length === 0) {
             dispatch(asyncFetchWines(filter));
         }
+    }
+}
+
+export function fetchWinesWithNewFilter(filter: IFilter) {
+    return (dispatch, getState) => {
+        dispatch(asyncFetchWines(filter));
     }
 }
 

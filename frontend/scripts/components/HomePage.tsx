@@ -3,7 +3,7 @@ import * as PureRender from 'pure-render-decorator';
 import objectAssign = require('object-assign');
 import { connect } from 'react-redux';
 
-import { fetchWines } from '../actions/wineActions';
+import { fetchWines, fetchWinesWithNewFilter } from '../actions/wineActions';
 import { changeFilter, clearFilter } from '../actions/filterActions';
 import { IApp } from '../types/main';
 import { IFilter, IFilterDelta } from '../types/filter';
@@ -53,7 +53,7 @@ class HomePage extends React.Component<Props, State> {
 
     private handleFilterApply = () => {
         const { dispatch, filter } = this.props;
-        dispatch(fetchWines(filter));
+        dispatch(fetchWinesWithNewFilter(filter));
     }
 
     private handleSearchQueryChange = (value: string) => {
