@@ -3,7 +3,7 @@ import * as PureRender from 'pure-render-decorator';
 import * as classNames from "classnames";
 import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from 'lodash';
 
-import * as Constants from '../../../constants/Constants';
+import { GrapeVarietals } from '../../../constants/Constants';
 import { IFilter, IFilterDelta } from '../../../types/filter';
 import { IWine } from '../../../types/wine';
 
@@ -22,6 +22,10 @@ interface VarietalMap {
     [name: string]: VarietalEntry;
 }
 
+interface VarietalSet {
+    [name: string]: boolean;
+}
+
 interface Props {
     allWines: IWine[];
     filter: IFilter;
@@ -31,13 +35,20 @@ interface Props {
 @PureRender
 export default class VarietalFilter extends React.Component<Props, void> {
 
+    private getAllVarietalSet(): VarietalSet {
+        let allVarietalSet: VarietalSet = {};
+        forEach(GrapeVarietals, (v) => allVarietalSet[v] = true);
+        return allVarietalSet;
+    }
+
     private getVarietalMap(): VarietalMap {
+        const allVarietalSet = this.getAllVarietalSet();
         const varietals: string[] = map(this.props.allWines, (wine) => wine.varietal);
         let allVarietals: string = varietals.join(',');
         allVarietals = allVarietals.replace(removalReg, ',');
         const filteredVarietals = chain(allVarietals.split(splitReg))
                 .map((varietal) => varietal.trim().toLowerCase())
-                .filter((varietal) => varietal.length > 0)
+                .filter((varietal) => varietal.length > 0 && varietal in allVarietalSet)
                 .value();
         let varietalMap: VarietalMap = {};
         forEach((filteredVarietals), (varietal) => {
