@@ -94,15 +94,18 @@ export default class RegionFilter extends React.Component<Props, void> {
                     regions={this.getAllRegions()}
                     toggleRegionFilter={this.toggleRegionFilter}
                 />
-                <ul className="region-filter-list">
-                    {map(this.props.filter.regions, (region, idx) => (
-                        <RegionFilterItem
-                            key={idx}
-                            region={region}
-                            removeRegionFilter={this.toggleRegionFilter}
-                        />
-                    ))}
-                </ul>
+                {this.props.filter.regions.length > 0 ?
+                    <ul className="region-filter-list">
+                        {map(this.props.filter.regions, (region, idx) => (
+                            <RegionFilterItem
+                                key={idx}
+                                region={region}
+                                removeRegionFilter={this.toggleRegionFilter}
+                            />
+                        ))}
+                    </ul> :
+                    null
+                }
             </BaseFilter>
         );
     }

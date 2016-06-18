@@ -123,11 +123,7 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
     }
 
     private handleBlur = (evt: React.SyntheticEvent) => {
-        console.log(evt.currentTarget);
-        this.setState({
-            isDropdownShown: true,
-            focus: false
-         } as State);
+        this.setState({ focus: false } as State);
     }
 
     render() {

@@ -23,7 +23,7 @@ export default class RegionFilterItem extends React.Component<Props, void> {
         return (
             <li className="region-filter-item">
                 <div className="region-filter-item-data">
-                    <div classname="region-filter-item-name">{region.name}</div>
+                    <div className="region-filter-item-name">{region.name}</div>
                 </div>
                 <div
                     className="region-filter-item-remove"
