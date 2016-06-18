@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import * as classNames from "classnames";
 import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from 'lodash';
 
 import * as Constants from '../../../constants/Constants';
@@ -7,6 +8,7 @@ import { IFilter, IFilterDelta } from '../../../types/filter';
 import { IWine } from '../../../types/wine';
 
 import BaseFilter from '../BaseFilter';
+import { CheckboxInput } from "../../base/CheckboxInput";
 
 const removalReg: RegExp = /\d+\%|n\/a|\-/g;
 const splitReg: RegExp = /,|with|aka|and|balance|is|\/|\&/ig;
@@ -68,18 +70,18 @@ export default class VarietalFilter extends React.Component<Props, void> {
         const sortedVarietalEntries: VarietalEntry[] = reverse(sortBy(values(this.getVarietalMap()), 'count'));
         return (
             <BaseFilter filterKey='Varietal'>
-                {
-                    map(sortedVarietalEntries, (entry) => (
-                        <span className="item" key={entry.name}>
-                            <input
-                                type="checkbox"
-                                checked={includes(this.props.filter.varietals, entry.name)}
-                                onChange={() => this.handleVarietalClick(entry.name)}
-                            />
-                            {entry.name}
-                        </span>
-                    ))
-                }
+                {map(sortedVarietalEntries, (entry) => {
+                    const checked = includes(this.props.filter.varietals, entry.name);
+                    return <span className={classNames("item varietal-filter-item", {
+                        "checked": checked
+                    })} key={entry.name}>
+                        <CheckboxInput
+                            checked={checked}
+                            onChange={() => this.handleVarietalClick(entry.name)}
+                        />
+                        {entry.name}
+                    </span>
+                })}
             </BaseFilter>
         );
     }

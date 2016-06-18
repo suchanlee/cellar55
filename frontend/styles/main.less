@@ -26,7 +26,7 @@ h2, h3, h4 {
 }
 
 .checkbox {
-  border: 1px solid @gray + #444;
+  border: 1px solid @light-gray - #111;
   border-radius: 2px;
   width: 12px;
   height: 12px;
@@ -41,7 +41,8 @@ h2, h3, h4 {
   }
 
   &.checked {
-    background-color: @gray + #444;
+    border-color: @light-gray - #333;
+    background-color: @light-gray - #333;
   }
 }
 
@@ -422,9 +423,22 @@ h2, h3, h4 {
     margin-right: 7px;
     margin-top: -2px;
   }
+
+  &.checked {
+    font-weight: 500;
+  }
 }
 
+.varietal-filter-item {
+  margin-bottom: 5px;
+  display: inline-block;
+  width: 190px;
+  vertical-align: top;
 
+  &.checked {
+    font-weight: 500;
+  }
+}
 
 
 
