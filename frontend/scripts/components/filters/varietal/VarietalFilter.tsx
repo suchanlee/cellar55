@@ -8,10 +8,14 @@ import { IFilter, IFilterDelta } from '../../../types/filter';
 import { IWine } from '../../../types/wine';
 
 import BaseFilter from '../BaseFilter';
+import CaretDownIcon from '../../icons/CaretDownIcon';
+import CaretUpIcon from '../../icons/CaretUpIcon';
 import { CheckboxInput } from "../../base/CheckboxInput";
 
 const removalReg: RegExp = /\d+\%|n\/a|\-/g;
 const splitReg: RegExp = /,|with|aka|and|balance|is|\/|\&/ig;
+
+const CLOSED_VARIETAL_COUNT = 6;
 
 interface VarietalEntry {
     name: string;
@@ -32,8 +36,16 @@ interface Props {
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
 
+interface State {
+    isShowAll: boolean;
+}
+
 @PureRender
-export default class VarietalFilter extends React.Component<Props, void> {
+export default class VarietalFilter extends React.Component<Props, State> {
+
+    state: State = {
+        isShowAll: false
+    };
 
     private getAllVarietalSet(): VarietalSet {
         let allVarietalSet: VarietalSet = {};
@@ -78,20 +90,29 @@ export default class VarietalFilter extends React.Component<Props, void> {
     }
 
     render() {
-        const sortedVarietalEntries: VarietalEntry[] = reverse(sortBy(values(this.getVarietalMap()), 'count'));
+        let sortedVarietalEntries: VarietalEntry[] = reverse(sortBy(values(this.getVarietalMap()), 'count'));
+        if (!this.state.isShowAll) {
+            sortedVarietalEntries = sortedVarietalEntries.slice(0, CLOSED_VARIETAL_COUNT);
+        }
         return (
             <BaseFilter filterKey='Varietal'>
-                {map(sortedVarietalEntries, (entry) => {
-                    const checked = includes(this.props.filter.varietals, entry.name);
-                    return <span className="item varietal-filter-item" key={entry.name}>
-                        <CheckboxInput
-                            checked={checked}
-                            onChange={() => this.handleVarietalClick(entry.name)}
-                        >
-                            {entry.name}
-                        </CheckboxInput>
-                    </span>
-                })}
+                <div className="varietal-filter-values-container">
+                    {map(sortedVarietalEntries, (entry) => {
+                        const checked = includes(this.props.filter.varietals, entry.name);
+                        return <span className="item varietal-filter-item" key={entry.name}>
+                            <CheckboxInput
+                                checked={checked}
+                                onChange={() => this.handleVarietalClick(entry.name)}
+                            >
+                                {entry.name}
+                            </CheckboxInput>
+                        </span>
+                    })}
+                    { this.state.isShowAll ?
+                        <CaretUpIcon onClick={() => this.setState({ isShowAll: false })} /> :
+                        <CaretDownIcon onClick={() => this.setState({ isShowAll: true })} />
+                    }
+                </div>
             </BaseFilter>
         );
     }
