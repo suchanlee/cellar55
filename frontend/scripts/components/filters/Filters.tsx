@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import { chain, map, uniq } from "lodash";
 
 import { IFilter, IFilterDelta } from '../../types/filter';
 import { IWine } from '../../types/wine';
@@ -20,6 +21,15 @@ interface Props {
 
 @PureRender
 export default class Filters extends React.Component<Props, void> {
+
+    private getAllVintages(): string[] {
+        const vintages = map(this.props.allWines, (w) => w.vintage.trim());
+        return chain(vintages)
+                .filter((v) => v.length > 0)
+                .uniq()
+                .sortBy()
+                .value()
+    }
 
     render() {
         return (
@@ -42,6 +52,7 @@ export default class Filters extends React.Component<Props, void> {
                 <VintageFilter
                     onFilterUpdate={this.props.onFilterUpdate}
                     filter={this.props.filter}
+                    vintages={this.getAllVintages()}
                 />
                 <button onClick={this.props.onFilterApply}>
                     Update Filters
