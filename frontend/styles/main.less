@@ -252,7 +252,6 @@ h2, h3, h4 {
 .filter-row-key {
   width: @filter-key-width;
   letter-spacing: 0.7px;
-  text-transform: lowercase;
 }
 
 .filter-row-values {
@@ -467,7 +466,19 @@ h2, h3, h4 {
   vertical-align: top;
 }
 
+.vintage-filter-type {
+  margin-right: 20px;
+  opacity: 0.5;
+  cursor: pointer;
 
+  &.selected {
+    opacity: 1;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
 
 
 
