@@ -11,7 +11,7 @@ const DEBOUNCE_MILLIS = 50;
 
 interface Props {
     searchQuery: string;
-    wines: IWine[];
+    filteredWines: IWine[];
 }
 
 interface State {
@@ -41,17 +41,7 @@ export default class WineList extends React.Component<Props, State> {
     }
 
     private renderWineItems(): React.ReactElement<any>[] {
-        const query = this.props.searchQuery.toLowerCase().trim();
-        let wines: IWine[] = [];
-        let wineItems: React.ReactElement<any>[] = [];
-        for (var wine of this.props.wines) {
-            const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}
-             ${wine.varietal} ${wine.wine_type} ${wine.vintage}`.toLowerCase();
-            if (content.indexOf(this.props.searchQuery) > -1) {
-                wines.push(wine);
-            }
-        }
-        return map(wines.slice(0, PAGE_SIZE * this.state.pages), wine =>
+        return map(this.props.filteredWines.slice(0, PAGE_SIZE * this.state.pages), wine =>
             <WineItem key={wine.id} wine={wine} />);
     }
 
@@ -64,9 +54,7 @@ export default class WineList extends React.Component<Props, State> {
 
     render() {
         return (
-            <ul className='wine-list'>
-                {this.renderWineItems()}
-            </ul>
+            <ul className='wine-list'>{this.renderWineItems()}</ul>
         );
     }
 }

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
 import objectAssign = require('object-assign');
 import { connect } from 'react-redux';
+import { filter, defer } from "lodash";
 
 import { fetchWines, fetchWinesWithNewFilter } from '../actions/wineActions';
 import { changeFilter, clearFilter } from '../actions/filterActions';
@@ -35,10 +36,23 @@ class HomePage extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        if (this.props.allWines.length === 0) {
+        if (this.props.wines.length === 0) {
             const { dispatch, filter } = this.props;
             dispatch(fetchWines(filter));
         }
+    }
+
+    private getFilteredWines(): IWine[] {
+        const searchQuery = this.state.searchQuery.trim().toLowerCase();
+        if (searchQuery.length === 0) {
+            return this.props.wines;
+        }
+        const wines = filter(this.props.wines, (wine) => {
+            const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}
+             ${wine.varietal} ${wine.wine_type} ${wine.vintage}`.toLowerCase();
+             return content.indexOf(searchQuery) > - 1;
+        });
+        return wines;
     }
 
     private handleFilterUpdate = (delta: IFilterDelta) => {
@@ -57,18 +71,20 @@ class HomePage extends React.Component<Props, State> {
     }
 
     private handleSearchQueryChange = (value: string) => {
-        this.setState({ searchQuery: value });
+        this.setState({
+            searchQuery: value
+         });
     }
 
     render() {
+        const filteredWines = this.getFilteredWines();
         return (
             <div>
                 <div className="logo-container">
                     <h1 className="logo">fifty-five</h1>
                 </div>
                 <Filters
-                    wines={this.props.wines}
-                    allWines={this.props.allWines}
+                    wines={this.props.allWines}
                     filter={this.props.filter}
                     onFilterUpdate={(delta: IFilterDelta) => this.handleFilterUpdate(delta)}
                     onFilterApply={this.handleFilterApply}
@@ -79,9 +95,10 @@ class HomePage extends React.Component<Props, State> {
                     onChange={this.handleSearchQueryChange}
                  />
                 <WineList
-                    wines={this.props.wines}
+                    filteredWines={filteredWines}
                     searchQuery={this.state.searchQuery}
-                 />
+                />
+
             </div>
         )
     }

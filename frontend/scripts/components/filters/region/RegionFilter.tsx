@@ -15,7 +15,7 @@ const removalReg: RegExp = /\(.+\)|n\/a/g;
 const splitReg: RegExp = /\,|\s+\-\s+/g;
 
 interface Props {
-    allWines: IWine[];
+    wines: IWine[];
     filter: IFilter;
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
@@ -40,7 +40,7 @@ export default class RegionFilter extends React.Component<Props, void> {
     }
 
     private getRegionsForType(type: RegionType): IRegion[] {
-        const regions: string[] = map(this.props.allWines, (wine) => {
+        const regions: string[] = map(this.props.wines, (wine) => {
             let region: string = '';
             switch (type) {
                 case RegionType.COUNTRY:

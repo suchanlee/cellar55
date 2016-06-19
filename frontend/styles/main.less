@@ -71,7 +71,7 @@ h2, h3, h4 {
   cursor: pointer;
   font-size: 12px;
 
-  &:active, &:focus {
+  &:hover {
     border-color: @input-border-color-active;
   }
 }
@@ -80,8 +80,22 @@ h2, h3, h4 {
   position: relative;
 }
 
-.region-search-input {
-  width: @region-filter-width;
+.search-input-container {
+  position: relative;
+
+  .magnifying-glass-icon {
+    position: absolute;
+    width: 16px;
+    top: 8px;
+    left: 10px;
+    opacity: 0.3;
+  }
+
+  &:hover, &.focus {
+    .magnifying-glass-icon {
+      opacity: 0.8;
+    }
+  }
 }
 
 .search-input {
@@ -93,6 +107,7 @@ h2, h3, h4 {
   border: @input-border;
   border-radius: 5px;
   outline: none;
+  width: @region-filter-width;
 
   &:hover, &:focus {
     border-color: @input-border-color-active;
@@ -430,22 +445,6 @@ h2, h3, h4 {
   display: inline-block;
 }
 
-.region-search-container {
-  .magnifying-glass-icon {
-    position: absolute;
-    width: 16px;
-    top: 8px;
-    left: 10px;
-    opacity: 0.3;
-  }
-
-  &:hover, &.focus {
-    .magnifying-glass-icon {
-      opacity: 0.8;
-    }
-  }
-}
-
 .region-filter-item-data {
   display: inline-block;
 }
@@ -500,15 +499,34 @@ h2, h3, h4 {
   margin-left: 15px;
 }
 
+.search-filter-container {
+  margin: 40px 0;
+}
 
+.search-filter-input {
+  width: 400px;
+}
 
+.filter-button-row {
+  text-align: center;
+}
 
+.filter-update-button {
+    background: none;
+    border: 1px solid @dark-gray;
+    border-radius: 3px;
+    outline: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: @acumin-family;
+    cursor: pointer;
 
-
-
-
-
-
+    &:hover {
+      border-color: @input-border-color-active;
+      background-color: @sommselect-purple;
+      color: white;
+    }
+}
 
 
 

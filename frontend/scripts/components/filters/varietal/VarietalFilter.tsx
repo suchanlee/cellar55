@@ -27,7 +27,7 @@ interface VarietalSet {
 }
 
 interface Props {
-    allWines: IWine[];
+    wines: IWine[];
     filter: IFilter;
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
 }
@@ -43,7 +43,7 @@ export default class VarietalFilter extends React.Component<Props, void> {
 
     private getVarietalMap(): VarietalMap {
         const allVarietalSet = this.getAllVarietalSet();
-        const varietals: string[] = map(this.props.allWines, (wine) => wine.varietal);
+        const varietals: string[] = map(this.props.wines, (wine) => wine.varietal);
         let allVarietals: string = varietals.join(',');
         allVarietals = allVarietals.replace(removalReg, ',');
         const filteredVarietals = chain(allVarietals.split(splitReg))

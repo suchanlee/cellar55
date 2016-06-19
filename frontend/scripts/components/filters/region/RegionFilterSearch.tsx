@@ -8,7 +8,7 @@ import { IRegion, RegionType } from '../../../types/region';
 import { IFilter, IFilterDelta } from '../../../types/filter';
 
 import RegionSearchDropdown from './RegionSearchDropdown';
-import MagnifyingGlassIcon from '../../icons/MagnifyingGlassIcon';
+import { SearchInput } from '../../base/SearchInput';
 
 const Keys = {
     ESC: 27,
@@ -131,8 +131,7 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
             <div className={classNames("region-search-container", {
                 "focus": this.state.focus
             })}>
-                <MagnifyingGlassIcon />
-                <input
+                <SearchInput
                     type="text"
                     className="region-search-input search-input"
                     placeholder="Search for regions..."

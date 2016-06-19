@@ -12,7 +12,6 @@ import VintageFilter from './vintage/VintageFilter';
 
 interface Props {
     wines: IWine[];
-    allWines: IWine[];
     filter: IFilter;
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
     onFilterApply: () => void;
@@ -23,7 +22,7 @@ interface Props {
 export default class Filters extends React.Component<Props, void> {
 
     private getAllVintages(): string[] {
-        const vintages = map(this.props.allWines, (w) => w.vintage.trim());
+        const vintages = map(this.props.wines, (w) => w.vintage.trim());
         return chain(vintages)
                 .filter((v) => v.length > 0)
                 .uniq()
@@ -40,12 +39,12 @@ export default class Filters extends React.Component<Props, void> {
                     onFilterUpdate={this.props.onFilterUpdate}
                 />
                 <RegionFilter
-                    allWines={this.props.allWines}
+                    wines={this.props.wines}
                     filter={this.props.filter}
                     onFilterUpdate={this.props.onFilterUpdate}
                 />
                 <VarietalFilter
-                    allWines={this.props.allWines}
+                    wines={this.props.wines}
                     filter={this.props.filter}
                     onFilterUpdate={this.props.onFilterUpdate}
                 />
@@ -54,9 +53,14 @@ export default class Filters extends React.Component<Props, void> {
                     filter={this.props.filter}
                     vintages={this.getAllVintages()}
                 />
-                <button onClick={this.props.onFilterApply}>
-                    Update Filters
-                </button>
+                <div className="filter-row filter-button-row">
+                    <button
+                        className="filter-update-button"
+                        onClick={this.props.onFilterApply}
+                    >
+                        Update Filters
+                    </button>
+                </div>
             </div>
         );
     }
