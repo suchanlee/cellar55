@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as PureRender from 'pure-render-decorator';
 import objectAssign = require('object-assign');
 import { connect } from 'react-redux';
-import { filter, defer } from "lodash";
+import { filter, defer, debounce } from "lodash";
 
 import { fetchWines, fetchWinesWithNewFilter } from '../actions/wineActions';
 import { changeFilter, clearFilter } from '../actions/filterActions';
@@ -10,8 +11,10 @@ import { IApp } from '../types/main';
 import { IFilter, IFilterDelta } from '../types/filter';
 import { IWine } from '../types/wine';
 
+import Header from './Header';
 import WineList from './WineList';
 import Filters from './filters/Filters';
+import StickyFilterHeader from './filters/StickyFilterHeader';
 import SearchFilter from './filters/SearchFilter';
 
 import * as actions from '../actions/wineActions';
@@ -26,19 +29,43 @@ interface Props {
 
 interface State {
     searchQuery: string;
+    isStickyHeaderShown: boolean;
 }
 
 @PureRender
 class HomePage extends React.Component<Props, State> {
 
     state: State = {
-        searchQuery: ''
+        searchQuery: '',
+        isStickyHeaderShown: false
     };
+
+    private winelist: Element;
+    private debouncedScrollHandler;
 
     componentDidMount() {
         if (this.props.wines.length === 0) {
             const { dispatch, filter } = this.props;
             dispatch(fetchWines(filter));
+        }
+        this.winelist = ReactDOM.findDOMNode(this.refs["winelist"]);
+        this.debouncedScrollHandler = debounce(this.handlePageScroll, 50);
+        window.addEventListener('scroll', this.handlePageScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handlePageScroll);
+    }
+
+    private handlePageScroll = () => {
+        if (document.body.scrollTop + 100 > this.winelist["offsetTop"]) {
+            if (!this.state.isStickyHeaderShown) {
+                this.setState({ isStickyHeaderShown: true } as State)
+            }
+        } else {
+            if (this.state.isStickyHeaderShown) {
+                this.setState({ isStickyHeaderShown: false } as State)
+            }
         }
     }
 
@@ -73,16 +100,20 @@ class HomePage extends React.Component<Props, State> {
     private handleSearchQueryChange = (value: string) => {
         this.setState({
             searchQuery: value
-         });
+         } as State);
     }
 
     render() {
         const filteredWines = this.getFilteredWines();
         return (
             <div>
-                <div className="logo-container">
-                    <h1 className="logo">fifty-five</h1>
-                </div>
+                <Header />
+                {this.state.isStickyHeaderShown ?
+                    <StickyFilterHeader
+                        filter={this.props.filter}
+                        onChange={this.handleFilterUpdate}
+                    />  : null
+                }
                 <Filters
                     wines={this.props.allWines}
                     filter={this.props.filter}
@@ -95,6 +126,7 @@ class HomePage extends React.Component<Props, State> {
                     onChange={this.handleSearchQueryChange}
                  />
                 <WineList
+                    ref="winelist"
                     filteredWines={filteredWines}
                     searchQuery={this.state.searchQuery}
                 />

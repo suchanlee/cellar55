@@ -11,11 +11,13 @@
 @input-border: 1px solid @light-gray - #111;
 @input-border-color-active: @gray;
 
+@max-width: 800px;
+
 body {
   margin: 0 auto;
   padding: 0;
   width: 100%;
-  max-width: 800px;
+  max-width: @max-width;
   font-family: @acumin-family;
   color: @gray;
 }
@@ -24,8 +26,35 @@ h2, h3, h4 {
   color: @dark-gray;
 }
 
+header {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+
+  a {
+    text-decoration: none;
+    color: #4e4e4e;
+  }
+}
+
 #app {
   padding: 0 10px 80px;
+}
+
+.nav-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: inline-block;
+  float: right;
+  line-height: 50px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  font-size: 14px;
+
+  li a:hover {
+    border-bottom: 2px solid #4e4e4e;
+    padding-bottom: 1px;
+  }
 }
 
 .checkbox-container {
@@ -115,14 +144,12 @@ h2, h3, h4 {
 }
 
 .logo-container {
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  display: inline-block;
 }
 
 .logo {
   margin: 0;
   font-size: 40px;
-  color: #4e4e4e;
   font-weight: 500;
   letter-spacing: 1px;
   font-family: @abril-family;
@@ -545,5 +572,19 @@ h2, h3, h4 {
     }
 }
 
+.sticky-filter-header-container {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
 
+.sticky-filter-header {
+  margin: 0 auto;
+  width: 100%;
+  max-width: @max-width;
+  background: green;
+  padding: 15px;
+}
 
