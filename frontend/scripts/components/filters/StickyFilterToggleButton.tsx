@@ -11,12 +11,14 @@ export default class StickyFilterToggleButton extends React.Component<Props, voi
 
     render() {
         return (
-            <span
+            <div
+                className="sticky-filter-header-empty-container"
                 onClick={this.props.onToggle}
-                className="sticky-filter-header-toggle-button"
             >
-                {this.props.isShown ? "hide filter -" : "show filter +"}
-            </span>
+                <span className="sticky-filter-header-toggle-button">
+                    {this.props.isShown ? "hide filter -" : "show filter +"}
+                </span>
+            </div>
         )
     }
 

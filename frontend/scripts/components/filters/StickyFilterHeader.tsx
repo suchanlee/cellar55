@@ -5,6 +5,7 @@ import { IWine } from '../../types/wine';
 import { IFilter, IFilterDelta } from '../../types/filter';
 import StickyFilterToggleButton from "./StickyFilterToggleButton";
 import Filters from "./Filters";
+import StickyFilterHeaderList from "./StickyFilterHeaderList";
 
 interface Props {
     wines: IWine[]
@@ -43,21 +44,11 @@ export default class StickyFilterHeader extends React.Component<Props, State> {
         return (
             <div className="sticky-filter-header-container">
                 <div className="sticky-filter-header">
-                    {this.isFilterEmpty() ?
-                        <div className="sticky-filter-header-empty-container">
-                            <StickyFilterToggleButton
-                                isShown={this.state.isFiltersShown}
-                                onToggle={this.toggleFilterShown}
-                            />
-                        </div> :
-                        <div>
-                            Filters...
-                            <StickyFilterToggleButton
-                                isShown={this.state.isFiltersShown}
-                                onToggle={this.toggleFilterShown}
-                            />
-                        </div>
-                    }
+                    {this.isFilterEmpty() ? null : <StickyFilterHeaderList filter={this.props.filter} />}
+                    <StickyFilterToggleButton
+                        isShown={this.state.isFiltersShown}
+                        onToggle={this.toggleFilterShown}
+                    />
                     {this.state.isFiltersShown ?
                         <div className="sticky-filter-header-filter-container">
                             <Filters
