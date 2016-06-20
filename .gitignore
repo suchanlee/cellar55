@@ -1,6 +1,7 @@
 *.pyc
 .DS_Store
 build/
+log/
 bundle.js
 bundle.js.map
 node_modules/

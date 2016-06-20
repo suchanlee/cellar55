@@ -6,12 +6,20 @@ from bs4 import BeautifulSoup
 
 from app import db
 from models import Wine, Entry
+from logger import Logger
 
 base_url = 'https://www.sommselect.com'
+job_logger = Logger()
 
 def scrape_current_wine():
+    job_logger.info("Starting scrape_current_wine")
     scraper = WineScraper()
-    scraper.save(db)
+    name = scraper.get_name()
+    if Wine.query.filter_by(name=name).first() is None:
+        scraper.save(db)
+        job_logger.info("Finished scrape_current_wine")
+    else:
+        job_logger.info("Aborted scrape_current_wine: wine {0} already exists".format(name.encode('ascii', 'ignore')))
 
 def scrape_archived_wines():
     countries = ['United%20States', 'Italy', 'France']
@@ -34,12 +42,18 @@ class WineScraper:
         self.request()
 
     def request(self):
-        self.request = requests.get('{0}{1}'.format(self.base_url, self.url))
+        try:
+            job_logger.info("Requesting GET from {0}{1}".format(self.base_url, self.url))
+            self.request = requests.get('{0}{1}'.format(self.base_url, self.url))
+            job_logger.info("Received GET from {0}{1}".format(self.base_url, self.url))
+        except requests.exceptions.RequestException as error:
+            job_logger.error("Failed GET from {0}{1}".format(self.base_url, self.url), error)
         self.soup = BeautifulSoup(self.request.content, 'html.parser')
 
     def save(self, db):
         tech_notes = self.get_tech_notes()
         wine_specs = self.get_wine_specs()
+        import pdb; pdb.set_trace()
         try:
             wine = Wine(
                 name = self.get_name(),
@@ -70,9 +84,9 @@ class WineScraper:
                 wine = wine)
             db.session.add(entry)
             db.session.commit()
-            print('Saved {0}'.format(self.get_name()))
-        except:
-            print('Failed to save wine: {0}'.format(self.get_name().encode('ascii', 'ignore')))
+            job_logger.info('Saved wine: {0}'.format(self.get_name().encode('ascii', 'ignore')))
+        except Exception as error:
+            job_logger.error('Failed to save wine: {0}'.format(self.get_name().encode('ascii', 'ignore')), error)
             db.session.rollback()
 
     def get_name(self):
