@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
-import { map, debounce } from 'lodash';
+import { isEqual, map, debounce } from 'lodash';
 
 import { IWine } from '../types/wine';
 import WineItem from './WineItem';
@@ -33,7 +33,11 @@ export default class WineList extends React.Component<Props, State> {
     }
 
     componentWillReceiveProps(nextProps: Props) {
-        this.setState({ pages: 1 });
+        if (!isEqual(
+            map(this.props.filteredWines, (w) => w.id),
+            map(nextProps.filteredWines, (w) => w.id))) {
+            this.setState({ pages: 1 });
+        }
     }
 
     componentWillUnmount() {

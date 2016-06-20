@@ -110,14 +110,17 @@ class HomePage extends React.Component<Props, State> {
                 <Header />
                 {this.state.isStickyHeaderShown ?
                     <StickyFilterHeader
+                        wines={this.props.allWines}
                         filter={this.props.filter}
-                        onChange={this.handleFilterUpdate}
+                        onFilterUpdate={this.handleFilterUpdate}
+                        onFilterApply={this.handleFilterApply}
+                        onFilterClear={this.handleFilterClear}
                     />  : null
                 }
                 <Filters
                     wines={this.props.allWines}
                     filter={this.props.filter}
-                    onFilterUpdate={(delta: IFilterDelta) => this.handleFilterUpdate(delta)}
+                    onFilterUpdate={this.handleFilterUpdate}
                     onFilterApply={this.handleFilterApply}
                     onFilterClear={this.handleFilterClear}
                  />
