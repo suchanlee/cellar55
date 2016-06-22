@@ -1,3 +1,4 @@
+import "whatwg-fetch";
 import queryString = require('query-string');
 import objectAssign = require('object-assign');
 import { map, filter } from 'lodash';
