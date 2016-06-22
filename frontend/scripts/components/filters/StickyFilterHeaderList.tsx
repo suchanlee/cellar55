@@ -50,7 +50,6 @@ export default class StickyFilterHeaderList extends React.Component<Props, void>
             return this.renderFilters("vintage", [`${filter.vintage_from}-${filter.vintage_to}`]);
         }
         return null;
-
     }
 
     render() {
