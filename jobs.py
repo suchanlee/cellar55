@@ -1,3 +1,4 @@
+import sys
 import re
 from sets import Set
 
@@ -44,11 +45,12 @@ class WineScraper:
     def request(self):
         try:
             job_logger.info("Requesting GET from {0}{1}".format(self.base_url, self.url))
-            self.request = requests.get('{0}{1}'.format(self.base_url, self.url))
+            res = requests.get('{0}{1}'.format(self.base_url, self.url))
             job_logger.info("Received GET from {0}{1}".format(self.base_url, self.url))
+            self.soup = BeautifulSoup(res.content, 'html.parser')
         except requests.exceptions.RequestException as error:
             job_logger.error("Failed GET from {0}{1}".format(self.base_url, self.url), error)
-        self.soup = BeautifulSoup(self.request.content, 'html.parser')
+            sys.exit(0)
 
     def save(self, db):
         tech_notes = self.get_tech_notes()
