@@ -1,0 +1,16 @@
+COMMON: &common
+  SECRET_KEY: secretkey
+  TESTING: False
+  CSRF_ENABLED: True
+  SQLALCHEMY_DATABASE_URI: postgresql://localhost/cellar55?client_encoding=utf8
+
+DEVELOPMENT: &development
+  <<: *common
+  DEBUG: True
+  DEVELOPMENT: True
+
+PRODUCTION: &production
+  <<: *common
+  DEBUG: False
+  DEVELOPMENT: False
+  SECRET_KEY: secretkey

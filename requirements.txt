@@ -11,6 +11,7 @@ MarkupSafe==0.23
 psycopg2==2.6.1
 python-dateutil==2.5.0
 python-editor==0.5
+PyYAML==3.11
 requests==2.9.1
 simplejson==3.8.2
 six==1.10.0
