@@ -1,4 +1,4 @@
-from app import db
+from cellar55 import db
 
 
 class Wine(db.Model):

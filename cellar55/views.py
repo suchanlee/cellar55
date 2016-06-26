@@ -2,8 +2,8 @@ from flask import jsonify, render_template, request, url_for
 from sqlalchemy import or_
 from werkzeug.exceptions import NotFound
 
-from app import app
-from models import Wine
+from cellar55 import app
+from cellar55.models import Wine
 
 def get_api_route(subpath):
     return '/api/{0}'.format(subpath)

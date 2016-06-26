@@ -2,7 +2,6 @@ import yaml
 from os import environ, path
 
 from flask import Flask as BaseFlask, Config as BaseConfig
-
 from flask_sqlalchemy import SQLAlchemy
 
 # yaml-based config snipper from: https://gist.github.com/mattupstate/2046115
@@ -38,3 +37,4 @@ class Flask(BaseFlask):
 app = Flask(__name__)
 app.config.from_yaml(path.join(app.root_path, "conf", "config.yml"))
 db = SQLAlchemy(app)
+import cellar55.views

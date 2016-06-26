@@ -5,9 +5,9 @@ from sets import Set
 import requests
 from bs4 import BeautifulSoup
 
-from app import db
-from models import Wine, Entry
-from logger import Logger
+from cellar55 import db
+from cellar55.models import Wine, Entry
+from cellar55.logger import Logger
 
 base_url = 'https://www.sommselect.com'
 job_logger = Logger()
