@@ -2,6 +2,7 @@ COMMON: &common
   SECRET_KEY: secretkey
   CSRF_ENABLED: True
   SQLALCHEMY_DATABASE_URI: postgresql://localhost/cellar55?client_encoding=utf8
+  LOG_DIR: log
 
 DEVELOPMENT: &development
   <<: *common
@@ -15,3 +16,4 @@ PRODUCTION: &production
   DEVELOPMENT: False
   TESTING: False
   SECRET_KEY: secretkey
+

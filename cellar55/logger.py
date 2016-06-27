@@ -3,12 +3,14 @@ import logging.handlers
 import datetime
 import os
 
-LOG_DIR = "log"
+from cellar55 import app
+
+LOG_DIR = app.config["LOG_DIR"]
 LOG_FILENAME = "job.log"
 LOG_FILE_MAX_BYTES = 1000 * 1000 * 50
 BACKUP_COUNT = 5
 
-LOG_PATH = "{0}/{1}".format(LOG_DIR, LOG_FILENAME)
+LOG_PATH = os.path.join(LOG_DIR, LOG_FILENAME)
 
 class Logger:
 
