@@ -4,7 +4,7 @@ from sets import Set
 
 import requests
 from bs4 import BeautifulSoup
-import pdb; pdb.set_trace()
+
 from cellar55 import db
 from cellar55.models import Wine, Entry
 from cellar55.logger import Logger
@@ -55,7 +55,6 @@ class WineScraper:
     def save(self, db):
         tech_notes = self.get_tech_notes()
         wine_specs = self.get_wine_specs()
-        import pdb; pdb.set_trace()
         try:
             wine = Wine(
                 name = self.get_name(),
