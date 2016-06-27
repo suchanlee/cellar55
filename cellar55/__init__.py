@@ -10,17 +10,17 @@ class Config(BaseConfig):
     """Flask config enhanced with a `from_yaml` method."""
 
     def from_yaml(self, config_file):
-        env = environ.get('FLASK_ENV', 'development')
+        env = environ.get('FLASK_ENV', 'DEVELOPMENT')
         self['ENVIRONMENT'] = env.lower()
 
         with open(config_file) as f:
-            c = yaml.load(f)
+            conf = yaml.load(f)
 
-        c = c.get(env, c)
+        conf = conf.get(env, conf)
 
-        for key in c.iterkeys():
+        for key in conf.iterkeys():
             if key.isupper():
-                self[key] = c[key]
+                self[key] = conf[key]
 
 class Flask(BaseFlask):
     """Extended version of `Flask` that implements custom config class"""
@@ -35,6 +35,6 @@ class Flask(BaseFlask):
 
 
 app = Flask(__name__)
-app.config.from_yaml(path.join(app.root_path, "conf", "config.yml"))
+app.config.from_yaml(path.join(app.root_path, "..", "conf", "config.yml"))
 db = SQLAlchemy(app)
 import cellar55.views

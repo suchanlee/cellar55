@@ -4,7 +4,7 @@ from sets import Set
 
 import requests
 from bs4 import BeautifulSoup
-
+import pdb; pdb.set_trace()
 from cellar55 import db
 from cellar55.models import Wine, Entry
 from cellar55.logger import Logger

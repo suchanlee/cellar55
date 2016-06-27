@@ -2,6 +2,7 @@ import psycopg2
 import psycopg2.extensions
 
 from cellar55 import app
+import pdb; pdb.set_trace()
 
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)

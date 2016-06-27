@@ -3,4 +3,7 @@
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 rootdir="$(dirname $(dirname $dir))"
-"$rootdir/bin/python" "$rootdir/cellar55/scrape_job.py"
+
+cd "$rootdir/cellar55"
+ls
+"$rootdir/bin/python" cellar55/scrape_job.py

@@ -1,11 +1,7 @@
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
-from app import app, db
-from config import DevelopmentConfig
-from models import *
-
-app.config.from_object(DevelopmentConfig)
+from cellar55 import app, db
 
 migrate = Migrate(app, db)
 manager = Manager(app)
