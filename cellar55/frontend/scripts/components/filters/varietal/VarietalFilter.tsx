@@ -6,6 +6,7 @@ import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from 
 import { GrapeVarietals } from '../../../constants/Constants';
 import { IFilter, IFilterDelta } from '../../../types/filter';
 import { IWine } from '../../../types/wine';
+import { toTitleCase } from "../../../helpers/helpers";
 
 import BaseFilter from '../BaseFilter';
 import CaretDownIcon from '../../icons/CaretDownIcon';
@@ -104,7 +105,7 @@ export default class VarietalFilter extends React.Component<Props, State> {
                                 checked={checked}
                                 onChange={() => this.handleVarietalClick(entry.name)}
                             >
-                                {entry.name}
+                                {toTitleCase(entry.name)}
                             </CheckboxInput>
                         </span>
                     })}

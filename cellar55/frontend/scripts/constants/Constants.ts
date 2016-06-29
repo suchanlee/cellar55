@@ -1,4 +1,4 @@
-export const WineTypes = ['red', 'white', 'rose', 'sparkling'];
+export const WineTypes = ['Red', 'White', 'Rose', 'Sparkling'];
 
 export const WineType = {
     'RED': 'RED',

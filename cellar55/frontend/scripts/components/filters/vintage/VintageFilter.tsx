@@ -99,8 +99,9 @@ export default class Filters extends React.Component<Props, State> {
                                     <option key={v} value={v}>{v}</option>
                                 ))}
                             </select>
+                            <span className="vintage-range-filter-dash" />
                             <select
-                                className="select vintage-filter-vintage-to-select"
+                                className="select"
                                 value={this.props.filter.vintage_to}
                                 onChange={this.handleVintageToChange}
                             >

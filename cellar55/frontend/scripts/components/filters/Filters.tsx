@@ -53,14 +53,12 @@ export default class Filters extends React.Component<Props, void> {
                     filter={this.props.filter}
                     vintages={this.getAllVintages()}
                 />
-                <div className="filter-row filter-button-row">
-                    <button
-                        className="filter-update-button"
-                        onClick={this.props.onFilterApply}
-                    >
-                        Update Filters
-                    </button>
-                </div>
+                <button
+                    className="filter-update-button"
+                    onClick={this.props.onFilterApply}
+                >
+                    APPLY FILTERS
+                </button>
             </div>
         );
     }
