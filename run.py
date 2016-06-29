@@ -7,4 +7,4 @@ psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=app.config["PORT"])
