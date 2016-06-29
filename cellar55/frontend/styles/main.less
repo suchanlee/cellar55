@@ -3,22 +3,20 @@
 @abril-family: "abril-fatface", 'Georgia', serif;
 @bodoni-family: 'ltc-bodoni-175', 'Georgia', serif;
 @acumin-family: 'Avenir', 'canada-type-gibson', 'Helvetica', sans-serif;
+@freight-sans-family: "freight-sans-pro", "Avenir", "Helvetica", sans-serif;
 
-@circle-diameter: 7px;
+@circle-diameter: 6px;
 @filter-key-width: 150px;
 @region-filter-width: 280px;
 
 @input-border: 1px solid @light-gray - #111;
 @input-border-color-active: @gray;
 
-@max-width: 800px;
-
 body {
   margin: 0 auto;
   padding: 0;
   width: 100%;
-  max-width: @max-width;
-  font-family: @acumin-family;
+  font-family: @freight-sans-family;
   color: @gray;
 }
 
@@ -36,8 +34,42 @@ header {
   }
 }
 
-#app {
-  padding: 0 10px 80px;
+.panel-container {
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+
+.wine-panel {
+  z-index: 1;
+  width: 60%;
+}
+
+.filter-panel {
+  z-index: 2;
+  width: 40%;
+  background-color: #fafafa;
+  -webkit-box-shadow: 2px 0px 5px -2px #b9b9b9;
+  -moz-box-shadow: 2px 0px 5px -2px #b9b9b9;
+  box-shadow: 2px 0px 5px -2px #b9b9b9;
+}
+
+.wine-panel-header {
+  text-align: right;
+  padding: 14px 20px;
+  -webkit-box-shadow: 0px 1px 2px 0px #b9b9b9;
+  -moz-box-shadow: 0px 1px 2px 0px #b9b9b9;
+  box-shadow: 0px 1px 2px 0px #b9b9b9;
+}
+
+.wine-count {
+  font-size: 16px;
 }
 
 .nav-list {
@@ -131,7 +163,7 @@ header {
   width: 280px;
   height: 32px;
   padding: 9px 8px 8px 33px;
-  font-family: @acumin-family;
+  font-family: @freight-sans-family;
   font-size: 14px;
   border: @input-border;
   border-radius: 5px;
@@ -158,14 +190,47 @@ header {
 .wine-list {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  height: ~'calc(100% - 60px)';
+  width: 100%;
+  overflow-y: auto;
 }
 
 .wine-item {
+  position: relative;
   width: 100%;
-  margin-bottom: 50px;
+  border-bottom: 1px solid #d8d8d8;
 
   &:last-child {
-    margin-bottom: 0;
+    boder-bottom: none;
+  }
+}
+
+.wine-type-column {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 8px;
+
+  &.red {
+    background-color: @wine-red;
+  }
+
+  &.white {
+    background-color: @wine-white;
+    border: 1px solid rgb(236, 239, 167);
+  }
+
+  &.rose {
+    background-color: @wine-rose;
+  }
+
+  &.sparkling {
+    border: 1px solid @wine-white;
   }
 }
 
@@ -200,13 +265,7 @@ header {
 }
 
 .wine-item-container {
-  display: flex;
-}
-
-.wine-item-info-container {
-  font-size: 15px;
-  width: 50%;
-  align-self: flex-end;
+  padding: 15px 40px;
 
   .wine-name-container {
     margin-bottom: 15px;
@@ -219,11 +278,10 @@ header {
 
   .wine-name {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 24px;
     margin: 0;
     color: @dark-gray;
-    letter-spacing: 0.3px;
-    line-height: 21px;
+    line-height: 27px;
   }
 
   .quote {
@@ -234,31 +292,33 @@ header {
     font-style: italic;
   }
 
+  .region {
+    margin-top: 8px;
+  }
+
   .varietal {
-    margin-top: 4px;
+    margin-top: 0px;
   }
 }
 
 .wine-item-ratings-container {
-  width: 50%;
-  margin-left: 40px;
-  align-self: flex-end;
+  margin-top: 18px;
+  max-width: 600px;
 }
 
 .ratings {
-  margin-top: 25px;
   border-spacing: 0px;
   font-size: 13px;
 }
 
 .rating {
-  width: 50%;
+  width: 32%;
   display: inline-block;
   color: @gray;
   padding: 2px 0;
 
   .rating-type {
-    width: 50px;
+    width: 47px;
   }
 
   .circle {
@@ -267,7 +327,7 @@ header {
     border-radius: @circle-diameter;
     border: 2px solid @rating-gray;
     display: inline-block;
-    margin-right: 6px;
+    margin-right: 4px;
   }
 
   .full-circle {
@@ -544,11 +604,12 @@ header {
 }
 
 .search-filter-container {
-  margin: 40px 0;
+  display: inline-block;
 }
 
 .search-filter-input {
-  width: 400px;
+  width: 250px;
+  margin-right: 20px;
 }
 
 .filter-button-row {
@@ -585,7 +646,6 @@ header {
 .sticky-filter-header {
   margin: 0 auto;
   width: 100%;
-  max-width: @max-width;
   padding: 5px 15px;
   box-shadow: 0px 0px 2px #eee;
   border: 1px solid #eee;

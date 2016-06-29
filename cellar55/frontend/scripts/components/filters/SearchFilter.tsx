@@ -19,7 +19,7 @@ export default class SearchFilter extends React.Component<Props, void> {
                     value={this.props.value}
                     onChange={(evt) => this.props.onChange(evt.target['value'])}
                     type="text"
-                    placeholder="Search for region, varietal, vintage, winery, etc..."
+                    placeholder="Search within results..."
                 />
             </div>
         );

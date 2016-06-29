@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
-import { Link } from 'react-router';
 import * as classNames from 'classnames';
-import * as Constants from '../constants/Constants';
+import { WineType } from '../constants/Constants';
+import { Link } from 'react-router';
 
 import { IWine } from '../types/wine';
 import WineTypeBox from './WineTypeBox';
@@ -58,22 +58,29 @@ export default class WineItem extends React.Component<Props, void> {
 
     render() {
         const wine: IWine = this.props.wine;
+        const wineType = wine.wine_type;
         const wineName: WineName = this.getWineName();
         return (
-            <li className='wine-item'>
-                <div className="wine-type-container">
-                    <WineTypeBox wineType={wine.wine_type} />
-                </div>
+            <li className={classNames('wine-item', {
+                'red': wineType.toUpperCase() === WineType.RED,
+                'white': wineType.toUpperCase() === WineType.WHITE,
+                'rose': wineType.toUpperCase() === WineType.ROSE,
+                'sparkling': wineType.toUpperCase() === WineType.SPARKLING
+            })}>
+                <div className={classNames('wine-type-column', {
+                    'red': wineType.toUpperCase() === WineType.RED,
+                    'white': wineType.toUpperCase() === WineType.WHITE,
+                    'rose': wineType.toUpperCase() === WineType.ROSE,
+                    'sparkling': wineType.toUpperCase() === WineType.SPARKLING
+                })} />
                 <div className="wine-item-container">
-                    <div className='wine-item-info-container'>
-                        <div className='wine-item-info'>
-                            <Link to={`/wine/${wine.id}`} className="wine-name-container">
-                                <div className='wine-name'>{wineName.winery}</div>
-                                <div className='wine-name'>{wineName.rest}</div>
-                            </Link>
-                            <div>{`${wine.subregion}, ${wine.region} ${wine.vintage}`}</div>
-                            <div className='varietal'>{wine.varietal}</div>
-                        </div>
+                    <div className='wine-item-info'>
+                        <Link to={`/wine/${wine.id}`} className="wine-name-container">
+                            <div className='wine-name'>{wineName.winery}</div>
+                            <div className='wine-name'>{wineName.rest}</div>
+                        </Link>
+                        <div className="region">{`${wine.subregion}, ${wine.region} ${wine.vintage}`}</div>
+                        <div className='varietal'>{wine.varietal}</div>
                     </div>
                     <div className="wine-item-ratings-container">
                         <table className="ratings">

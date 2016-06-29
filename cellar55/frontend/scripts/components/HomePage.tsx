@@ -1,23 +1,25 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as PureRender from 'pure-render-decorator';
-import objectAssign = require('object-assign');
-import { connect } from 'react-redux';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as PureRender from "pure-render-decorator";
+import objectAssign = require("object-assign");
+import { connect } from "react-redux";
 import { filter, defer, debounce } from "lodash";
 
-import { fetchWines, fetchWinesWithNewFilter } from '../actions/wineActions';
-import { changeFilter, clearFilter } from '../actions/filterActions';
-import { IApp } from '../types/main';
-import { IFilter, IFilterDelta } from '../types/filter';
-import { IWine } from '../types/wine';
+import { fetchWines, fetchWinesWithNewFilter } from "../actions/wineActions";
+import { changeFilter, clearFilter } from "../actions/filterActions";
+import { IApp } from "../types/main";
+import { IFilter, IFilterDelta } from "../types/filter";
+import { IWine } from "../types/wine";
 
-import Header from './Header';
-import WineList from './WineList';
-import Filters from './filters/Filters';
-import StickyFilterHeader from './filters/StickyFilterHeader';
-import SearchFilter from './filters/SearchFilter';
+import Header from "./Header";
+import WineList from "./WineList";
+import Filters from "./filters/Filters";
+import StickyFilterHeader from "./filters/StickyFilterHeader";
+import SearchFilter from "./filters/SearchFilter";
+import FilterPanel from "./FilterPanel";
+import WinePanel from "./WinePanel";
 
-import * as actions from '../actions/wineActions';
+import * as actions from "../actions/wineActions";
 
 interface Props {
     dispatch?: any;
@@ -36,7 +38,7 @@ interface State {
 class HomePage extends React.Component<Props, State> {
 
     state: State = {
-        searchQuery: '',
+        searchQuery: "",
         isStickyHeaderShown: false
     };
 
@@ -50,11 +52,11 @@ class HomePage extends React.Component<Props, State> {
         }
         this.winelist = ReactDOM.findDOMNode(this.refs["winelist"]);
         this.debouncedScrollHandler = debounce(this.handlePageScroll, 50);
-        window.addEventListener('scroll', this.handlePageScroll);
+        window.addEventListener("scroll", this.handlePageScroll);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handlePageScroll);
+        window.removeEventListener("scroll", this.handlePageScroll);
     }
 
     private handlePageScroll = () => {
@@ -106,34 +108,19 @@ class HomePage extends React.Component<Props, State> {
     render() {
         const filteredWines = this.getFilteredWines();
         return (
-            <div>
-                <Header />
-                {this.state.isStickyHeaderShown ?
-                    <StickyFilterHeader
-                        wines={this.props.allWines}
-                        filter={this.props.filter}
-                        onFilterUpdate={this.handleFilterUpdate}
-                        onFilterApply={this.handleFilterApply}
-                        onFilterClear={this.handleFilterClear}
-                    />  : null
-                }
-                <Filters
+            <div className="panel-container">
+                <FilterPanel
                     wines={this.props.allWines}
                     filter={this.props.filter}
                     onFilterUpdate={this.handleFilterUpdate}
                     onFilterApply={this.handleFilterApply}
                     onFilterClear={this.handleFilterClear}
                  />
-                 <SearchFilter
-                    value={this.state.searchQuery}
-                    onChange={this.handleSearchQueryChange}
-                 />
-                <WineList
-                    ref="winelist"
+                 <WinePanel
                     filteredWines={filteredWines}
                     searchQuery={this.state.searchQuery}
-                />
-
+                    onSearchQueryChange={this.handleSearchQueryChange}
+                 />
             </div>
         )
     }

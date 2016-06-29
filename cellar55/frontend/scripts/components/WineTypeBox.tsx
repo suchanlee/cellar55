@@ -9,6 +9,7 @@ interface Props {
     className?: string;
 }
 
+//DELETE
 @PureRender
 export default class WineTypeBox extends React.Component<Props, void> {
 
