@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+dir=$( cd $(dirname $0) ; pwd -P )
 rootdir="$(dirname $(dirname $dir))"
 
 export FLASK_ENV=PRODUCTION

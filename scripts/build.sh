@@ -1,10 +1,10 @@
 #!/bin/sh
 
-curdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-rootdir="$(dirname $(dirname $curdir))"
+dir=$( cd $(dirname $0) ; pwd -P )
+rootdir="$(dirname $(dirname $dir))"
 
-# install python dependencies
-"$rootdir/bin/pip" install -r "$curdir/../requirements.txt"
+install python dependencies
+"$rootdir/bin/pip" install -r "$dir/../requirements.txt"
 
 # migrate db
 cd "$rootdir/cellar55"
