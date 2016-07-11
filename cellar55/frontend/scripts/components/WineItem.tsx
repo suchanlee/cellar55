@@ -67,32 +67,24 @@ export default class WineItem extends React.Component<Props, void> {
                 'rose': wineType.toUpperCase() === WineType.ROSE,
                 'sparkling': wineType.toUpperCase() === WineType.SPARKLING
             })}>
-                <div className={classNames('wine-type-column', {
-                    'red': wineType.toUpperCase() === WineType.RED,
-                    'white': wineType.toUpperCase() === WineType.WHITE,
-                    'rose': wineType.toUpperCase() === WineType.ROSE,
-                    'sparkling': wineType.toUpperCase() === WineType.SPARKLING
-                })} />
                 <div className="wine-item-container">
+                    <div className="wine-item-image-container">
+                        <img src={`https://${wine.alt_image_url}`} alt={wine.name} />
+                    </div>
                     <div className='wine-item-info'>
+                         <div className={classNames('wine-type-column', {
+                            'red': wineType.toUpperCase() === WineType.RED,
+                            'white': wineType.toUpperCase() === WineType.WHITE,
+                            'rose': wineType.toUpperCase() === WineType.ROSE,
+                            'sparkling': wineType.toUpperCase() === WineType.SPARKLING
+                            })} />
                         <Link to={`/wine/${wine.id}`} className="wine-name-container">
                             <div className='wine-name'>{wineName.winery}</div>
                             <div className='wine-name'>{wineName.rest}</div>
                         </Link>
-                        <div className="region">{`${wine.subregion}, ${wine.region} ${wine.vintage}`}</div>
-                        <div className='varietal'>{wine.varietal}</div>
-                    </div>
-                    <div className="wine-item-ratings-container">
-                        <table className="ratings">
-                            <tbody>
-                                {this.renderRating('Fruit', wine.fruit_rating)}
-                                {this.renderRating('Tannin', wine.tannin_rating)}
-                                {this.renderRating('Earth', wine.earth_rating)}
-                                {this.renderRating('Acid', wine.acid_rating)}
-                                {this.renderRating('Body', wine.body_rating)}
-                                {this.renderRating('Alcohol', wine.alcohol_rating)}
-                            </tbody>
-                        </table>
+                        <div className="region">{`${wine.subregion}, ${wine.region}`}</div>
+                        <div className="vintage">{wine.vintage}</div>
+                        <div className="varietal">{wine.varietal}</div>
                     </div>
                 </div>
             </li>
