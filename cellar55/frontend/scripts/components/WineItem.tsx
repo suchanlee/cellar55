@@ -27,33 +27,12 @@ export default class WineItem extends React.Component<Props, void> {
         };
     }
 
-    private renderCircles(circleClass: string, count: number): React.ReactElement<any>[] {
-        let circles: React.ReactElement<any>[] = [];
-        for (var i = 0; i < count; i++) {
-            if (circleClass.indexOf('half-circle')) {
-                circles.push(<span key={`${circleClass}-${i}`} className={circleClass}><span /></span>);
-            } else {
-                circles.push(<span key={`${circleClass}-${i}`} className={circleClass} />);
-            }
-
+    private getRegion(): string {
+        const { wine } = this.props;
+        if (wine.subregion.trim().length === 0 || wine.subregion.toLowerCase() === "n/a") {
+            return wine.region;
         }
-        return circles;
-    }
-
-    private renderRating(ratingType: string, rating: number): React.ReactElement<any> {
-        const numFullCircles: number = Math.floor(rating);
-        const numHalfCircles: number = 2 * (rating - numFullCircles);
-        const numEmptyCircles: number = 5 - numFullCircles - numHalfCircles;
-        return (
-            <tr className="rating">
-                <td className="rating-type">{ratingType}</td>
-                <td>
-                    {this.renderCircles('circle full-circle', numFullCircles)}
-                    {this.renderCircles('circle half-circle', numHalfCircles)}
-                    {this.renderCircles('circle empty-circle', numEmptyCircles)}
-                </td>
-            </tr>
-        );
+        return `${wine.subregion}, ${wine.region}`;
     }
 
     render() {
@@ -61,30 +40,27 @@ export default class WineItem extends React.Component<Props, void> {
         const wineType = wine.wine_type;
         const wineName: WineName = this.getWineName();
         return (
-            <li className={classNames('wine-item', {
-                'red': wineType.toUpperCase() === WineType.RED,
-                'white': wineType.toUpperCase() === WineType.WHITE,
-                'rose': wineType.toUpperCase() === WineType.ROSE,
-                'sparkling': wineType.toUpperCase() === WineType.SPARKLING
-            })}>
+            <li className="wine-item">
                 <div className="wine-item-container">
-                    <div className="wine-item-image-container">
-                        <img src={`https://${wine.alt_image_url}`} alt={wine.name} />
-                    </div>
+                    <div
+                        className="wine-item-image-container"
+                        style={{
+                            backgroundImage: `url(https://${wine.alt_image_url})`
+                        }}
+                    />
                     <div className='wine-item-info'>
-                         <div className={classNames('wine-type-column', {
-                            'red': wineType.toUpperCase() === WineType.RED,
-                            'white': wineType.toUpperCase() === WineType.WHITE,
-                            'rose': wineType.toUpperCase() === WineType.ROSE,
-                            'sparkling': wineType.toUpperCase() === WineType.SPARKLING
-                            })} />
+                        <WineTypeBox wineType={wine.wine_type} />
                         <Link to={`/wine/${wine.id}`} className="wine-name-container">
                             <div className='wine-name'>{wineName.winery}</div>
                             <div className='wine-name'>{wineName.rest}</div>
                         </Link>
-                        <div className="region">{`${wine.subregion}, ${wine.region}`}</div>
-                        <div className="vintage">{wine.vintage}</div>
-                        <div className="varietal">{wine.varietal}</div>
+                        <div className="wine-item-metadata">
+                            <span>{this.getRegion()}</span>
+                            <span className="wine-item-metadata-divider" />
+                            <span>{wine.vintage}</span>
+                            <span className="wine-item-metadata-divider" />
+                            <span>{wine.varietal}</span>
+                        </div>
                     </div>
                 </div>
             </li>

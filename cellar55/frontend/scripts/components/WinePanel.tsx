@@ -11,8 +11,15 @@ interface Props {
     filteredWines: IWine[];
 }
 
+const pluralize = function(word, count, postfix="s") {
+    if (count > 1) {
+        return word + postfix;
+    }
+    return word;
+}
+
 @PureRender
-export default class WinePanel extends React.Component<Props, {}> {
+export default class WinePanel extends React.Component<Props, void> {
 
     render() {
         return (
@@ -23,7 +30,7 @@ export default class WinePanel extends React.Component<Props, {}> {
                         onChange={this.props.onSearchQueryChange}
                     />
                     <span className="wine-count">
-                        {this.props.filteredWines.length} wines
+                        {this.props.filteredWines.length} {pluralize("wine", this.props.filteredWines.length)}
                     </span>
                 </div>
                 <WineList

@@ -94,7 +94,7 @@ export default class Filters extends React.Component<Props, State> {
                                 value={this.props.filter.vintage_from}
                                 onChange={this.handleVintageFromChange}
                             >
-                                <option key="" value="">Select vintage from...</option>
+                                <option key="" value="">Vintage from...</option>
                                 {map(this.props.vintages, (v) => (
                                     <option key={v} value={v}>{v}</option>
                                 ))}
@@ -105,7 +105,7 @@ export default class Filters extends React.Component<Props, State> {
                                 value={this.props.filter.vintage_to}
                                 onChange={this.handleVintageToChange}
                             >
-                                <option key="" value="">Select vintage to...</option>
+                                <option key="" value="">Vintage to...</option>
                                 {map(this.props.vintages, (v) => (
                                     <option key={v} value={v}>{v}</option>
                                 ))}

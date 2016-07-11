@@ -61,15 +61,18 @@ header {
 
 .wine-panel-header {
   text-align: left;
-  padding: 14px 20px;
+  padding-left: 20px;
   border-bottom: 1px solid @light-gray;
 }
 
 .wine-count {
   font-size: 15px;
-  width: 85px;
+  width: 14%;
   display: inline-block;
   letter-spacing: .1;
+  text-align: center;
+  font-weight: 600;
+  color: #9f9f9f;
 }
 
 .nav-list {
@@ -193,8 +196,8 @@ header {
   margin: 0;
   position: absolute;
   left: 0;
-  top: 60px;
-  height: ~'calc(100% - 60px)';
+  top: 53px;
+  height: ~'calc(100% - 53px)';
   width: 100%;
   overflow-y: auto;
 }
@@ -211,42 +214,21 @@ header {
 
 .wine-item-info {
   display: inline-block;
-  width: 60%;
-  padding-left: 30px;
+  width: ~'calc(68% - 25px)';
+  margin-left: 25px;
 }
 
 .wine-item-image-container {
-  width: 35%;
+  width: 30%;
+  height: 170px;
   display: inline-block;
-
-  img {
-    width: 100%;
-  }
-}
-
-.wine-type-column {
-  position: relative;
-  bottom: 20px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: inline-block;
-
-  &.red {
-    background-color: @wine-red;
-  }
-
-  &.white {
-    background-color: @wine-white;
-  }
-
-  &.rose {
-    background-color: @wine-rose;
-  }
-
-  &.sparkling {
-    border: 1px solid @wine-white;
-  }
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .wine-type-container {
@@ -258,8 +240,9 @@ header {
 
 .wine-type-box {
   display: inline-block;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
 
   &.red {
     background-color: @wine-red;
@@ -280,24 +263,26 @@ header {
 }
 
 .wine-item-container {
-  padding: 35px 40px;
+  padding: 20px;
+  position: relative;
+
+  .wine-type-box {
+    position: absolute;
+    top: 20px;
+  }
 
   .wine-name-container {
     margin-bottom: 15px;
     text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   .wine-name {
     font-family: @freight-disp-family;
-    font-weight: 300;
-    font-size: 28px;
+    font-weight: 600;
+    font-size: 27px;
     margin: 0;
     color: @dark-gray;
-    line-height: 34px;
+    line-height: 30px;
     letter-spacing: 0.2;
   }
 
@@ -309,26 +294,19 @@ header {
     font-style: italic;
   }
 
-  .region, .vintage, .varietal{
-    display: inline-block;
+  .wine-item-metadata {
     margin-top: 15px;
-    letter-spacing: .1;
-    line-height: 10px;
-  }
+    font-size: 14px;
+    letter-spacing: 0.1px;
 
-  .region {
-    padding-right: 10px;
-    border-right: 1px solid @gray;
-  }
-
-  .varietal {
-  }
-
-  .vintage{
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-right: 10px;
-    border-right: 1px solid @gray;
+    .wine-item-metadata-divider {
+      border-right: 1px solid @gray;
+      line-height: 13px;
+      margin: 0 10px;
+      display: inline-block;
+      width: 1px;
+      height: 10px;
+    }
   }
 }
 
@@ -642,11 +620,12 @@ header {
 
 .search-filter-container {
   display: inline-block;
-  width: 80%;
+  width: 85%;
+  padding: 10px 0;
+  border-right: 1px solid @light-gray;
 }
 
 .search-filter-input {
-  width: 250px;
   margin-right: 20px;
   width: 100%;
 }
