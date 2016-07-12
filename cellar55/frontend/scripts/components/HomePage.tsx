@@ -10,6 +10,7 @@ import { changeFilter, clearFilter, toggleFilter } from "../actions/filterAction
 import { IApp } from "../types/main";
 import { IFilter, IFilterDelta, IFilterState } from "../types/filter";
 import { IWine } from "../types/wine";
+import { emptyFilter } from "../initialState"
 
 import Header from "./Header";
 import WineList from "./WineList";
@@ -65,7 +66,9 @@ class HomePage extends React.Component<Props, State> {
     }
 
     private handleFilterClear = () => {
-        this.props.dispatch(clearFilter());
+        const { dispatch } = this.props;
+        dispatch(clearFilter());
+        dispatch(fetchWinesWithNewFilter(emptyFilter));
     }
 
     private handleFilterApply = () => {
