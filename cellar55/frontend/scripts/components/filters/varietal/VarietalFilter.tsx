@@ -9,8 +9,6 @@ import { IWine } from '../../../types/wine';
 import { toTitleCase } from "../../../helpers/helpers";
 
 import BaseFilter from '../BaseFilter';
-import CaretDownIcon from '../../icons/CaretDownIcon';
-import CaretUpIcon from '../../icons/CaretUpIcon';
 import { CheckboxInput } from "../../base/CheckboxInput";
 
 const removalReg: RegExp = /\d+\%|n\/a|\-/g;
@@ -90,6 +88,10 @@ export default class VarietalFilter extends React.Component<Props, State> {
         });
     }
 
+    private handleCaretClick = () => {
+        this.setState({ isShowAll: !this.state.isShowAll });
+    }
+
     render() {
         let sortedVarietalEntries: VarietalEntry[] = reverse(sortBy(values(this.getVarietalMap()), 'count'));
         if (!this.state.isShowAll) {
@@ -109,10 +111,14 @@ export default class VarietalFilter extends React.Component<Props, State> {
                             </CheckboxInput>
                         </span>
                     })}
-                    { this.state.isShowAll ?
-                        <CaretUpIcon onClick={() => this.setState({ isShowAll: false })} /> :
-                        <CaretDownIcon onClick={() => this.setState({ isShowAll: true })} />
-                    }
+                    <img
+                        src="/static/images/caret.png"
+                        alt="caret"
+                        onClick={this.handleCaretClick}
+                        className={classNames("caret-icon", {
+                            "closed": !this.state.isShowAll
+                        })}
+                    />
                 </div>
             </BaseFilter>
         );

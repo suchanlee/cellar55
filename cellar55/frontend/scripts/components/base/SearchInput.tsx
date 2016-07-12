@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import { clone } from "lodash";
 
 import MagnifyingGlassIcon from '../icons/MagnifyingGlassIcon';
 

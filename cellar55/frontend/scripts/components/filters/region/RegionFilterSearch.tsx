@@ -126,21 +126,33 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
         this.setState({ focus: false } as State);
     }
 
+    private getInputIconSource(): string {
+        const baseSource = "/static/images/";
+        if (this.state.focus) {
+            return baseSource + "location-purple.png";
+        } else {
+            return baseSource + "location-bw.png";
+        }
+    }
+
     render() {
         return (
             <div className={classNames("region-search-container", {
                 "focus": this.state.focus
             })}>
-                <SearchInput
-                    type="text"
-                    className="region-search-input search-input"
-                    placeholder="Search for regions..."
-                    value={this.state.query}
-                    onChange={this.handleChange}
-                    onKeyDown={this.handleInputKeyDown}
-                    onBlur={this.handleBlur}
-                    onFocus={this.handleFocus}
-                />
+                <div className="search-input-container">
+                    <img className="search-icon" src={this.getInputIconSource()} />
+                    <input
+                        type="text"
+                        className="region-search-input search-input"
+                        placeholder="Search for regions..."
+                        value={this.state.query}
+                        onChange={this.handleChange}
+                        onKeyDown={this.handleInputKeyDown}
+                        onBlur={this.handleBlur}
+                        onFocus={this.handleFocus}
+                    />
+                </div>
                 <RegionSearchDropdown
                     ref="dropdown"
                     isShown={this.state.isDropdownShown}

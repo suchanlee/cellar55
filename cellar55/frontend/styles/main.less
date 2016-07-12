@@ -142,12 +142,22 @@ header {
 
 .region-search-container {
   position: relative;
+
+  .search-input-container {
+    .search-icon {
+      opacity: 0.9;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
 }
 
 .search-input-container {
   position: relative;
 
-  .magnifying-glass-icon {
+  .search-icon {
     position: absolute;
     width: 16px;
     top: 8px;
@@ -156,7 +166,7 @@ header {
   }
 
   &:hover, &.focus {
-    .magnifying-glass-icon {
+    .search-icon {
       opacity: 0.8;
     }
   }
@@ -650,16 +660,18 @@ header {
 .varietal-filter-values-container {
   position: relative;
 
-  .caret-down-icon, .caret-up-icon {
+  .caret-icon {
     width: 15px;
     position: absolute;
     right: 0px;
     top: 0;
-    opacity: 0.7;
     cursor: pointer;
 
-    &:hover {
-      opacity: 1;
+    &.closed {
+      -webkit-transform: rotate(180deg);
+      -moz-transform: rotate(180deg);
+      -o-transform: rotate(180deg);
+      transform:  rotate(180deg);
     }
   }
 }
