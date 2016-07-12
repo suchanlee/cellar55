@@ -46,18 +46,18 @@ def add_filters_to_query(query, attr, items):
     filters = []
     if len(items) > 0:
         for item in items:
-            filters.append(getattr(Wine, attr).ilike('%{0}%'.format(item)))
+            filters.append(getattr(Wine, attr).ilike('%{0}%'.format(item.encode('utf-8'))))
     query = query.filter(or_(*filters))
     return query
 
 def add_region_filters_to_query(query, countries, regions, subregions):
     filters = []
     for country in countries:
-        filters.append(getattr(Wine, 'country').ilike('%{0}%'.format(country)))
+        filters.append(getattr(Wine, 'country').ilike('%{0}%'.format(country.encode('utf-8'))))
     for region in regions:
-        filters.append(getattr(Wine, 'region').ilike('%{0}%'.format(region)))
+        filters.append(getattr(Wine, 'region').ilike('%{0}%'.format(region.encode('utf-8'))))
     for subregion in subregions:
-        filters.append(getattr(Wine, 'subregion').ilike('%{0}%'.format(subregion)))
+        filters.append(getattr(Wine, 'subregion').ilike('%{0}%'.format(subregion.encode('utf-8'))))
     query = query.filter(or_(*filters))
     return query
 
