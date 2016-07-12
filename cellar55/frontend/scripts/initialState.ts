@@ -17,10 +17,6 @@ export const initialState: IApp = {
         current: emptyFilter,
         isOpen: true
     },
-    state: {
-        isFilterOpen: false,
-        isFilterChanged: false,
-    },
     wine: {
         isQueryingWines: true,
         isFetchingEntry: true,
