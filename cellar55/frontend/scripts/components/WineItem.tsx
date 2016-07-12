@@ -29,10 +29,36 @@ export default class WineItem extends React.Component<Props, void> {
 
     private getRegion(): string {
         const { wine } = this.props;
-        if (wine.subregion.trim().length === 0 || wine.subregion.toLowerCase() === "n/a") {
+        if (this.isEmptyValue(wine.subregion)) {
             return wine.region;
         }
         return `${wine.subregion}, ${wine.region}`;
+    }
+
+    private isEmptyValue(value: string): boolean {
+        return value.trim().length === 0 || value.toLowerCase() === "n/a";
+    }
+
+    private renderWineMetadata(): React.ReactElement<any> {
+        const { wine } = this.props;
+        return (
+            <div className="wine-item-metadata">
+                <span>{this.getRegion()}</span>
+                {this.isEmptyValue(wine.vintage) ? null :
+                    <span>
+                        <span className="wine-item-metadata-divider" />
+                        <span>{wine.vintage}</span>
+                    </span>
+                }
+                {this.isEmptyValue(wine.vintage) ? null :
+                    <span>
+                        <span className="wine-item-metadata-divider" />
+                        <span>{wine.varietal}</span>
+                    </span>
+                }
+            </div>
+        )
+
     }
 
     render() {
@@ -56,13 +82,7 @@ export default class WineItem extends React.Component<Props, void> {
                             <div className='wine-name'>{wineName.winery}</div>
                             <div className='wine-name'>{wineName.rest}</div>
                         </Link>
-                        <div className="wine-item-metadata">
-                            <span>{this.getRegion()}</span>
-                            <span className="wine-item-metadata-divider" />
-                            <span>{wine.vintage}</span>
-                            <span className="wine-item-metadata-divider" />
-                            <span>{wine.varietal}</span>
-                        </div>
+                        {this.renderWineMetadata()}
                         <div className="wine-item-filler">css :(</div>
                     </div>
                 </div>
