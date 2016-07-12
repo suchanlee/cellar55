@@ -12,7 +12,15 @@ export const emptyFilter: IFilter = {
 };
 
 export const initialState: IApp = {
-    filter: emptyFilter,
+    filterState: {
+        initial: emptyFilter,
+        current: emptyFilter,
+        isOpen: true
+    },
+    state: {
+        isFilterOpen: false,
+        isFilterChanged: false,
+    },
     wine: {
         isQueryingWines: true,
         isFetchingEntry: true,

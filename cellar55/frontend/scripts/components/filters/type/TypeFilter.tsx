@@ -21,7 +21,7 @@ interface Props {
 export default class TypeFilter extends React.Component<Props, void> {
 
     private handleWineTypeFilterClick(wineType: string): void {
-        let wineTypes: string[] = this.props.filter.wine_types;
+        let wineTypes: string[] = this.props.filter.wine_types.slice();
         const idx: number = wineTypes.indexOf(wineType);
         if (idx >= 0) {
             wineTypes.splice(idx, 1);

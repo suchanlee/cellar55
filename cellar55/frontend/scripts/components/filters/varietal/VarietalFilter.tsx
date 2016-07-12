@@ -78,7 +78,7 @@ export default class VarietalFilter extends React.Component<Props, State> {
     }
 
     private handleVarietalClick = (varietal: string) => {
-        let varietals: string[] = this.props.filter.varietals;
+        let varietals: string[] = this.props.filter.varietals.slice();
         const idx: number = indexOf(varietals, varietal);
         if (idx >= 0) {
             varietals.splice(idx, 1);

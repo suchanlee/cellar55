@@ -7,5 +7,5 @@ export enum ActionType {
     RECEIVE_ENTRY_ERROR,
     CHANGE_FILTER,
     CLEAR_FILTER,
-    APPLY_FILTER
+    TOGGLE_FILTER
 };

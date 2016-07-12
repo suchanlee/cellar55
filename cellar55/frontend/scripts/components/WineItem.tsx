@@ -47,7 +47,9 @@ export default class WineItem extends React.Component<Props, void> {
                         style={{
                             backgroundImage: `url(https://${wine.alt_image_url})`
                         }}
-                    />
+                    >
+                        <Link to={`/wine/${wine.id}`} className="wine-item-image-link" />
+                    </div>
                     <div className='wine-item-info'>
                         <WineTypeBox wineType={wine.wine_type} />
                         <Link to={`/wine/${wine.id}`} className="wine-name-container">

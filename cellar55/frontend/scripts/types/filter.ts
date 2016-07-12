@@ -20,6 +20,12 @@ export interface IFilter {
     name: string;
 }
 
+export interface IFilterState {
+    current: IFilter;
+    initial: IFilter;
+    isOpen: boolean;
+}
+
 export interface IRequestFilter {
     countries: string[];
     regions: string[];

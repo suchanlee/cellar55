@@ -14,8 +14,8 @@ export function clearFilter() {
     };
 }
 
-export function applyFilter() {
+export function toggleFilter() {
     return {
-        type: ActionType.APPLY_FILTER
+        type: ActionType.TOGGLE_FILTER
     };
 }

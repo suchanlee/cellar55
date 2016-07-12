@@ -30,28 +30,27 @@ export default class Filters extends React.Component<Props, State> {
 
     private handleModeClick = (mode: Mode) => {
         this.setState({ mode });
+    }
+
+    private handleSingleVintageChange = (evt: React.SyntheticEvent) => {
         this.props.onFilterUpdate({
-            vintage: "",
+            vintage: evt.target["value"],
             vintage_from: "",
             vintage_to: ""
         });
     }
 
-    private handleSingleVintageChange = (evt: React.SyntheticEvent) => {
-        this.props.onFilterUpdate({
-            vintage: evt.target["value"]
-        });
-    }
-
     private handleVintageFromChange = (evt: React.SyntheticEvent) => {
         this.props.onFilterUpdate({
-            vintage_from: evt.target["value"]
+            vintage_from: evt.target["value"],
+            vintage: ""
         });
     }
 
     private handleVintageToChange = (evt: React.SyntheticEvent) => {
         this.props.onFilterUpdate({
-            vintage_to: evt.target["value"]
+            vintage_to: evt.target["value"],
+            vintage: ""
         });
     }
 

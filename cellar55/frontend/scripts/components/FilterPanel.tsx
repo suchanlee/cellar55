@@ -1,16 +1,17 @@
 import * as React from "react";
 import * as PureRender from "pure-render-decorator";
 
-import { IFilter, IFilterDelta } from "../types/filter";
+import { IFilterState, IFilterDelta } from "../types/filter";
 import { IWine } from "../types/wine";
 import Filters from "./filters/Filters";
 
 interface Props {
     wines: IWine[];
-    filter: IFilter;
+    filterState: IFilterState;
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
     onFilterApply: () => void;
     onFilterClear: () => void;
+    onFilterToggle: () => void;
 }
 
 @PureRender

@@ -1,7 +1,9 @@
-import { IFilter } from './filter';
-import { IWine, IEntry, IWineState } from './wine';
+import { IFilterState } from './filter';
+import { IWine, IWineState } from './wine';
+import { IState } from "./state";
 
 export interface IApp {
-    filter: IFilter;
+    filterState: IFilterState;
+    state: IState;
     wine: IWineState;
 }

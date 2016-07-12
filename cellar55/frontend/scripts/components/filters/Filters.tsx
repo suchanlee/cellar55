@@ -1,10 +1,13 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
-import { chain, map, uniq } from "lodash";
+import * as classNames from "classnames";
+import { chain, map, uniq, isEqual } from "lodash";
 
-import { IFilter, IFilterDelta } from '../../types/filter';
+import { IFilterState, IFilterDelta } from '../../types/filter';
 import { IWine } from '../../types/wine';
 
+import FilterContainer from './FilterContainer';
+import FilterToggle from './FilterToggle';
 import TypeFilter from './type/TypeFilter';
 import VarietalFilter from './varietal/VarietalFilter';
 import RegionFilter from './region/RegionFilter';
@@ -12,10 +15,11 @@ import VintageFilter from './vintage/VintageFilter';
 
 interface Props {
     wines: IWine[];
-    filter: IFilter;
+    filterState: IFilterState;
     onFilterUpdate: (filtersDelta: IFilterDelta) => void;
     onFilterApply: () => void;
     onFilterClear: () => void;
+    onFilterToggle: () => void;
 }
 
 @PureRender
@@ -30,36 +34,60 @@ export default class Filters extends React.Component<Props, void> {
                 .value()
     }
 
+    private handleApplyClick = () => {
+        const filterState = this.props.filterState;
+        if (!isEqual(filterState.initial, filterState.current)) {
+            this.props.onFilterApply();
+        }
+    }
+
     render() {
+        const filterState = this.props.filterState;
         return (
-            <div className='filters'>
-                <TypeFilter
-                    wines={this.props.wines}
-                    filter={this.props.filter}
-                    onFilterUpdate={this.props.onFilterUpdate}
-                />
-                <RegionFilter
-                    wines={this.props.wines}
-                    filter={this.props.filter}
-                    onFilterUpdate={this.props.onFilterUpdate}
-                />
-                <VarietalFilter
-                    wines={this.props.wines}
-                    filter={this.props.filter}
-                    onFilterUpdate={this.props.onFilterUpdate}
-                />
-                <VintageFilter
-                    onFilterUpdate={this.props.onFilterUpdate}
-                    filter={this.props.filter}
-                    vintages={this.getAllVintages()}
-                />
-                <button
-                    className="filter-update-button"
-                    onClick={this.props.onFilterApply}
-                >
-                    APPLY FILTERS
-                </button>
-            </div>
+            <FilterContainer>
+                <div className='filters'>
+                    <FilterToggle
+                        isFilterOpen={filterState.isOpen}
+                        onFilterToggle={this.props.onFilterToggle}
+                    />
+                    <TypeFilter
+                        wines={this.props.wines}
+                        filter={filterState.current}
+                        onFilterUpdate={this.props.onFilterUpdate}
+                    />
+                    <RegionFilter
+                        wines={this.props.wines}
+                        filter={filterState.current}
+                        onFilterUpdate={this.props.onFilterUpdate}
+                    />
+                    <VarietalFilter
+                        wines={this.props.wines}
+                        filter={filterState.current}
+                        onFilterUpdate={this.props.onFilterUpdate}
+                    />
+                    <VintageFilter
+                        onFilterUpdate={this.props.onFilterUpdate}
+                        filter={filterState.current}
+                        vintages={this.getAllVintages()}
+                    />
+                    <div className="filter-button-container">
+                        <button
+                            className={classNames("filter-update-button", {
+                                "changed": !isEqual(filterState.initial, filterState.current)
+                            })}
+                            onClick={this.handleApplyClick}
+                        >
+                            APPLY FILTERS
+                        </button>
+                        <span
+                            className="filter-clear-button"
+                            onClick={this.props.onFilterClear}
+                        >
+                            CLEAR ALL
+                        </span>
+                    </div>
+                </div>
+            </FilterContainer>
         );
     }
 }
