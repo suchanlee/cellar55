@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import { Link } from "react-router";
 import { connect } from 'react-redux';
 import { map } from 'lodash';
 
@@ -61,6 +62,14 @@ class DetailPage extends React.Component<Props, void> {
         const { entry, wine } = this.props;
         return (
             <div className="entry-container">
+                <Link to="/">
+                    <img
+                        className="entry-close-button"
+                        src="/static/images/close.png"
+                        alt="close"
+                        onClick={() => {}}
+                    />
+                </Link>
                 <h1 className="entry-wine-name">{wine.name}</h1>
                 <WineTypeBox wineType={wine.wine_type} />
                 <p className="entry-wine-details">

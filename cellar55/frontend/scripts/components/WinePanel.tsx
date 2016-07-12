@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as PureRender from "pure-render-decorator";
+import * as classNames from "classnames";
 
 import { IWine } from '../types/wine';
 import SearchFilter from "./filters/SearchFilter";
@@ -9,6 +10,7 @@ interface Props {
     searchQuery: string;
     onSearchQueryChange: (value: string) => void;
     filteredWines: IWine[];
+    isFilterOpen: boolean;
 }
 
 const pluralize = function(word, count, postfix="s") {
@@ -23,7 +25,9 @@ export default class WinePanel extends React.Component<Props, void> {
 
     render() {
         return (
-            <div className="panel wine-panel">
+            <div className={classNames("panel wine-panel", {
+                "open": this.props.isFilterOpen
+            })}>
                 <div className="wine-panel-header">
                     <SearchFilter
                         value={this.props.searchQuery}

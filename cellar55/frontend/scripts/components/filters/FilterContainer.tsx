@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import * as classNames from "classnames";
 
 interface Props {
+    isOpen: boolean;
     children?: React.ReactChildren;
 }
 
@@ -10,7 +12,9 @@ export default class FilterContainer extends React.Component<Props, void> {
 
     render() {
         return (
-            <div className="filter-container">
+            <div className={classNames("filter-container", {
+                "closed": !this.props.isOpen
+            })}>
                 <div className="filter-header">
                     <h1>CELLAR 55</h1>
                 </div>

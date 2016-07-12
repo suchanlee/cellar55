@@ -17,6 +17,7 @@ import Filters from "./filters/Filters";
 import SearchFilter from "./filters/SearchFilter";
 import FilterPanel from "./FilterPanel";
 import WinePanel from "./WinePanel";
+import ClosedFilterPanel from "./ClosedFilterPanel";
 
 import * as actions from "../actions/wineActions";
 
@@ -86,18 +87,26 @@ class HomePage extends React.Component<Props, State> {
         const filteredWines = this.getFilteredWines();
         return (
             <div className="panel-container">
-                <FilterPanel
-                    wines={this.props.allWines}
-                    filterState={this.props.filterState}
-                    onFilterUpdate={this.handleFilterUpdate}
-                    onFilterApply={this.handleFilterApply}
-                    onFilterClear={this.handleFilterClear}
-                    onFilterToggle={this.handleFilterToggle}
-                 />
+                {this.props.filterState.isOpen ?
+                    <FilterPanel
+                        wines={this.props.allWines}
+                        filterState={this.props.filterState}
+                        onFilterUpdate={this.handleFilterUpdate}
+                        onFilterApply={this.handleFilterApply}
+                        onFilterClear={this.handleFilterClear}
+                        onFilterToggle={this.handleFilterToggle}
+                    /> :
+                    <ClosedFilterPanel
+                        currentFilter={this.props.filterState.current}
+                        onFilterToggle={this.handleFilterToggle}
+                        isFilterOpen={this.props.filterState.isOpen}
+                    />
+                }
                  <WinePanel
                     filteredWines={filteredWines}
                     searchQuery={this.state.searchQuery}
                     onSearchQueryChange={this.handleSearchQueryChange}
+                    isFilterOpen={this.props.filterState.isOpen}
                  />
             </div>
         )

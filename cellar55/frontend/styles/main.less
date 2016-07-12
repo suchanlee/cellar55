@@ -49,14 +49,26 @@ header {
 
 .wine-panel {
   z-index: 1;
-  width: 66%;
+  width: 84%;
+
+  &.open {
+    width: 66%;
+  }
 }
 
-.filter-panel {
+.filter-panel, {
   z-index: 2;
   width: 34%;
   background-color: #ffffff;
   box-shadow: 2px 0px 5px -2px #b9b9b9;
+
+  &.closed {
+    width: 16%;
+
+    .filter-row {
+      border-bottom: none;
+    }
+  }
 }
 
 .wine-panel-header {
@@ -293,7 +305,6 @@ header {
   }
 
   .wine-name {
-    font-family: @freight-disp-family;
     font-weight: 600;
     font-size: 28px;
     margin: 0;
@@ -432,6 +443,21 @@ header {
       }
     }
   }
+
+  &.closed {
+    .filter-body {
+      height: ~'calc(100% - 53px - 1px - 110px)'; // account for border of filter header
+    }
+
+    .filter-footer {
+      padding-left: 0;
+      height: 110px;
+
+      li {
+        display: block;
+      }
+    }
+  }
 }
 
 .filters {
@@ -479,7 +505,7 @@ header {
 }
 
 .entry-container {
-  padding: 50px 0 80px;
+  padding: 30px 0 80px;
   margin: 0 auto;
   max-width: 700px;
 
@@ -493,7 +519,6 @@ header {
 
 .entry-wine-name {
   color: @very-dark-gray;
-  font-family: @freight-disp-family;
   letter-spacing: 1px;
   font-weight: 600;
   font-size: 40px;
@@ -508,6 +533,15 @@ header {
   letter-spacing: 4px;
 }
 
+.entry-close-button {
+  cursor: pointer;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .entry-wine-details {
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -517,9 +551,8 @@ header {
 }
 
 .entry-wine-main-image {
-  width: 114%;
+  width: 100%;
   margin-top: 10px;
-  margin-left: -7%;
 }
 
 .entry-wine-lead, .entry-wine-description {
@@ -774,4 +807,28 @@ header {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.selected-filters {
+  padding: 20px 0;
+  letter-spacing: 0.3px;
+}
+
+.selected-filter-group {
+  margin-bottom: 30px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.selected-filter-group-type {
+  text-transform: uppercase;
+  color: @dark-gray;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.selected-filter-group-item {
+  margin-top: 5px;
 }

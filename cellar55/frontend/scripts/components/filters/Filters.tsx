@@ -44,7 +44,7 @@ export default class Filters extends React.Component<Props, void> {
     render() {
         const filterState = this.props.filterState;
         return (
-            <FilterContainer>
+            <FilterContainer isOpen={this.props.filterState.isOpen}>
                 <div className='filters'>
                     <FilterToggle
                         isFilterOpen={filterState.isOpen}
