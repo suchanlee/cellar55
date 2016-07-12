@@ -63,6 +63,7 @@ export default class WineItem extends React.Component<Props, void> {
                             <span className="wine-item-metadata-divider" />
                             <span>{wine.varietal}</span>
                         </div>
+                        <div className="wine-item-filler">css :(</div>
                     </div>
                 </div>
             </li>
