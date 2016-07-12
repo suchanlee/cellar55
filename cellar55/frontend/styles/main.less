@@ -408,20 +408,23 @@ header {
     }
   }
 
-  .filter-body {
-    height: ~'calc(100% - 53px - 1px - 58px)'; // account for border of filter header
+  .filter-scrollable {
+    height: ~'calc(100% - 53px - 1px)';
     overflow-y: auto;
   }
 
+  .filter-body {
+    min-height: ~'calc(100% - 70px)';
+  }
+
   .filter-footer {
-    height: 58px;
+    padding: 20px 0 20px 15;
     font-size: 13px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     font-weight: 500;
     color: #aaa;
     line-height: 30px;
-    padding-left: 15px;
 
     ul {
       padding: 0;
@@ -446,12 +449,11 @@ header {
 
   &.closed {
     .filter-body {
-      height: ~'calc(100% - 53px - 1px - 110px)'; // account for border of filter header
+      min-height: ~'calc(100% - 130px)'; // account for border of filter header
     }
 
     .filter-footer {
       padding-left: 0;
-      height: 110px;
 
       li {
         display: block;
