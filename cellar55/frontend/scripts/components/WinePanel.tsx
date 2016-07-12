@@ -26,6 +26,7 @@ export default class WinePanel extends React.Component<Props, void> {
 
     render() {
         let content;
+        let countText;
         if (this.props.isQueryingWines) {
             content = (
                 <div className="wine-loading-container">
@@ -33,6 +34,7 @@ export default class WinePanel extends React.Component<Props, void> {
                     <div className="wine-loading-text">Fetching wines . . .</div>
                 </div>
             );
+            countText = "wines!";
         } else {
             content = (
                 <WineList
@@ -40,6 +42,7 @@ export default class WinePanel extends React.Component<Props, void> {
                     filteredWines={this.props.filteredWines}
                 />
             );
+            countText = `${this.props.filteredWines.length} ${pluralize("wine", this.props.filteredWines.length)}`;
         }
         return (
             <div className={classNames("panel wine-panel", {
@@ -50,9 +53,7 @@ export default class WinePanel extends React.Component<Props, void> {
                         value={this.props.searchQuery}
                         onChange={this.props.onSearchQueryChange}
                     />
-                    <span className="wine-count">
-                        {this.props.filteredWines.length} {pluralize("wine", this.props.filteredWines.length)}
-                    </span>
+                    <span className="wine-count">{countText}</span>
                 </div>
                 {content}
             </div>

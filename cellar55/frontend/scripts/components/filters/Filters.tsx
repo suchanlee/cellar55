@@ -5,6 +5,7 @@ import { chain, map, uniq, isEqual } from "lodash";
 
 import { IFilterState, IFilterDelta } from '../../types/filter';
 import { IWine } from '../../types/wine';
+import { emptyFilter } from "../../initialState";
 
 import FilterContainer from './FilterContainer';
 import FilterToggle from './FilterToggle';
@@ -38,6 +39,12 @@ export default class Filters extends React.Component<Props, void> {
         const filterState = this.props.filterState;
         if (!isEqual(filterState.initial, filterState.current)) {
             this.props.onFilterApply();
+        }
+    }
+
+    private handleClearClick = () => {
+        if (!isEqual(emptyFilter, this.props.filterState.current)) {
+            this.props.onFilterClear();
         }
     }
 
@@ -81,7 +88,7 @@ export default class Filters extends React.Component<Props, void> {
                         </button>
                         <span
                             className="filter-clear-button"
-                            onClick={this.props.onFilterClear}
+                            onClick={this.handleClearClick}
                         >
                             CLEAR ALL
                         </span>
