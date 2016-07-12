@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from "react-dom";
 import * as PureRender from 'pure-render-decorator';
 import * as classNames from 'classnames';
 
@@ -16,6 +17,18 @@ interface Props {
 @PureRender
 export default class RegionSearchItem extends React.Component<Props, void> {
 
+    private row;
+
+    componentDidMount() {
+        this.row = ReactDOM.findDOMNode(this.refs["row"]);
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        if (!this.props.selected && nextProps.selected) {
+            this.row.scrollIntoViewIfNeeded(false);
+        }
+    }
+
     private handleClick = () => this.props.onClick(this.props.region);
     private handleMouseOver = () => {
         this.props.onMouseOver(this.props.idx);
@@ -24,6 +37,7 @@ export default class RegionSearchItem extends React.Component<Props, void> {
     render() {
         return (
             <div
+                ref="row"
                 onClick={this.handleClick}
                 onMouseOver={this.handleMouseOver}
                 className={classNames('region-search-item', {
