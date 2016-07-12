@@ -30,7 +30,7 @@ export default class WinePanel extends React.Component<Props, void> {
         if (this.props.isQueryingWines) {
             content = (
                 <div className="wine-loading-container">
-                    <img src="" alt="Loading wines..." />
+                    <img src="/static/images/loading.png" alt="Loading wines..." />
                     <div className="wine-loading-text">Fetching wines . . .</div>
                 </div>
             );
