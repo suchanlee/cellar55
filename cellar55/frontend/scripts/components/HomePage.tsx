@@ -107,6 +107,7 @@ class HomePage extends React.Component<Props, State> {
                     searchQuery={this.state.searchQuery}
                     onSearchQueryChange={this.handleSearchQueryChange}
                     isFilterOpen={this.props.filterState.isOpen}
+                    isQueryingWines={this.props.isQueryingWines}
                  />
             </div>
         )

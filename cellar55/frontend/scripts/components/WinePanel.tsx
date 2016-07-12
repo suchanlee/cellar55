@@ -11,6 +11,7 @@ interface Props {
     onSearchQueryChange: (value: string) => void;
     filteredWines: IWine[];
     isFilterOpen: boolean;
+    isQueryingWines: boolean;
 }
 
 const pluralize = function(word, count, postfix="s") {
@@ -24,6 +25,22 @@ const pluralize = function(word, count, postfix="s") {
 export default class WinePanel extends React.Component<Props, void> {
 
     render() {
+        let content;
+        if (this.props.isQueryingWines) {
+            content = (
+                <div className="wine-loading-container">
+                    <img src="" alt="Loading wines..." />
+                    <div className="wine-loading-text">Fetching wines . . .</div>
+                </div>
+            );
+        } else {
+            content = (
+                <WineList
+                    searchQuery={this.props.searchQuery}
+                    filteredWines={this.props.filteredWines}
+                />
+            );
+        }
         return (
             <div className={classNames("panel wine-panel", {
                 "open": this.props.isFilterOpen
@@ -37,10 +54,7 @@ export default class WinePanel extends React.Component<Props, void> {
                         {this.props.filteredWines.length} {pluralize("wine", this.props.filteredWines.length)}
                     </span>
                 </div>
-                <WineList
-                    searchQuery={this.props.searchQuery}
-                    filteredWines={this.props.filteredWines}
-                />
+                {content}
             </div>
         );
     }
