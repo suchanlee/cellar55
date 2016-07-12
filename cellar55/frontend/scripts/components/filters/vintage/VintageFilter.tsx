@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
 import * as classNames from 'classnames';
-import { map } from "lodash";
+import { isEmpty, map } from "lodash";
 
 import { IFilter, IFilterDelta } from '../../../types/filter';
 
@@ -27,6 +27,22 @@ export default class Filters extends React.Component<Props, State> {
     state: State ={
         mode: Mode.SINGLE
     };
+
+    componentDidMount() {
+        this.updateMode(this.props.filter);
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        this.updateMode(nextProps.filter);
+    }
+
+    private updateMode(filter: IFilter): void {
+        if (!isEmpty(filter.vintage)) {
+            this.setState({ mode: Mode.SINGLE });
+        } else if (!isEmpty(filter.vintage_from) || !isEmpty(filter.vintage_to)) {
+            this.setState({ mode: Mode.RANGE });
+        }
+    }
 
     private handleModeClick = (mode: Mode) => {
         this.setState({ mode });
