@@ -50,8 +50,15 @@ export class BaseWineList extends React.Component<IWineListProps, IWineListState
         window.removeEventListener('scroll', this.debouncedScrollHandler);
     }
 
-    private renderWineItems(): React.ReactElement<any>[] {
-        return this.props.wineItems.slice(0, PAGE_SIZE * this.state.pages);
+    private renderWineItems(): React.ReactElement<any> | React.ReactElement<any>[] {
+        if (this.props.wineItems.length > 0) {
+            return this.props.wineItems.slice(0, PAGE_SIZE * this.state.pages);
+        }
+        return (
+            <div className="wine-list-empty">
+                No wines matching search criteria.
+            </div>
+        );
     }
 
     private handleScroll = (evt: Event) => {

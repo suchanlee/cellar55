@@ -240,6 +240,15 @@ header {
   overflow-y: auto;
 }
 
+.wine-list-empty {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 .wine-item {
   position: relative;
   width: 100%;
@@ -863,6 +872,9 @@ header {
 
 .admin-wine-panel {
   width: @admin-wine-panel-width;
+  background-color: #ffffff;
+  box-shadow: 2px 0px 5px -2px #b9b9b9;
+  z-index: 2;
 
   .wine-list {
     top: @admin-wine-search-input;
@@ -916,5 +928,6 @@ header {
 }
 
 .admin-entry-panel {
+  z-index: 1;
   width: ~'calc(100% - @{admin-wine-panel-width})';
 }
