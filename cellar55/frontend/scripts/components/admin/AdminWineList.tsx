@@ -2,16 +2,16 @@ import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
 import { map } from 'lodash';
 
-import { IWine } from '../types/wine';
-import { BaseWineList } from "./base/BaseWineComponents"
-import WineItem from './WineItem';
+import { IWine } from '../../types/wine';
+import { BaseWineList } from "../base/BaseWineComponents"
+import AdminWineItem from './AdminWineItem';
 
 interface Props {
     filteredWines: IWine[];
 }
 
 @PureRender
-export default class WineList extends React.Component<Props, void> {
+export default class AdminWineList extends React.Component<Props, void> {
 
     private getWineIds(): number[] {
         return map(this.props.filteredWines, wine => wine.id);
@@ -19,7 +19,7 @@ export default class WineList extends React.Component<Props, void> {
 
     private renderWineItems(): React.ReactElement<any>[] {
         return map(this.props.filteredWines, wine =>
-            <WineItem key={wine.id} wine={wine} />
+            <AdminWineItem key={wine.id} wine={wine} />
         );
     }
 

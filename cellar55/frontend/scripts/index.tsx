@@ -9,6 +9,7 @@ import { initialState } from './initialState';
 import cellarStore from './stores/cellarStore';
 import HomePage from './components/HomePage.tsx';
 import DetailPage from './components/DetailPage.tsx';
+import AdminPage from './components/admin/AdminPage.tsx';
 
 const store = cellarStore(initialState);
 
@@ -16,6 +17,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path='/' component={HomePage} />
+            <Route path='/admin' component={AdminPage} />
             <Route path='/wine/:wineId' component={DetailPage} />
         </Router>
     </Provider>,

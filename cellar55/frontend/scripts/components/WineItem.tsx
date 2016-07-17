@@ -5,67 +5,21 @@ import { WineType } from '../constants/Constants';
 import { Link } from 'react-router';
 
 import { IWine } from '../types/wine';
-import WineTypeBox from './WineTypeBox';
-
-interface WineName {
-    winery: string;
-    rest: string;
-}
+import { BaseWineItem, IWineItemProps, IWineName } from "./base/BaseWineComponents";
+import WineTypeBox from "./WineTypeBox";
 
 interface Props {
     wine: IWine;
 }
 
 @PureRender
-export default class WineItem extends React.Component<Props, void> {
-
-    private getWineName(): WineName {
-        const nameSplit = this.props.wine.name.split(',');
-        return {
-            winery: nameSplit[0],
-            rest: nameSplit.slice(1).join(', ')
-        };
-    }
-
-    private getRegion(): string {
-        const { wine } = this.props;
-        if (this.isEmptyValue(wine.subregion)) {
-            return wine.region;
-        }
-        return `${wine.subregion}, ${wine.region}`;
-    }
-
-    private isEmptyValue(value: string): boolean {
-        return value.trim().length === 0 || value.toLowerCase() === "n/a";
-    }
-
-    private renderWineMetadata(): React.ReactElement<any> {
-        const { wine } = this.props;
-        return (
-            <div className="wine-item-metadata">
-                <span>{this.getRegion()}</span>
-                {this.isEmptyValue(wine.vintage) ? null :
-                    <span>
-                        <span className="wine-item-metadata-divider" />
-                        <span>{wine.vintage}</span>
-                    </span>
-                }
-                {this.isEmptyValue(wine.vintage) ? null :
-                    <span>
-                        <span className="wine-item-metadata-divider" />
-                        <span>{wine.varietal}</span>
-                    </span>
-                }
-            </div>
-        )
-
-    }
+export default class WineItem extends BaseWineItem {
 
     render() {
         const wine: IWine = this.props.wine;
         const wineType = wine.wine_type;
-        const wineName: WineName = this.getWineName();
-        return (
+        const wineName: IWineName = this.getWineName();
+         return (
             <li className="wine-item">
                 <div className="wine-item-container">
                     <div

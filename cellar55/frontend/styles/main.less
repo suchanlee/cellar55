@@ -850,3 +850,71 @@ header {
 .selected-filter-group-item {
   margin-top: 5px;
 }
+
+///////////// Admin Page
+
+@admin-wine-panel-width: 400px;
+@admin-wine-search-input: 40px;
+
+.admin-page {
+  width: 100%;
+  height: 100%;
+}
+
+.admin-wine-panel {
+  width: @admin-wine-panel-width;
+
+  .wine-list {
+    top: @admin-wine-search-input;
+    height: ~'calc(100% - @{admin-wine-search-input})';
+  }
+
+  .wine-item {
+    .wine-item-container {
+      padding: 15px 20px 10px 25px;
+
+      .wine-name {
+        font-size: 20px;
+        line-height: 24px;
+      }
+
+      .wine-type-box {
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-radius: 0;
+        width: 7px;
+      }
+
+      .wine-item-metadata {
+        span {
+          display: block;
+        }
+
+        .wine-item-metadata-divider {
+          display: none;
+        }
+      }
+    }
+
+    .wine-item-info {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  .search-input-container {
+    .search-icon {
+      top: 12px;
+    }
+  }
+
+  .admin-wine-search-input {
+    width: 100%;
+    height: @admin-wine-search-input;
+  }
+}
+
+.admin-entry-panel {
+  width: ~'calc(100% - @{admin-wine-panel-width})';
+}

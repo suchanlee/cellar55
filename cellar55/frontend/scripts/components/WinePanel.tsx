@@ -37,10 +37,7 @@ export default class WinePanel extends React.Component<Props, void> {
             countText = "wines!";
         } else {
             content = (
-                <WineList
-                    searchQuery={this.props.searchQuery}
-                    filteredWines={this.props.filteredWines}
-                />
+                <WineList filteredWines={this.props.filteredWines} />
             );
             countText = `${this.props.filteredWines.length} ${pluralize("wine", this.props.filteredWines.length)}`;
         }
