@@ -5,6 +5,7 @@ import * as classNames from "classnames";
 import { IWine } from '../types/wine';
 import SearchFilter from "./filters/SearchFilter";
 import WineList from "./WineList";
+import Loading from "./base/Loading";
 
 interface Props {
     searchQuery: string;
@@ -28,12 +29,7 @@ export default class WinePanel extends React.Component<Props, void> {
         let content;
         let countText;
         if (this.props.isQueryingWines) {
-            content = (
-                <div className="wine-loading-container">
-                    <img src="/static/images/loading.png" alt="Loading wines..." />
-                    <div className="wine-loading-text">Fetching wines . . .</div>
-                </div>
-            );
+            content = <Loading />;
             countText = "wines!";
         } else {
             content = (

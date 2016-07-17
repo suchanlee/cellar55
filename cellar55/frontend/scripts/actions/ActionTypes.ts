@@ -7,5 +7,6 @@ export enum ActionType {
     RECEIVE_ENTRY_ERROR,
     CHANGE_FILTER,
     CLEAR_FILTER,
-    TOGGLE_FILTER
+    TOGGLE_FILTER,
+    SELECT_WINE
 };

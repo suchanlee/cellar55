@@ -123,3 +123,10 @@ export function fetchWinesWithNewFilter(filter: IFilter) {
 export function fetchEntry(id: number) {
     return (dispatch, getState) => dispatch(asyncFetchEntry(id));
 }
+
+export function selectWine(wine: IWine) {
+    return {
+        type: ActionType.SELECT_WINE,
+        wine
+    };
+}

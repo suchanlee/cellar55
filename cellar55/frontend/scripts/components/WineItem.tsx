@@ -8,12 +8,8 @@ import { IWine } from '../types/wine';
 import { BaseWineItem, IWineItemProps, IWineName } from "./base/BaseWineComponents";
 import WineTypeBox from "./WineTypeBox";
 
-interface Props {
-    wine: IWine;
-}
-
 @PureRender
-export default class WineItem extends BaseWineItem {
+export default class WineItem extends BaseWineItem<IWineItemProps> {
 
     render() {
         const wine: IWine = this.props.wine;

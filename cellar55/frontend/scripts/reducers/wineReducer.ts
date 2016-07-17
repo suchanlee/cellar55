@@ -8,6 +8,11 @@ import { ActionType } from '../actions/ActionTypes';
 export default function wineReducer(state: IWineState = initialState.wine, action) {
     switch (action.type) {
 
+        case ActionType.SELECT_WINE:
+            return objectAssign({}, state, {
+                selectedWine: action.wine
+            });
+
         case ActionType.REQUEST_WINES:
             return objectAssign({}, state, {
                 isQueryingWines: true,

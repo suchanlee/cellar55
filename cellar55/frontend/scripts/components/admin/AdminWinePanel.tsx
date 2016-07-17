@@ -2,13 +2,16 @@ import * as React from "react";
 import * as PureRender from "pure-render-decorator";
 import { map, filter } from "lodash";
 
+import { selectWine, fetchEntry } from "../../actions/wineActions";
 import { IWine } from "../../types/wine";
 
 import AdminWineSearch from "./AdminWineSearch";
 import AdminWineList from "./AdminWineList";
 
 interface Props {
+    dispatch: any;
     wines: IWine[];
+    selectedWineId: number;
 }
 
 interface State {
@@ -24,6 +27,11 @@ export default class AdminWinePanel extends React.Component<Props, State> {
 
     private handleQueryChange = (query: string) => {
         this.setState({ query });
+    }
+
+    private selectWine = (wine: IWine) => {
+        this.props.dispatch(selectWine(wine));
+        this.props.dispatch(fetchEntry(wine.id));
     }
 
     private getFilteredWines(): IWine[] {
@@ -48,6 +56,8 @@ export default class AdminWinePanel extends React.Component<Props, State> {
                 />
                 <AdminWineList
                     filteredWines={this.getFilteredWines()}
+                    selectWine={this.selectWine}
+                    selectedWineId={this.props.selectedWineId}
                 />
             </div>
         );

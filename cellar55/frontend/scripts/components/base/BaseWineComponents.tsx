@@ -81,7 +81,7 @@ export class BaseWineList extends React.Component<IWineListProps, IWineListState
 }
 
 @PureRender
-export abstract class BaseWineItem extends React.Component<IWineItemProps, void> {
+export abstract class BaseWineItem<T extends IWineItemProps> extends React.Component<T, void> {
 
     protected getWineName(): IWineName {
         const nameSplit = this.props.wine.name.split(',');

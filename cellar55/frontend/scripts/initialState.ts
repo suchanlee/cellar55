@@ -19,11 +19,11 @@ export const initialState: IApp = {
     },
     wine: {
         isQueryingWines: true,
-        isFetchingEntry: true,
+        isFetchingEntry: false,
         wines: [],
-        selectedWine: null,
+        selectedWine: undefined,
         allWines: [],
-        entry: null,
-        error: null
+        entry: undefined,
+        error: undefined
     }
 };

@@ -6,19 +6,29 @@ import { IWine } from '../../types/wine';
 import { BaseWineItem, IWineItemProps, IWineName } from "../base/BaseWineComponents";
 import WineTypeBox from "../WineTypeBox";
 
-interface Props {
-    wine: IWine;
+interface Props extends IWineItemProps {
+    selected: boolean;
+    selectWine: (wine: IWine) => void;
 }
 
 @PureRender
-export default class AdminWineItem extends BaseWineItem {
+export default class AdminWineItem extends BaseWineItem<Props> {
+
+    private handleClick = () => {
+        this.props.selectWine(this.props.wine);
+    }
 
     render() {
         const wine: IWine = this.props.wine;
         const wineType = wine.wine_type;
         const wineName: IWineName = this.getWineName();
         return (
-            <li className="wine-item">
+            <li
+                className={classNames("wine-item", {
+                    "selected": this.props.selected
+                })}
+                onClick={this.handleClick}
+            >
                 <div className="wine-item-container">
                     <div className='wine-item-info'>
                         <WineTypeBox wineType={wine.wine_type} />
