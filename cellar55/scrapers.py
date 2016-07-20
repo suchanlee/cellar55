@@ -6,9 +6,8 @@ import requests
 from bs4 import BeautifulSoup
 
 from cellar55.models import Wine, Entry
-from cellar55.logger import Logger
+from cellar55.logger import job_logger
 
-job_logger = Logger()
 base_url = 'https://www.sommselect.com'
 
 class WineScraper:

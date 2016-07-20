@@ -2,13 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 
 from cellar55 import db
-from cellar55.logger import Logger
+from cellar55.logger import job_logger
 from cellar55.models import Wine
 from cellar55.scrapers import WineScraper
 
-
 base_url = 'https://www.sommselect.com'
-job_logger = Logger()
 
 def scrape_current_wine():
     job_logger.info("Starting scrape_current_wine")

@@ -38,3 +38,5 @@ class Logger:
             os.mkdir(LOG_DIR)
             with open(LOG_PATH, "a"):
                 os.utime(LOG_PATH, None)
+
+job_logger = Logger()
