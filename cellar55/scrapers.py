@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 from cellar55.models import Wine, Entry
 from cellar55.logger import job_logger
+from cellar55.classifier import WineTypeClassifier
 
 base_url = 'https://www.sommselect.com'
 
@@ -122,22 +123,11 @@ class WineScraper:
     def get_type(self):
         name = self.get_name()
         lead = self.get_lead()
-        quote = self.get_quote()
         description = self.get_description()
-        search_text = u'{0} {1} {2} {3}'.format(name, lead, quote, description).encode('ascii', 'ignore')
-        count_map_list = []
-        for wine_type in ['red', 'white', 'sparkling', 'ros', 'dessert']:
-            count = re.findall(r'\W+{0}s?\W+'.format(wine_type), search_text, re.IGNORECASE)
-            count_map_item = {
-                'count': len(count),
-                'type': wine_type
-            }
-            count_map_list.append(count_map_item)
-        sorted_count_map_list = sorted(count_map_list, key=lambda count_map: count_map['count'], reverse=True)
-        wine_type = sorted_count_map_list[0]['type']
-        if wine_type == 'ros':
-            return 'rose'
-        return wine_type
+        varietal = self.get_tech_notes()['Varietal']
+        import pdb; pdb.set_trace()
+        classifier = WineTypeClassifier(name, lead, description, varietal)
+        return classifier.classify()
 
     def get_vintages(self):
         subtitle = self.soup.h1.small.text
