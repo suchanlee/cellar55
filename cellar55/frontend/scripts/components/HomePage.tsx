@@ -41,6 +41,10 @@ class HomePage extends React.Component<Props, State> {
         searchQuery: ""
     };
 
+    componentWillMount() {
+        document.title = "Cellar 55";
+    }
+
     componentDidMount() {
         if (this.props.wines.length === 0) {
             const { dispatch, filterState } = this.props;

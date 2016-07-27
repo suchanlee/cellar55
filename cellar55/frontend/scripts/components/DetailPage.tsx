@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PureRender from 'pure-render-decorator';
+import { isUndefined } from "lodash";
 import { Link } from "react-router";
 import { connect } from 'react-redux';
 import { map } from 'lodash';
@@ -33,6 +34,14 @@ class DetailPage extends React.Component<Props, void> {
         dispatch(fetchEntry(parseInt(this.props.params.wineId)));
     }
 
+    componentWillReceiveProps(nextProps: Props) {
+        if (!isUndefined(nextProps.wine)) {
+            if (isUndefined(this.props.wine) || this.props.wine.id !== nextProps.wine.id) {
+                document.title = nextProps.wine.name;
+            }
+        }
+    }
+
     private getWineDetails(): string {
         let details: string = "";
         const wine = this.props.wine;
@@ -56,10 +65,10 @@ class DetailPage extends React.Component<Props, void> {
     }
 
     render() {
-        if (this.props.isFetching) {
+        const { entry, wine } = this.props;
+        if (this.props.isFetching || isUndefined(wine)) {
             return <div>Fetching entry...</div>
         }
-        const { entry, wine } = this.props;
         return (
             <div className="entry-container">
                 <Link to="/">
@@ -67,7 +76,6 @@ class DetailPage extends React.Component<Props, void> {
                         className="entry-close-button"
                         src="/static/images/close.png"
                         alt="close"
-                        onClick={() => {}}
                     />
                 </Link>
                 <h1 className="entry-wine-name">{wine.name}</h1>
