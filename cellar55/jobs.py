@@ -26,4 +26,9 @@ def scrape_archived_wines():
         soup = BeautifulSoup(request.content, 'html.parser')
         for anchor in soup.find_all('a', class_='product-block-link-info'):
             scraper = WineScraper(anchor['href'])
-            scraper.save(db)
+            name = scraper.get_name()
+            if Wine.query.filter_by(name=name).first() is None:
+                scraper.save(db)
+                job_logger.info("Finished scrape_current_wine")
+            else:
+                job_logger.info("Aborted scrape_current_wine: wine {0} already exists".format(name.encode('ascii', 'ignore')))
