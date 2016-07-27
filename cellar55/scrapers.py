@@ -125,7 +125,6 @@ class WineScraper:
         lead = self.get_lead()
         description = self.get_description()
         varietal = self.get_tech_notes()['Varietal']
-        import pdb; pdb.set_trace()
         classifier = WineTypeClassifier(name, lead, description, varietal)
         return classifier.classify()
 
