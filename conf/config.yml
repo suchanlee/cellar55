@@ -10,6 +10,7 @@ DEVELOPMENT: &development
   DEBUG: True
   DEVELOPMENT: True
   TESTING: True
+  GOOGLEMAPS_API_KEY: fill-me-in
 
 PRODUCTION: &production
   <<: *common
@@ -18,4 +19,4 @@ PRODUCTION: &production
   TESTING: False
   SECRET_KEY: secretkey
   PORT: 3301
-
+  GOOGLEMAPS_API_KEY: fill-me-in
