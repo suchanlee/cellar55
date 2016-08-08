@@ -32,7 +32,7 @@ class GeoLocator:
                     name=place['name'],
                     formatted_address=place['formatted_address'],
                     lat=place['geometry']['location']['lat'],
-                    lon=place['geometry']['location']['lon'],
+                    lon=place['geometry']['location']['lng'],
                     place_id=place['place_id'])
         elif query_result['status'] == STATUS_ZERO_RESULTS:
             job_logger.info('No place found with query string: "{}"'.format(query))
