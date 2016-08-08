@@ -27,6 +27,7 @@ class Wine(db.Model):
     main_image_url = db.Column(db.String(500), nullable=True)
     alt_image_url = db.Column(db.String(500), nullable=True)
     entry = db.relationship('Entry', backref='wine', uselist=False)
+    winery = db.relationship('Winery', backref='wine', uselist=False)
     created = db.Column(db.DateTime, default=db.func.now())
 
     def json(self):
@@ -78,3 +79,24 @@ class Entry(db.Model):
             'description': self.description
         }
 
+
+class Winery(db.Model):
+
+    __tablename__ = 'winery'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, index=True, nullable=False)
+    formatted_address = db.Column(db.String, nullable=False)
+    lat = db.Column(db.Numeric, nullable=False)
+    lon = db.Column(db.Numeric, nullable=False)
+    website = db.Column(db.String, nullable=True)
+
+    def json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'formatted_address': self.formatted_address,
+            'lat': self.lat,
+            'lon': self.lon,
+            'website': self.website
+        }
