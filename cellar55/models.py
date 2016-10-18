@@ -6,28 +6,30 @@ class Wine(db.Model):
     __tablename__ = 'wine'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), index=True, nullable=False)
-    country = db.Column(db.String(40), index=True, nullable=False)
-    region = db.Column(db.String(70), index=True, nullable=False)
-    subregion = db.Column(db.String(70), nullable=True)
-    vintage = db.Column(db.String(20), index=True, nullable=False)
-    varietal = db.Column(db.String(300), index=True, nullable=False)
-    production = db.Column(db.String(300), nullable=False)
-    alcohol = db.Column(db.String(20), nullable=False)
-    oak = db.Column(db.String(70), nullable=False)
-    soil = db.Column(db.String(70), nullable=False)
-    farming = db.Column(db.String(70), nullable=False)
-    wine_type = db.Column(db.String(20), index=True, nullable=False)
+    name = db.Column(db.String, index=True, nullable=False)
+    country = db.Column(db.String, index=True, nullable=False)
+    region = db.Column(db.String, index=True, nullable=False)
+    subregion = db.Column(db.String, nullable=True)
+    vintage = db.Column(db.String, index=True, nullable=False)
+    varietal = db.Column(db.String, index=True, nullable=False)
+    production = db.Column(db.String, nullable=False)
+    alcohol = db.Column(db.String, nullable=False)
+    oak = db.Column(db.String, nullable=False)
+    soil = db.Column(db.String, nullable=False)
+    farming = db.Column(db.String, nullable=False)
+    wine_type = db.Column(db.String, index=True, nullable=False)
     fruit_rating = db.Column(db.Numeric, index=True, nullable=False)
     earth_rating = db.Column(db.Numeric, index=True, nullable=False)
     body_rating = db.Column(db.Numeric, index=True, nullable=False)
     tannin_rating = db.Column(db.Numeric, index=True, nullable=False)
     acid_rating = db.Column(db.Numeric, index=True, nullable=False)
     alcohol_rating = db.Column(db.Numeric, index=True, nullable=False)
-    main_image_url = db.Column(db.String(500), nullable=True)
-    alt_image_url = db.Column(db.String(500), nullable=True)
+    main_image_url = db.Column(db.String, nullable=True)
+    alt_image_url = db.Column(db.String, nullable=True)
     entry = db.relationship('Entry', backref='wine', uselist=False)
     created = db.Column(db.DateTime, default=db.func.now())
+    winery_id = db.Column(db.Integer, db.ForeignKey('winery.id'), nullable=True)
+    winery = db.relationship('Winery', back_populates="wines")
 
     def json(self):
         return {
@@ -65,7 +67,7 @@ class Entry(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     wine_id = db.Column(db.Integer, db.ForeignKey('wine.id'))
-    quote = db.Column(db.String(500), nullable=False)
+    quote = db.Column(db.String, nullable=False)
     lead = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=False)
 
@@ -78,3 +80,25 @@ class Entry(db.Model):
             'description': self.description
         }
 
+
+class Winery(db.Model):
+
+    __tablename__ = 'winery'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, index=True, nullable=False)
+    formatted_address = db.Column(db.String, nullable=False)
+    lat = db.Column(db.Numeric, nullable=False)
+    lon = db.Column(db.Numeric, nullable=False)
+    website = db.Column(db.String, nullable=True)
+    wines = db.relationship('Wine', back_populates="winery")
+
+    def json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'formatted_address': self.formatted_address,
+            'lat': self.lat,
+            'lon': self.lon,
+            'website': self.website
+        }

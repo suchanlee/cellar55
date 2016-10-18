@@ -24,7 +24,7 @@ class Logger:
     def info(self, action):
         self.logger.info(self._format_log(action))
 
-    def error(self, action, error):
+    def error(self, action, error=''):
         self.logger.error(self._format_log(action, error))
 
     def _format_log(self, action, error=None):
