@@ -19,7 +19,7 @@ def scrape_archived_wines():
 
 
 def scrape_current_wine(url=''):
-    job_logger.info("Starting to scrape wine: {0}/{1}".format(base_url, url))
+    job_logger.info(u"Starting to scrape wine: {0}/{1}".format(base_url, url))
     wine_scraper = WineScraper(url)
     wine = wine_scraper.get_wine()
     if Wine.query.filter_by(name=wine.name).first() is None:
@@ -30,6 +30,21 @@ def scrape_current_wine(url=''):
         _save_wine(wine, wine_scraper.get_entry(wine))
     else:
         job_logger.info(_encode_str(u'Aborted scrape_current_wine: wine {0} already exists'.format(wine.name)))
+
+def scrape_wineries():
+    job_logger.info("Starting scrape winery job")
+    wines = Wine.query.filter_by(winery=None)
+    for wine in wines:
+        winery = _get_winery(wine)
+        if winery is None:
+            job_logger.info(_encode_str(u"Unable to find winery for {0}".format(wine.name)))
+        else:
+            job_logger.info(_encode_str(u"Found winery for {0}: {1}".format(wine.name, winery.name)))
+            db.session.add(winery)
+            wine.winery = winery
+            db.session.commit()
+            _save_winery(winery)
+    job_logger.info("Finished scrape winery job")
 
 def _get_winery(wine):
     winery_scraper = WineryScraper(wine)
