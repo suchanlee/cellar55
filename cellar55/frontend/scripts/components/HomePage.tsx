@@ -1,26 +1,19 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as PureRender from "pure-render-decorator";
 import objectAssign = require("object-assign");
 import { connect } from "react-redux";
-import { filter, defer, debounce } from "lodash";
+import { filter } from "lodash";
 
 import { fetchWines, fetchWinesWithNewFilter } from "../actions/wineActions";
 import { changeFilter, clearFilter, toggleFilter } from "../actions/filterActions";
 import { IApp } from "../types/main";
-import { IFilter, IFilterDelta, IFilterState } from "../types/filter";
+import { IFilterDelta, IFilterState } from "../types/filter";
 import { IWine } from "../types/wine";
-import { emptyFilter } from "../initialState"
+import { emptyFilter } from "../initialState";
 
-import Header from "./Header";
-import WineList from "./WineList";
-import Filters from "./filters/Filters";
-import SearchFilter from "./filters/SearchFilter";
 import FilterPanel from "./FilterPanel";
 import WinePanel from "./WinePanel";
 import ClosedFilterPanel from "./ClosedFilterPanel";
-
-import * as actions from "../actions/wineActions";
 
 interface Props {
     dispatch?: any;
@@ -31,7 +24,7 @@ interface Props {
 }
 
 interface State {
-    searchQuery: string
+    searchQuery: string;
 }
 
 @PureRender
@@ -117,7 +110,7 @@ class HomePage extends React.Component<Props, State> {
                     isQueryingWines={this.props.isQueryingWines}
                  />
             </div>
-        )
+        );
     }
 }
 

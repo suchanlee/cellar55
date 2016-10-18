@@ -1,7 +1,7 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 
-import { SearchInput } from '../base/SearchInput';
+import { SearchInput } from "../base/SearchInput";
 
 interface Props {
     value: string;
@@ -17,13 +17,11 @@ export default class SearchFilter extends React.Component<Props, void> {
                 <SearchInput
                     className="search-filter-input"
                     value={this.props.value}
-                    onChange={(evt) => this.props.onChange(evt.target['value'])}
+                    onChange={(evt) => this.props.onChange(evt.target["value"])}
                     type="text"
                     placeholder="Search within results..."
                 />
             </div>
         );
-
     }
-
 }

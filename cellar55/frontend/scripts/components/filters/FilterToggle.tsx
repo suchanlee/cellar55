@@ -2,7 +2,7 @@ import * as React from "react";
 import * as PureRender from "pure-render-decorator";
 import * as classNames from "classnames";
 
-import BaseFilter from './BaseFilter';
+import BaseFilter from "./BaseFilter";
 
 interface Props {
     isFilterOpen: boolean;
@@ -34,5 +34,4 @@ export default class FilterToggle extends React.Component<Props, void> {
             </BaseFilter>
         );
     }
-
 }

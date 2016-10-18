@@ -1,11 +1,10 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
-import { Link } from "react-router";
-import { connect } from 'react-redux';
-import { map, isUndefined } from 'lodash';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
+import { connect } from "react-redux";
+import { isUndefined } from "lodash";
 
 import { emptyFilter } from "../../initialState";
-import { IApp } from '../../types/main';
+import { IApp } from "../../types/main";
 import { IWine } from "../../types/wine";
 import { fetchWines } from "../../actions/wineActions";
 

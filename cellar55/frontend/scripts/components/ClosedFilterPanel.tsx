@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as PureRender from "pure-render-decorator";
 
-import { IFilter, IFilterDelta } from "../types/filter";
+import { IFilter } from "../types/filter";
 
 import ClosedFilters from "./filters/ClosedFilters";
 

@@ -1,14 +1,14 @@
-import * as React from 'react';
+import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as PureRender from 'pure-render-decorator';
-import * as classNames from 'classnames';
+import * as PureRender from "pure-render-decorator";
+import * as classNames from "classnames";
 
-import { IRegion } from '../../../types/region';
+import { IRegion } from "../../../types/region";
 import { getRegionType } from "../../../helpers/helpers";
 
 interface Props {
     idx: number;
-    region: IRegion
+    region: IRegion;
     selected: boolean;
     onClick: (region: IRegion) => void;
     onMouseOver: (idx: number) => void;
@@ -40,8 +40,8 @@ export default class RegionSearchItem extends React.Component<Props, void> {
                 ref="row"
                 onClick={this.handleClick}
                 onMouseOver={this.handleMouseOver}
-                className={classNames('region-search-item', {
-                    'selected': this.props.selected
+                className={classNames("region-search-item", {
+                    "selected": this.props.selected
                 })}
             >
                 <div className="region-search-item-name">{this.props.region.name}</div>
@@ -49,5 +49,4 @@ export default class RegionSearchItem extends React.Component<Props, void> {
             </div>
         );
     }
-
 }

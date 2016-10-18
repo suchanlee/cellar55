@@ -1,8 +1,8 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
-import { isEqual, map, debounce } from 'lodash';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
+import { isEqual, debounce } from "lodash";
 
-import { IWine } from '../../types/wine';
+import { IWine } from "../../types/wine";
 
 const PAGE_SIZE = 10;
 const BOTTOM_SCROLL_PADDING = 100;
@@ -37,7 +37,7 @@ export class BaseWineList extends React.Component<IWineListProps, IWineListState
 
     componentDidMount() {
         this.debouncedScrollHandler = debounce(this.handleScroll, DEBOUNCE_MILLIS);
-        window.addEventListener('scroll', this.debouncedScrollHandler);
+        window.addEventListener("scroll", this.debouncedScrollHandler);
     }
 
     componentWillReceiveProps(nextProps: IWineListProps) {
@@ -47,7 +47,7 @@ export class BaseWineList extends React.Component<IWineListProps, IWineListState
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.debouncedScrollHandler);
+        window.removeEventListener("scroll", this.debouncedScrollHandler);
     }
 
     private renderWineItems(): React.ReactElement<any> | React.ReactElement<any>[] {
@@ -71,7 +71,7 @@ export class BaseWineList extends React.Component<IWineListProps, IWineListState
     render() {
         return (
             <ul
-                className='wine-list'
+                className="wine-list"
                 onScroll={this.handleScroll}
             >
                 {this.renderWineItems()}
@@ -84,10 +84,10 @@ export class BaseWineList extends React.Component<IWineListProps, IWineListState
 export abstract class BaseWineItem<T extends IWineItemProps> extends React.Component<T, void> {
 
     protected getWineName(): IWineName {
-        const nameSplit = this.props.wine.name.split(',');
+        const nameSplit = this.props.wine.name.split(",");
         return {
             winery: nameSplit[0],
-            rest: nameSplit.slice(1).join(', ')
+            rest: nameSplit.slice(1).join(", ")
         };
     }
 
@@ -121,7 +121,7 @@ export abstract class BaseWineItem<T extends IWineItemProps> extends React.Compo
                     </span>
                 }
             </div>
-        )
+        );
     }
 
     render() {

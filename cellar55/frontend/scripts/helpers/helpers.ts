@@ -1,7 +1,6 @@
-import { map, last, difference, chain } from 'lodash';
-import * as _ from 'lodash';
+import { map, last, difference, chain } from "lodash";
 
-import { RegionType } from '../types/region';
+import { RegionType } from "../types/region";
 
 
 const NOT_APPLICABLE = "n/a";
@@ -12,16 +11,15 @@ const NOT_APPLICABLE = "n/a";
  */
 export const isApplicable = function(attr: string): boolean {
     return !!attr && attr.length > 0 && attr.toLowerCase() !== NOT_APPLICABLE;
-}
-
+};
 
 const VARIETAL_SPLIT_REG: RegExp = /,|with|and|balance|is|\/|\&/ig;
 const NUMBER_REG: RegExp = /[0-9]+/g;
 
 const BLENDS = [
     {
-        name: 'Bordeaux Blend',
-        varietals: ['merlot', 'cabernet sauvignon', 'petite verdot', 'cabernet franc']
+        name: "Bordeaux Blend",
+        varietals: ["merlot", "cabernet sauvignon", "petite verdot", "cabernet franc"]
     }
 ];
 
@@ -37,8 +35,8 @@ export const parseVarietal = function(varietal: string): string {
                     .filter((v) => v.length > 0 && v.match(NUMBER_REG) === null)
                     .value();
     if (varietals.length === 1) {
-        if (varietal.indexOf('aka') > - 1) {
-            return last(varietal.split('aka'));
+        if (varietal.indexOf("aka") > - 1) {
+            return last(varietal.split("aka"));
         } else {
             return varietal;
         }
@@ -49,24 +47,24 @@ export const parseVarietal = function(varietal: string): string {
             }
         }
     }
-    return varietals.join(' | ');
-}
+    return varietals.join(" | ");
+};
 
 export const getRegionType = function(regionType: RegionType): string {
     switch (regionType) {
         case RegionType.COUNTRY:
-            return 'country';
+            return "country";
         case RegionType.REGION:
-            return 'region';
+            return "region";
         case RegionType.SUBREGION:
-            return 'subregion';
+            return "subregion";
         default:
             return "";
     }
-}
+};
 
 export const toTitleCase = function(s: string): string {
     return s.replace(/\w\S*/g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
-}
+};

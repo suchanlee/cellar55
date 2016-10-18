@@ -3,7 +3,7 @@ import * as PureRender from "pure-render-decorator";
 
 import { IFilter } from "../../types/filter";
 
-import FilterContainer from './FilterContainer';
+import FilterContainer from "./FilterContainer";
 import FilterToggle from "./FilterToggle";
 import SelectedFilters from "./SelectedFilters";
 
@@ -19,7 +19,7 @@ export default class ClosedFilters extends React.Component<Props, void> {
     render() {
         return (
             <FilterContainer isOpen={this.props.isFilterOpen}>
-                <div className='filters'>
+                <div className="filters">
                     <FilterToggle
                         isFilterOpen={false}
                         onFilterToggle={this.props.onFilterToggle}

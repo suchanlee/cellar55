@@ -1,10 +1,10 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
-import { map } from 'lodash';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
+import { map } from "lodash";
 
-import { IRegion } from '../../../types/region';
+import { IRegion } from "../../../types/region";
 
-import RegionSearchItem from './RegionSearchItem';
+import RegionSearchItem from "./RegionSearchItem";
 
 interface Props {
     regions: IRegion[];
@@ -36,5 +36,4 @@ export default class RegionSearchDropdown extends React.Component<Props, void> {
             </ul>
         );
     }
-
 }

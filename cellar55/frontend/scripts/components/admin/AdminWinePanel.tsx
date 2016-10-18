@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as PureRender from "pure-render-decorator";
-import { map, filter } from "lodash";
+import { filter } from "lodash";
 
 import { selectWine, fetchEntry } from "../../actions/wineActions";
 import { IWine } from "../../types/wine";

@@ -1,18 +1,18 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 import * as classNames from "classnames";
-import { chain, map, uniq, isEqual } from "lodash";
+import { chain, map, isEqual } from "lodash";
 
-import { IFilterState, IFilterDelta } from '../../types/filter';
-import { IWine } from '../../types/wine';
+import { IFilterState, IFilterDelta } from "../../types/filter";
+import { IWine } from "../../types/wine";
 import { emptyFilter } from "../../initialState";
 
-import FilterContainer from './FilterContainer';
-import FilterToggle from './FilterToggle';
-import TypeFilter from './type/TypeFilter';
-import VarietalFilter from './varietal/VarietalFilter';
-import RegionFilter from './region/RegionFilter';
-import VintageFilter from './vintage/VintageFilter';
+import FilterContainer from "./FilterContainer";
+import FilterToggle from "./FilterToggle";
+import TypeFilter from "./type/TypeFilter";
+import VarietalFilter from "./varietal/VarietalFilter";
+import RegionFilter from "./region/RegionFilter";
+import VintageFilter from "./vintage/VintageFilter";
 
 interface Props {
     wines: IWine[];
@@ -32,7 +32,7 @@ export default class Filters extends React.Component<Props, void> {
                 .filter((v) => v.length > 0)
                 .uniq()
                 .sortBy()
-                .value()
+                .value();
     }
 
     private handleApplyClick = () => {
@@ -52,7 +52,7 @@ export default class Filters extends React.Component<Props, void> {
         const filterState = this.props.filterState;
         return (
             <FilterContainer isOpen={this.props.filterState.isOpen}>
-                <div className='filters'>
+                <div className="filters">
                     <FilterToggle
                         isFilterOpen={filterState.isOpen}
                         onFilterToggle={this.props.onFilterToggle}

@@ -1,15 +1,14 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
-import { map, chain, findIndex } from 'lodash';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
+import { map, chain, findIndex } from "lodash";
 
-import * as Constants from '../../../constants/Constants';
-import { IFilter, IFilterDelta } from '../../../types/filter';
-import { IWine } from '../../../types/wine';
-import { IRegion, RegionType } from '../../../types/region';
+import { IFilter, IFilterDelta } from "../../../types/filter";
+import { IWine } from "../../../types/wine";
+import { IRegion, RegionType } from "../../../types/region";
 
-import BaseFilter from '../BaseFilter';
-import RegionFilterSearch from './RegionFilterSearch';
-import RegionFilterItem from './RegionFilterItem';
+import BaseFilter from "../BaseFilter";
+import RegionFilterSearch from "./RegionFilterSearch";
+import RegionFilterItem from "./RegionFilterItem";
 
 const removalReg: RegExp = /\(.+\)|n\/a/g;
 const splitReg: RegExp = /\,|\s+\-\s+/g;
@@ -41,7 +40,7 @@ export default class RegionFilter extends React.Component<Props, void> {
 
     private getRegionsForType(type: RegionType): IRegion[] {
         const regions: string[] = map(this.props.wines, (wine) => {
-            let region: string = '';
+            let region: string = "";
             switch (type) {
                 case RegionType.COUNTRY:
                     region = wine.country;
@@ -54,12 +53,12 @@ export default class RegionFilter extends React.Component<Props, void> {
                     break;
                 default: //
             }
-            return region.replace(removalReg, '').trim();
+            return region.replace(removalReg, "").trim();
         });
         return chain(regions)
                 .filter((region) => region.length > 0)
                 .uniq()
-                .join(',')
+                .join(",")
                 .split(splitReg)
                 .map((region) => region.trim())
                 .uniq()
@@ -88,7 +87,7 @@ export default class RegionFilter extends React.Component<Props, void> {
 
     render() {
         return (
-            <BaseFilter filterKey='Region'>
+            <BaseFilter filterKey="Region">
                 <RegionFilterSearch
                     filter={this.props.filter}
                     regions={this.getAllRegions()}

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
-import { map } from 'lodash';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
+import { map } from "lodash";
 
-import { IWine } from '../types/wine';
-import { BaseWineList } from "./base/BaseWineComponents"
-import WineItem from './WineItem';
+import { IWine } from "../types/wine";
+import { BaseWineList } from "./base/BaseWineComponents";
+import WineItem from "./WineItem";
 
 interface Props {
     filteredWines: IWine[];
@@ -29,6 +29,6 @@ export default class WineList extends React.Component<Props, void> {
                 wineIds={this.getWineIds()}
                 wineItems={this.renderWineItems()}
             />
-        )
+        );
     }
 }

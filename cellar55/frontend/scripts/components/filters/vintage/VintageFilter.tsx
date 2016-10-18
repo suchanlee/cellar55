@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
-import * as classNames from 'classnames';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
+import * as classNames from "classnames";
 import { isEmpty, map } from "lodash";
 
-import { IFilter, IFilterDelta } from '../../../types/filter';
+import { IFilter, IFilterDelta } from "../../../types/filter";
 
-import BaseFilter from '../BaseFilter';
+import BaseFilter from "../BaseFilter";
 
 enum Mode {
     SINGLE, RANGE
@@ -18,13 +18,13 @@ interface Props {
 }
 
 interface State {
-    mode: Mode
+    mode: Mode;
 }
 
 @PureRender
 export default class Filters extends React.Component<Props, State> {
 
-    state: State ={
+    state: State = {
         mode: Mode.SINGLE
     };
 
@@ -130,7 +130,6 @@ export default class Filters extends React.Component<Props, State> {
 
                 </div>
             </BaseFilter>
-        )
+        );
     }
-
 }

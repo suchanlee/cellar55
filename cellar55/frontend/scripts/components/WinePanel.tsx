@@ -2,7 +2,7 @@ import * as React from "react";
 import * as PureRender from "pure-render-decorator";
 import * as classNames from "classnames";
 
-import { IWine } from '../types/wine';
+import { IWine } from "../types/wine";
 import SearchFilter from "./filters/SearchFilter";
 import WineList from "./WineList";
 import Loading from "./base/Loading";
@@ -15,12 +15,12 @@ interface Props {
     isQueryingWines: boolean;
 }
 
-const pluralize = function(word, count, postfix="s") {
+const pluralize = function(word, count, postfix = "s") {
     if (count > 1) {
         return word + postfix;
     }
     return word;
-}
+};
 
 @PureRender
 export default class WinePanel extends React.Component<Props, void> {
