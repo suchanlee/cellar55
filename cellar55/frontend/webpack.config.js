@@ -10,6 +10,9 @@ module.exports = {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.less', '.css']
   },
   module: {
+    preLoaders: [
+      { test: /\.tsx?$/, loader: 'tslint' }
+    ],
     loaders: [
       {
         test: /\.tsx?$/,
@@ -20,5 +23,9 @@ module.exports = {
         loader: 'style!css!less'
       }
     ]
+  },
+  tslint: {
+    emitErrors: true,
+    failOnHint: true
   }
 }

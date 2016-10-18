@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 import * as classNames from "classnames";
-import * as PureRender from 'pure-render-decorator';
+import * as PureRender from "pure-render-decorator";
 
 export interface ICheckboxInputProps {
     onChange: (isChecked: boolean) => void;
@@ -51,6 +51,6 @@ export class CheckboxInput extends React.Component<ICheckboxInputProps, State> {
                 <span className="checkbox" />
                 {this.props.children}
             </label>
-        )
+        );
     }
 }

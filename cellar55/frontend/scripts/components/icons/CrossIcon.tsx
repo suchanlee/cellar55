@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 
 @PureRender
 export default class CrossIcon extends React.Component<void, void> {

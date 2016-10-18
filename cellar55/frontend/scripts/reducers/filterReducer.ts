@@ -1,7 +1,7 @@
-import objectAssign = require('object-assign');
+import objectAssign = require("object-assign");
 
-import { initialState, emptyFilter } from '../initialState';
-import { ActionType } from '../actions/ActionTypes';
+import { initialState, emptyFilter } from "../initialState";
+import { ActionType } from "../actions/ActionTypes";
 
 export default function filterReducer(state = initialState.filterState, action) {
     switch (action.type) {

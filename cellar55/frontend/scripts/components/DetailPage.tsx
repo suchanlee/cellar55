@@ -1,18 +1,17 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 import { isUndefined } from "lodash";
 import { Link } from "react-router";
-import { connect } from 'react-redux';
-import { map } from 'lodash';
+import { connect } from "react-redux";
+import { map } from "lodash";
 
-import { fetchEntry } from '../actions/wineActions';
-import { isApplicable, parseVarietal } from '../helpers/helpers';
+import { fetchEntry } from "../actions/wineActions";
+import { isApplicable, parseVarietal } from "../helpers/helpers";
 
-import { IApp } from '../types/main';
-import { IEntry, IWine } from '../types/wine';
-import RatingCircles from './ratings/RatingCircles';
-import WineTypeBox from './WineTypeBox';
-import Header from "./Header";
+import { IApp } from "../types/main";
+import { IEntry, IWine } from "../types/wine";
+import RatingCircles from "./ratings/RatingCircles";
+import WineTypeBox from "./WineTypeBox";
 
 interface IRouteParam {
     wineId: string;
@@ -59,7 +58,7 @@ class DetailPage extends React.Component<Props, void> {
     private renderText(text: string, className: string): React.ReactElement<any> {
         return (
             <div className={className}>
-                {map(text.split('\n'), (blob: string) => <p>{blob}</p>)}
+                {map(text.split("\n"), (blob: string) => <p>{blob}</p>)}
             </div>
         );
     }
@@ -67,7 +66,7 @@ class DetailPage extends React.Component<Props, void> {
     render() {
         const { entry, wine } = this.props;
         if (this.props.isFetching || isUndefined(wine)) {
-            return <div>Fetching entry...</div>
+            return <div>Fetching entry...</div>;
         }
         return (
             <div className="entry-container">
@@ -111,9 +110,9 @@ class DetailPage extends React.Component<Props, void> {
                     </div>
                 </div>
                 <h3 className="entry-subheading">The Wine</h3>
-                {this.renderText(entry.lead, 'entry-wine-lead')}
+                {this.renderText(entry.lead, "entry-wine-lead")}
                 <div className="entry-wine-quote">"{entry.quote}"</div>
-                <h3 className="entry-subheading">Ian's Description</h3>
+                <h3 className="entry-subheading">Ian"s Description</h3>
                 <div className="entry-wine-metadata">
                     <dl>
                         <dt>country</dt>
@@ -136,7 +135,7 @@ class DetailPage extends React.Component<Props, void> {
                         <dd>{wine.farming}</dd>
                     </dl>
                 </div>
-                {this.renderText(entry.description, 'entry-wine-description')}
+                {this.renderText(entry.description, "entry-wine-description")}
             </div>
         );
     }

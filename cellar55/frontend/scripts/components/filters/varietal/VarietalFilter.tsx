@@ -1,14 +1,14 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 import * as classNames from "classnames";
-import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from 'lodash';
+import { forEach, map, chain, indexOf, reverse, sortBy, values, includes } from "lodash";
 
-import { GrapeVarietals } from '../../../constants/Constants';
-import { IFilter, IFilterDelta } from '../../../types/filter';
-import { IWine } from '../../../types/wine';
+import { GrapeVarietals } from "../../../constants/Constants";
+import { IFilter, IFilterDelta } from "../../../types/filter";
+import { IWine } from "../../../types/wine";
 import { toTitleCase } from "../../../helpers/helpers";
 
-import BaseFilter from '../BaseFilter';
+import BaseFilter from "../BaseFilter";
 import { CheckboxInput } from "../../base/CheckboxInput";
 
 const removalReg: RegExp = /\d+\%|n\/a|\-/g;
@@ -55,8 +55,8 @@ export default class VarietalFilter extends React.Component<Props, State> {
     private getVarietalMap(): VarietalMap {
         const allVarietalSet = this.getAllVarietalSet();
         const varietals: string[] = map(this.props.wines, (wine) => wine.varietal);
-        let allVarietals: string = varietals.join(',');
-        allVarietals = allVarietals.replace(removalReg, ',');
+        let allVarietals: string = varietals.join(",");
+        allVarietals = allVarietals.replace(removalReg, ",");
         const filteredVarietals = chain(allVarietals.split(splitReg))
                 .map((varietal) => varietal.trim().toLowerCase())
                 .filter((varietal) => varietal.length > 0 && varietal in allVarietalSet)
@@ -93,12 +93,12 @@ export default class VarietalFilter extends React.Component<Props, State> {
     }
 
     render() {
-        let sortedVarietalEntries: VarietalEntry[] = reverse(sortBy(values(this.getVarietalMap()), 'count'));
+        let sortedVarietalEntries: VarietalEntry[] = reverse(sortBy(values(this.getVarietalMap()), "count"));
         if (!this.state.isShowAll) {
             sortedVarietalEntries = sortedVarietalEntries.slice(0, CLOSED_VARIETAL_COUNT);
         }
         return (
-            <BaseFilter filterKey='Varietal'>
+            <BaseFilter filterKey="Varietal">
                 <div className="varietal-filter-values-container">
                     {map(sortedVarietalEntries, (entry) => {
                         const checked = includes(this.props.filter.varietals, entry.name);
@@ -109,7 +109,7 @@ export default class VarietalFilter extends React.Component<Props, State> {
                             >
                                 {toTitleCase(entry.name)}
                             </CheckboxInput>
-                        </span>
+                        </span>;
                     })}
                     <img
                         src="/static/images/caret.png"
@@ -123,5 +123,4 @@ export default class VarietalFilter extends React.Component<Props, State> {
             </BaseFilter>
         );
     }
-
 }

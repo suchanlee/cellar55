@@ -1,8 +1,7 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
-import { clone } from "lodash";
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 
-import MagnifyingGlassIcon from '../icons/MagnifyingGlassIcon';
+import MagnifyingGlassIcon from "../icons/MagnifyingGlassIcon";
 
 @PureRender
 export class SearchInput extends React.Component<React.HTMLProps<HTMLInputElement>, void> {
@@ -16,7 +15,6 @@ export class SearchInput extends React.Component<React.HTMLProps<HTMLInputElemen
                     className={`search-input ${this.props.className}`}
                 />
             </div>
-        )
+        );
     }
-
 }

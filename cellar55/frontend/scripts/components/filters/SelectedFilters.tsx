@@ -5,7 +5,7 @@ import { isEqual, map } from "lodash";
 
 import { toTitleCase } from "../../helpers/helpers";
 import { emptyFilter } from "../../initialState";
-import { IFilter } from '../../types/filter';
+import { IFilter } from "../../types/filter";
 
 interface Props {
     filter: IFilter;

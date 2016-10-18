@@ -1,10 +1,10 @@
-export const WineTypes = ['Red', 'White', 'Rose', 'Sparkling'];
+export const WineTypes = ["Red", "White", "Rose", "Sparkling"];
 
 export const WineType = {
-    'RED': 'RED',
-    'WHITE': 'WHITE',
-    'ROSE': 'ROSE',
-    'SPARKLING': 'SPARKLING'
+    "RED": "RED",
+    "WHITE": "WHITE",
+    "ROSE": "ROSE",
+    "SPARKLING": "SPARKLING"
 };
 
 export const GrapeVarietals = [

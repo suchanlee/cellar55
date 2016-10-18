@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 import * as classNames from "classnames";
 
 interface Props {
@@ -31,5 +31,4 @@ export default class FilterContainer extends React.Component<Props, void> {
             </div>
         );
     }
-
 }

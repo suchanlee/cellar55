@@ -1,9 +1,9 @@
-import objectAssign = require('object-assign');
+import objectAssign = require("object-assign");
 
-import { IWineState } from '../types/wine';
+import { IWineState } from "../types/wine";
 
-import { initialState } from '../initialState';
-import { ActionType } from '../actions/ActionTypes';
+import { initialState } from "../initialState";
+import { ActionType } from "../actions/ActionTypes";
 
 export default function wineReducer(state: IWineState = initialState.wine, action) {
     switch (action.type) {
@@ -33,7 +33,7 @@ export default function wineReducer(state: IWineState = initialState.wine, actio
         case ActionType.RECEIVE_WINES_ERROR:
             return objectAssign({}, state, {
                 isQueryingWines: false,
-                error: 'failure'
+                error: "failure"
             });
 
         case ActionType.REQUEST_ENTRY:
@@ -51,7 +51,7 @@ export default function wineReducer(state: IWineState = initialState.wine, actio
         case ActionType.RECEIVE_ENTRY_ERROR:
             return objectAssign({}, state, {
                 isFetchingEntry: false,
-                error: 'entry fetch failure'
+                error: "entry fetch failure"
             });
 
         default:

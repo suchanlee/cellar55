@@ -1,5 +1,5 @@
-import { ActionType } from './ActionTypes';
-import { IFilter } from '../types/filter';
+import { ActionType } from "./ActionTypes";
+import { IFilter } from "../types/filter";
 
 export function changeFilter(filter: IFilter) {
     return {

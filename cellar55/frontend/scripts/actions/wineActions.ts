@@ -1,15 +1,14 @@
 import "whatwg-fetch";
-import queryString = require('query-string');
-import objectAssign = require('object-assign');
-import { map, filter } from 'lodash';
+import queryString = require("query-string");
+import { map, filter } from "lodash";
 
-import { IApp } from '../types/main';
-import { IFilter, IRequestFilter } from '../types/filter';
-import { IWine, IWineResponse, IEntryResponse } from '../types/wine';
-import { IRegion, RegionType } from '../types/region';
-import { ActionType } from './ActionTypes';
+import { IApp } from "../types/main";
+import { IFilter, IRequestFilter } from "../types/filter";
+import { IWine, IWineResponse, IEntryResponse } from "../types/wine";
+import { IRegion, RegionType } from "../types/region";
+import { ActionType } from "./ActionTypes";
 
-const baseUrl: string = '/api/wine';
+const baseUrl: string = "/api/wine";
 
 function requestWines(filter: IFilter) {
     return {
@@ -51,7 +50,7 @@ function receiveEntryError(error: Response) {
     return {
         type: ActionType.RECEIVE_ENTRY_ERROR,
         error
-    }
+    };
 }
 
 function asyncFetchWines(filter: IFilter) {
@@ -68,7 +67,7 @@ function asyncFetchWines(filter: IFilter) {
             })
             .then((response: Response) => response.json())
             .then((data: IWineResponse) => dispatch(receiveWinesSuccess(data)));
-    }
+    };
 }
 
 function asyncFetchEntry(id: number) {
@@ -85,13 +84,13 @@ function asyncFetchEntry(id: number) {
             })
             .then((response: Response) => response.json())
             .then((data: IEntryResponse) => dispatch(receiveEntrySuccess(data)));
-    }
+    };
 }
 
 function convertToRequestFilter(f: IFilter): IRequestFilter {
-    const countries = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.COUNTRY), 'name');
-    const regions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.REGION), 'name');
-    const subregions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.SUBREGION), 'name');
+    const countries = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.COUNTRY), "name");
+    const regions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.REGION), "name");
+    const subregions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.SUBREGION), "name");
     return {
         countries: countries,
         regions: regions,
@@ -111,13 +110,13 @@ export function fetchWines(filter: IFilter) {
         if (state.wine.allWines.length === 0) {
             dispatch(asyncFetchWines(filter));
         }
-    }
+    };
 }
 
 export function fetchWinesWithNewFilter(filter: IFilter) {
     return (dispatch, getState) => {
         dispatch(asyncFetchWines(filter));
-    }
+    };
 }
 
 export function fetchEntry(id: number) {

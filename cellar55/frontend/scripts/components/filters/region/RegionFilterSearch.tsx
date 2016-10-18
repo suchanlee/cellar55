@@ -1,14 +1,12 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 import * as classNames from "classnames";
-import { map, sortBy, findIndex } from 'lodash';
+import { map, sortBy } from "lodash";
 
-import * as Constants from '../../../constants/Constants';
-import { IRegion, RegionType } from '../../../types/region';
-import { IFilter, IFilterDelta } from '../../../types/filter';
+import { IRegion } from "../../../types/region";
+import { IFilter } from "../../../types/filter";
 
-import RegionSearchDropdown from './RegionSearchDropdown';
-import { SearchInput } from '../../base/SearchInput';
+import RegionSearchDropdown from "./RegionSearchDropdown";
 
 const Keys = {
     ESC: 27,
@@ -39,7 +37,7 @@ interface State {
 export default class RegionFilterSearch extends React.Component<Props, State> {
 
     state: State = {
-        query: '',
+        query: "",
         selectedIdx: 0,
         isDropdownShown: false,
         focus: false
@@ -109,7 +107,7 @@ export default class RegionFilterSearch extends React.Component<Props, State> {
     private reset = () => {
         this.setState({
             selectedIdx: 0,
-            query: '',
+            query: "",
             isDropdownShown: false,
             focus: this.state.focus
         });

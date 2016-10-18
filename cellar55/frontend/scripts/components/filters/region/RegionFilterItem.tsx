@@ -1,13 +1,12 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 
-import { IRegion } from '../../../types/region';
-import { getRegionType } from "../../../helpers/helpers";
+import { IRegion } from "../../../types/region";
 
-import CrossIcon from '../../icons/CrossIcon';
+import CrossIcon from "../../icons/CrossIcon";
 
 interface Props {
-    region: IRegion
+    region: IRegion;
     removeRegionFilter: (region: IRegion) => void;
 }
 
@@ -34,5 +33,4 @@ export default class RegionFilterItem extends React.Component<Props, void> {
             </li>
         );
     }
-
 }

@@ -1,14 +1,13 @@
-import * as React from 'react';
-import * as PureRender from 'pure-render-decorator';
+import * as React from "react";
+import * as PureRender from "pure-render-decorator";
 import * as classNames from "classnames";
 import { map } from "lodash";
 
-import * as Constants from '../../../constants/Constants';
-import { IFilter, IFilterDelta } from '../../../types/filter';
-import { IWine } from '../../../types/wine';
+import * as Constants from "../../../constants/Constants";
+import { IFilter, IFilterDelta } from "../../../types/filter";
+import { IWine } from "../../../types/wine";
 
-import BaseFilter from '../BaseFilter';
-import WineTypeBox from "../../WineTypeBox";
+import BaseFilter from "../BaseFilter";
 import { CheckboxInput } from "../../base/CheckboxInput";
 
 interface Props {
@@ -34,28 +33,26 @@ export default class TypeFilter extends React.Component<Props, void> {
     }
 
     private getWineTypeFilters(): React.ReactElement<any>[] {
-        let wineTypeFilters: React.ReactElement<any>[] = [];
         return map(Constants.WineTypes, (wineType) => {
             const checked = this.props.filter.wine_types.indexOf(wineType) >= 0;
-            return <span className={classNames('item wine-type-filter-item', {
+            return <span className={classNames("item wine-type-filter-item", {
                 "checked": checked
             })} key={wineType}>
                 <CheckboxInput
                     checked={checked}
                     onChange={() => this.handleWineTypeFilterClick(wineType)}
                 >
-                    {wineType === 'Rose' ? 'Rosé' : wineType}
+                    {wineType === "Rose" ? "Rosé" : wineType}
                 </CheckboxInput>
-            </span>
+            </span>;
         });
     }
 
     render() {
         return (
-            <BaseFilter filterKey='Wine Types'>
+            <BaseFilter filterKey="Wine Types">
                 {this.getWineTypeFilters()}
             </BaseFilter>
         );
     }
-
 }
