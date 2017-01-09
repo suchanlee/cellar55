@@ -58,7 +58,7 @@ class Wine(db.Model):
         }
 
     def __repr__(self):
-        return '<Wine: {0}>'.format(self.name)
+        return '<Wine: {0}>'.format(self.name.encode('utf-8'))
 
 
 class Entry(db.Model):
