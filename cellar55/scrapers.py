@@ -24,9 +24,7 @@ class WineScraper:
 
     def request(self):
         try:
-            job_logger.info("Requesting GET from {0}{1}".format(self.base_url, self.url))
             res = requests.get('{0}{1}'.format(self.base_url, self.url), verify=False)
-            job_logger.info("Received GET from {0}{1}".format(self.base_url, self.url))
             self.soup = BeautifulSoup(res.content, 'html.parser')
         except requests.exceptions.RequestException as error:
             job_logger.error("Failed GET from {0}{1}".format(self.base_url, self.url), error)
@@ -38,23 +36,23 @@ class WineScraper:
         try:
             return Wine(
                 name = self._get_name(),
-                country = tech_notes['Country'],
-                region = tech_notes['Region'],
-                subregion = tech_notes['Sub-Region'],
+                country = tech_notes.get('Country', ''),
+                region = tech_notes.get('Region', ''),
+                subregion = tech_notes.get('Sub-Region', ''),
                 vintage = ','.join(self._get_vintages()),
-                varietal = tech_notes['Varietal'],
-                production = tech_notes['Production'],
-                alcohol = tech_notes['Alcohol'],
-                oak = tech_notes['Oak'],
-                soil = tech_notes['Soil'],
-                farming = tech_notes['Farming'],
+                varietal = tech_notes.get('Varietal', ''),
+                production = tech_notes.get('Production', ''),
+                alcohol = tech_notes.get('Alcohol', ''),
+                oak = tech_notes.get('Oak', ''),
+                soil = tech_notes.get('Soil', ''),
+                farming = tech_notes.get('Farming', ''),
                 wine_type = self._get_type(),
-                fruit_rating = wine_specs['Fruit'],
-                earth_rating = wine_specs['Earth'],
-                body_rating = wine_specs['Body'],
-                tannin_rating = wine_specs['Tannin'],
-                acid_rating = wine_specs['Acid'],
-                alcohol_rating = wine_specs['Alcohol'],
+                fruit_rating = wine_specs.get('Fruit', -1),
+                earth_rating = wine_specs.get('Earth', -1),
+                body_rating = wine_specs.get('Body', -1),
+                tannin_rating = wine_specs.get('Tannin', -1),
+                acid_rating = wine_specs.get('Acid', -1),
+                alcohol_rating = wine_specs.get('Alcohol', -1),
                 main_image_url = self._get_main_image_url(),
                 alt_image_url = self._get_alt_image_url())
         except Exception as error:
