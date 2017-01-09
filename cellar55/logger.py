@@ -27,7 +27,7 @@ class Logger:
         self.info_logger.info(self._format_log(action))
 
     def error(self, action, error=''):
-        self.error_logger.error(self._format_log(action, error))
+        self.error_logger.error(self._format_log(action, error), exc_info=True)
 
     def _format_log(self, action, error=None):
         time = str(datetime.datetime.now())
