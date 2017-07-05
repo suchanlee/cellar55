@@ -1,21 +1,21 @@
 import { ActionType } from "./ActionTypes";
 import { IFilter } from "../types/filter";
 
-export function changeFilter(filter: IFilter) {
-    return {
-        type: ActionType.CHANGE_FILTER,
-        filter
-    };
+export function setFilter(filter: IFilter) {
+  return {
+    filter,
+    type: ActionType.CHANGE_FILTER,
+  };
 }
 
 export function clearFilter() {
-    return {
-        type: ActionType.CLEAR_FILTER
-    };
+  return {
+    type: ActionType.CLEAR_FILTER
+  };
 }
 
 export function toggleFilter() {
-    return {
-        type: ActionType.TOGGLE_FILTER
-    };
+  return {
+    type: ActionType.TOGGLE_FILTER
+  };
 }

@@ -1,41 +1,40 @@
 import * as React from "react";
-import * as PureRender from "pure-render-decorator";
+
 import { map } from "lodash";
 
 import { IWine } from "../../types/wine";
 import { BaseWineList } from "../base/BaseWineComponents";
-import AdminWineItem from "./AdminWineItem";
+import { AdminWineItem } from "./AdminWineItem";
 
 interface Props {
-    selectedWineId: number;
-    filteredWines: IWine[];
-    selectWine: (wine: IWine) => void;
+  selectedWineId: number | undefined;
+  filteredWines: IWine[];
+  selectWine: (wine: IWine) => void;
 }
 
-@PureRender
-export default class AdminWineList extends React.Component<Props, void> {
+export class AdminWineList extends React.PureComponent<Props, {}> {
 
-    private getWineIds(): number[] {
-        return map(this.props.filteredWines, wine => wine.id);
-    }
+  public render() {
+    return (
+      <BaseWineList
+        wineIds={this.getWineIds()}
+        wineItems={this.renderWineItems()}
+      />
+    );
+  }
 
-    private renderWineItems(): React.ReactElement<any>[] {
-        return map(this.props.filteredWines, wine =>
-            <AdminWineItem
-                key={wine.id}
-                wine={wine}
-                selected={wine.id === this.props.selectedWineId}
-                selectWine={this.props.selectWine}
-            />
-        );
-    }
+  private getWineIds(): number[] {
+    return map(this.props.filteredWines, (wine) => wine.id);
+  }
 
-    render() {
-        return (
-            <BaseWineList
-                wineIds={this.getWineIds()}
-                wineItems={this.renderWineItems()}
-            />
-        );
-    }
+  private renderWineItems(): Array<React.ReactElement<any>> {
+    return map(this.props.filteredWines, (wine) =>
+      <AdminWineItem
+        key={wine.id}
+        wine={wine}
+        selected={wine.id === this.props.selectedWineId}
+        selectWine={this.props.selectWine}
+      />
+    );
+  }
 }

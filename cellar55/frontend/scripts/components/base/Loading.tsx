@@ -1,23 +1,21 @@
 import * as React from "react";
-import * as PureRender from "pure-render-decorator";
 
 interface Props {
-    text?: string;
+  text?: string;
 }
 
-@PureRender
-export default class  extends React.Component<Props, {}> {
+export class Loading extends React.PureComponent<Props, {}> {
 
-    defaultProps = {
-        text: "Fetching wines . . ."
-    };
+  public defaultProps = {
+    text: "Fetching wines . . ."
+  };
 
-    render() {
-        return (
-            <div className="wine-loading-container">
-                <img src="/static/images/loading.png" alt="Loading wines..." />
-                <div className="wine-loading-text">{this.props.text}</div>
-            </div>
-        );
-    }
+  public render() {
+    return (
+      <div className="wine-loading-container">
+        <img src="/static/images/loading.png" alt="Loading wines..." />
+        <div className="wine-loading-text">{this.props.text}</div>
+      </div>
+    );
+  }
 }

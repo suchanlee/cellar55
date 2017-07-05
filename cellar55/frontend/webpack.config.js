@@ -11,17 +11,12 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      { test: /\.tsx?$/, loader: 'tslint' }
+      { test: /\.tsx?$/, loader: 'tslint' },
     ],
     loaders: [
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader'
-      },
-      {
-        test: /\.less$/,
-        loader: 'style!css!less'
-      }
+      { test: /node_modules.*\.js$/, loader: 'source-map-loader' },
+      { test: /\.tsx?$/, loader: 'ts-loader' },
+      { test: /\.less$/, loader: 'style!css!less' }
     ]
   },
   tslint: {

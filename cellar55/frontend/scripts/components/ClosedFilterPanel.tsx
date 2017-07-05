@@ -1,24 +1,22 @@
 import * as React from "react";
-import * as PureRender from "pure-render-decorator";
 
 import { IFilter } from "../types/filter";
 
-import ClosedFilters from "./filters/ClosedFilters";
+import { ClosedFilters } from "./filters/ClosedFilters";
 
 interface Props {
-    currentFilter: IFilter;
-    isFilterOpen: boolean;
-    onFilterToggle: () => void;
+  currentFilter: IFilter;
+  isFilterOpen: boolean;
+  onFilterToggle: () => void;
 }
 
-@PureRender
-export default class ClosedFilterPanel extends React.Component<Props, void> {
+export class ClosedFilterPanel extends React.PureComponent<Props, {}> {
 
-    render() {
-        return (
-            <div className="panel closed filter-panel">
-                <ClosedFilters {...this.props} />
-            </div>
-        );
-    }
+  public render() {
+    return (
+      <div className="panel closed filter-panel">
+        <ClosedFilters {...this.props} />
+      </div>
+    );
+  }
 }

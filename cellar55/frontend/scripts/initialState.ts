@@ -1,29 +1,30 @@
 import { IFilter } from "./types/filter";
 import { IApp } from "./types/main";
+import { IWine } from "./types/wine";
 
 export const emptyFilter: IFilter = {
-    regions: [],
-    wine_types: [],
-    varietals: [],
-    vintage: "",
-    vintage_from: "",
-    vintage_to: "",
-    name: ""
+  name: "",
+  regions: [],
+  varietals: [],
+  vintage: "",
+  vintage_from: "",
+  vintage_to: "",
+  wine_types: [],
 };
 
 export const initialState: IApp = {
-    filterState: {
-        initial: emptyFilter,
-        current: emptyFilter,
-        isOpen: true
-    },
-    wine: {
-        isQueryingWines: true,
-        isFetchingEntry: false,
-        wines: [],
-        selectedWine: undefined,
-        allWines: [],
-        entry: undefined,
-        error: undefined
-    }
+  filterState: {
+    current: emptyFilter,
+    initial: emptyFilter,
+    isOpen: true
+  },
+  wine: {
+    allWines: [] as IWine[],
+    entry: undefined,
+    error: undefined,
+    isFetchingEntry: false,
+    isQueryingWines: true,
+    selectedWine: undefined,
+    wines: [] as IWine[],
+  },
 };

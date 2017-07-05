@@ -1,29 +1,26 @@
 import * as React from "react";
-import * as PureRender from "pure-render-decorator";
-
 import { SearchInput } from "../base/SearchInput";
 
-interface Props {
-    query: string;
-    onQueryChange: (query: string) => void;
+export interface AdminWineSearchProps {
+  query: string;
+  onQueryChange: (query: string) => void;
 }
 
-@PureRender
-export default class AdminWineSearch extends React.Component<Props, void> {
+export class AdminWineSearch extends React.PureComponent<AdminWineSearchProps, {}> {
 
-    private handleChange = (evt: React.SyntheticEvent) => {
-        this.props.onQueryChange(evt.target["value"]);
-    }
+  public render() {
+    return (
+      <div className="admin-wine-search">
+        <SearchInput
+          className="admin-wine-search-input"
+          value={this.props.query}
+          onChange={this.handleChange}
+        />
+      </div>
+    );
+  }
 
-    render() {
-        return (
-            <div className="admin-wine-search">
-                <SearchInput
-                    className="admin-wine-search-input"
-                    value={this.props.query}
-                    onChange={this.handleChange}
-                />
-            </div>
-        );
-    }
+  private handleChange = (evt: React.SyntheticEvent<HTMLInputElement>) => {
+    this.props.onQueryChange(evt.currentTarget.value);
+  }
 }

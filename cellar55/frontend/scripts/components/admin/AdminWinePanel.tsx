@@ -1,65 +1,64 @@
 import * as React from "react";
-import * as PureRender from "pure-render-decorator";
 import { filter } from "lodash";
-
 import { selectWine, fetchEntry } from "../../actions/wineActions";
 import { IWine } from "../../types/wine";
 
-import AdminWineSearch from "./AdminWineSearch";
-import AdminWineList from "./AdminWineList";
+import { AdminWineSearch } from "./AdminWineSearch";
+import { AdminWineList } from "./AdminWineList";
 
 interface Props {
-    dispatch: any;
-    wines: IWine[];
-    selectedWineId: number;
+  wines: IWine[];
+  selectedWineId: number | undefined;
+  fetchEntry(entryId: number): void;
+  selectWine(wine: IWine): void;
 }
 
 interface State {
-    query: string;
+  query: string;
 }
 
-@PureRender
-export default class AdminWinePanel extends React.Component<Props, State> {
 
-    state: State = {
-        query: ""
-    };
+export class AdminWinePanel extends React.PureComponent<Props, State> {
 
-    private handleQueryChange = (query: string) => {
-        this.setState({ query });
+  public state: State = {
+    query: ""
+  };
+
+  public render() {
+    return (
+      <div className="admin-wine-panel panel">
+        <AdminWineSearch
+          query={this.state.query}
+          onQueryChange={this.handleQueryChange}
+        />
+        <AdminWineList
+          filteredWines={this.getFilteredWines()}
+          selectWine={this.selectWine}
+          selectedWineId={this.props.selectedWineId}
+        />
+      </div>
+    );
+  }
+
+  private handleQueryChange = (query: string) => {
+    this.setState({ query });
+  }
+
+  private selectWine = (wine: IWine) => {
+    this.props.selectWine(wine);
+    this.props.fetchEntry(wine.id);
+  }
+
+  private getFilteredWines(): IWine[] {
+    const searchQuery = this.state.query.trim().toLowerCase();
+    if (searchQuery.length === 0) {
+      return this.props.wines;
     }
-
-    private selectWine = (wine: IWine) => {
-        this.props.dispatch(selectWine(wine));
-        this.props.dispatch(fetchEntry(wine.id));
-    }
-
-    private getFilteredWines(): IWine[] {
-        const searchQuery = this.state.query.trim().toLowerCase();
-        if (searchQuery.length === 0) {
-            return this.props.wines;
-        }
-        const wines = filter(this.props.wines, (wine) => {
-            const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}
-             ${wine.varietal} ${wine.wine_type} ${wine.vintage}`.toLowerCase();
-             return content.indexOf(searchQuery) > - 1;
-        });
-        return wines;
-    }
-
-    render() {
-        return (
-            <div className="admin-wine-panel panel">
-                <AdminWineSearch
-                    query={this.state.query}
-                    onQueryChange={this.handleQueryChange}
-                />
-                <AdminWineList
-                    filteredWines={this.getFilteredWines()}
-                    selectWine={this.selectWine}
-                    selectedWineId={this.props.selectedWineId}
-                />
-            </div>
-        );
-    }
+    const wines = filter(this.props.wines, (wine) => {
+      const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}
+       ${wine.varietal} ${wine.wine_type} ${wine.vintage}`.toLowerCase();
+      return content.indexOf(searchQuery) > - 1;
+    });
+    return wines;
+  }
 }

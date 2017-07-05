@@ -3,23 +3,24 @@ import "!style!css!less!../styles/main.less";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { Router, Route, browserHistory } from "react-router";
+import { BrowserRouter, Route } from "react-router-dom";
 
+import { createCellarStore } from "./stores/cellarStore";
 import { initialState } from "./initialState";
-import cellarStore from "./stores/cellarStore";
-import HomePage from "./components/HomePage.tsx";
-import DetailPage from "./components/DetailPage.tsx";
-import AdminPage from "./components/admin/AdminPage.tsx";
 
-const store = cellarStore(initialState);
+import { ConnectedAdminPage } from "./components/admin/AdminPage";
+import { ConnectedDetailPage } from "./components/DetailPage";
+import { ConnectedHomePage } from "./components/HomePage";
+
+const store = createCellarStore();
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path="/" component={HomePage} />
-            <Route path="/admin" component={AdminPage} />
-            <Route path="/wine/:wineId" component={DetailPage} />
-        </Router>
-    </Provider>,
-    document.getElementById("app")
+  <Provider store={store}>
+    <BrowserRouter>
+      <Route path="/" component={ConnectedHomePage} />
+      <Route path="/admin" component={ConnectedAdminPage} />
+      <Route path="/wine/:wineId" component={ConnectedDetailPage} />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("app"),
 );

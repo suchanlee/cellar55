@@ -1,8 +1,8 @@
 export enum RegionType {
-    SUBREGION, REGION, COUNTRY
+  SUBREGION, REGION, COUNTRY
 }
 
 export interface IRegion {
-    type: RegionType;
-    name: string;
+  type: RegionType;
+  name: string;
 }
