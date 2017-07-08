@@ -14,7 +14,9 @@ interface IRouteParam {
 }
 
 interface StateProps {
-  params?: IRouteParam; // automatically injected by react-router
+  match?: {
+    params: IRouteParam; // automatically injected by react-router
+  };
   entry: IEntry | undefined;
   wine: IWine | undefined;
   isFetching: boolean;
@@ -28,8 +30,8 @@ type Props = StateProps & DispatchProps;
 
 class DetailPage extends React.PureComponent<Props, {}> {
   public componentDidMount() {
-    if (this.props.params != null) {
-      this.props.fetchEntry(parseInt(this.props.params.wineId, 10));
+    if (this.props.match != null) {
+      this.props.fetchEntry(parseInt(this.props.match.params.wineId, 10));
     }
   }
 
