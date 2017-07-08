@@ -1,5 +1,5 @@
 import * as React from "react";
-import { map, chain, findIndex } from "lodash";
+import { chain, findIndex } from "lodash";
 
 import { IFilter, IFilterDelta } from "../../../types/filter";
 import { IWine } from "../../../types/wine";
@@ -27,17 +27,16 @@ export class RegionFilter extends React.PureComponent<Props, {}> {
           regions={this.getAllRegions()}
           toggleRegionFilter={this.toggleRegionFilter}
         />
-        {this.props.filter.regions.length > 0
-          ? <ul className="region-filter-list">
-              {map(this.props.filter.regions, (region, idx) =>
-                <RegionFilterItem
-                  key={idx}
-                  region={region}
-                  removeRegionFilter={this.toggleRegionFilter}
-                />
-              )}
-            </ul>
-          : null}
+        {this.props.filter.regions.length > 0 &&
+          <ul className="region-filter-list">
+            {this.props.filter.regions.map(region =>
+              <RegionFilterItem
+                key={`${region.name}-${region.type}`}
+                region={region}
+                removeRegionFilter={this.toggleRegionFilter}
+              />
+            )}
+          </ul>}
       </BaseFilter>
     );
   }
@@ -61,7 +60,7 @@ export class RegionFilter extends React.PureComponent<Props, {}> {
   }
 
   private getRegionsForType(type: RegionType): IRegion[] {
-    const regions: string[] = map(this.props.wines, wine => {
+    const regions: string[] = this.props.wines.map(wine => {
       let region: string = "";
       switch (type) {
         case RegionType.COUNTRY:
@@ -73,7 +72,10 @@ export class RegionFilter extends React.PureComponent<Props, {}> {
         case RegionType.SUBREGION:
           region = wine.subregion;
           break;
-        default: //
+        default:
+          throw new Error(
+            "Unsuppported region type: " + RegionType[type as number]
+          );
       }
       return region.replace(removalReg, "").trim();
     });

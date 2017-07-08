@@ -63,10 +63,11 @@ export class RegionFilterSearch extends React.PureComponent<Props, State> {
         <RegionSearchDropdown
           ref="dropdown"
           isShown={this.state.isDropdownShown}
+          selectedRegions={this.props.filter.regions}
           regions={this.getMatchingRegions()}
           onItemMouseOver={this.handleItemMouseOver}
           onItemClick={this.toggleRegionFilter}
-          idx={this.state.selectedIdx}
+          index={this.state.selectedIdx}
         />
       </div>
     );

@@ -63,7 +63,7 @@ export class BaseWineList extends React.PureComponent<
       return this.props.wineItems.slice(0, PAGE_SIZE * this.state.pages);
     }
     return (
-      <div className="wine-list-empty">No wines matching search criteria.</div>
+      <div className="wine-list-empty">No wines matching search criteria</div>
     );
   }
 

@@ -665,6 +665,7 @@ header {
   cursor: pointer;
   color: @dark-gray;
   letter-spacing: 0.4px;
+  position: relative;
 
   &.selected {
     color: @very-dark-gray;
@@ -677,6 +678,17 @@ header {
   text-transform: uppercase;
   margin-top: 2px;
   color: @gray;
+}
+
+@region-search-item-dot-diameter: 10px;
+.region-search-item-dot {
+  height: @region-search-item-dot-diameter;
+  width: @region-search-item-dot-diameter;
+  border-radius: @region-search-item-dot-diameter;
+  background-color: @purple;
+  position: absolute;
+  top: ~'calc(50% - @{region-search-item-dot-diameter} / 2)';
+  right: 15px;
 }
 
 .region-filter-list {
@@ -703,7 +715,7 @@ header {
   .cross-icon {
     opacity: 0.5;
     cursor: pointer;
-    height: 11px;
+    height: 9px;
     margin-left: 10px;
 
     &:hover {

@@ -1,6 +1,5 @@
 import "whatwg-fetch";
 import queryString = require("query-string");
-import { map, filter } from "lodash";
 import { Dispatch } from "redux";
 import { IApp } from "../types/main";
 import { IFilter, IRequestFilter } from "../types/filter";
@@ -88,18 +87,15 @@ function asyncFetchEntry(id: number) {
 }
 
 function convertToRequestFilter(f: IFilter): IRequestFilter {
-  const countries = map<IRegion, string>(
-    filter(f.regions, r => r.type === RegionType.COUNTRY),
-    "name"
-  );
-  const regions = map<IRegion, string>(
-    filter(f.regions, r => r.type === RegionType.REGION),
-    "name"
-  );
-  const subregions = map<IRegion, string>(
-    filter(f.regions, r => r.type === RegionType.SUBREGION),
-    "name"
-  );
+  const countries = f.regions
+    .filter(r => r.type === RegionType.COUNTRY)
+    .map(r => r.name);
+  const regions = f.regions
+    .filter(r => r.type === RegionType.REGION)
+    .map(r => r.name);
+  const subregions = f.regions
+    .filter(r => r.type === RegionType.SUBREGION)
+    .map(r => r.name);
   return {
     countries,
     name: f.name,

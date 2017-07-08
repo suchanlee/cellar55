@@ -1,7 +1,6 @@
 import * as React from "react";
-
+import { find } from "lodash";
 import { IRegion } from "../../../types/region";
-
 import { CrossIcon } from "../../icons/CrossIcon";
 
 interface Props {
@@ -11,12 +10,11 @@ interface Props {
 
 export class RegionFilterItem extends React.PureComponent<Props, {}> {
   public render() {
-    const { region } = this.props;
     return (
       <li className="region-filter-item">
         <div className="region-filter-item-data">
           <div className="region-filter-item-name">
-            {region.name}
+            {this.props.region.name}
           </div>
         </div>
         <div

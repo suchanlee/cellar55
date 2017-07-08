@@ -12,7 +12,8 @@ import { CheckboxInput } from "../../base/CheckboxInput";
 interface Props {
   wines: IWine[];
   filter: IFilter;
-  onFilterUpdate: (filtersDelta: IFilterDelta) => void; onFilterUpdatde?: (filtersDelta: IFilterDelta) => void;
+  onFilterUpdate: (filtersDelta: IFilterDelta) => void;
+  onFilterUpdatde?: (filtersDelta: IFilterDelta) => void;
 }
 
 export class TypeFilter extends React.PureComponent<Props, {}> {

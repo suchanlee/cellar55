@@ -1,16 +1,17 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as classNames from "classnames";
-
+import { find } from "lodash";
 import { IRegion } from "../../../types/region";
 import { getRegionType } from "../../../helpers/helpers";
 
 interface Props {
-  idx: number;
+  index: number;
   region: IRegion;
+  selectedRegions: IRegion[];
   selected: boolean;
   onClick: (region: IRegion) => void;
-  onMouseOver: (idx: number) => void;
+  onMouseOver: (index: number) => void;
 }
 
 export class RegionSearchItem extends React.PureComponent<Props, {}> {
@@ -42,12 +43,26 @@ export class RegionSearchItem extends React.PureComponent<Props, {}> {
         <div className="region-search-item-type">
           {getRegionType(this.props.region.type)}
         </div>
+        {this.isRegionSelected() && <span className="region-search-item-dot" />}
       </div>
     );
   }
 
-  private handleClick = () => this.props.onClick(this.props.region);
-  private handleMouseOver = () => {
-    this.props.onMouseOver(this.props.idx);
+  private handleClick = () => {
+    this.props.onClick(this.props.region);
   };
+
+  private handleMouseOver = () => {
+    this.props.onMouseOver(this.props.index);
+  };
+
+  private isRegionSelected() {
+    const { region, selectedRegions } = this.props;
+    return (
+      find(
+        selectedRegions,
+        r => r.name === region.name && r.type === region.type
+      ) != null
+    );
+  }
 }

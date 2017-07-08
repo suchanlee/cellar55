@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as classNames from "classnames";
-import { chain, map, isEqual } from "lodash";
+import { chain, isEqual } from "lodash";
 
 import { IFilterState, IFilterDelta } from "../../types/filter";
 import { IWine } from "../../types/wine";
@@ -74,7 +74,7 @@ export class Filters extends React.PureComponent<Props, {}> {
   }
 
   private getAllVintages(): string[] {
-    const vintages = map(this.props.wines, w => w.vintage.trim());
+    const vintages = this.props.wines.map(w => w.vintage.trim());
     return chain(vintages).filter(v => v.length > 0).uniq().sortBy().value();
   }
 

@@ -1,15 +1,13 @@
 import * as React from "react";
-import { map } from "lodash";
-
 import { IRegion } from "../../../types/region";
-
 import { RegionSearchItem } from "./RegionSearchItem";
 
 interface Props {
+  selectedRegions: IRegion[];
   regions: IRegion[];
   onItemMouseOver: (idx: number) => void;
   onItemClick: (region: IRegion) => void;
-  idx: number;
+  index: number;
   isShown: boolean;
 }
 
@@ -20,12 +18,13 @@ export class RegionSearchDropdown extends React.PureComponent<Props, {}> {
     }
     return (
       <ul className="region-search-dropdown">
-        {map(this.props.regions, (region, idx) =>
+        {this.props.regions.map((region, index) =>
           <RegionSearchItem
-            key={idx}
-            idx={idx}
+            key={`${region.name}-${region.type}`}
+            index={index}
             region={region}
-            selected={idx === this.props.idx}
+            selectedRegions={this.props.selectedRegions}
+            selected={index === this.props.index}
             onClick={this.props.onItemClick}
             onMouseOver={this.props.onItemMouseOver}
           />

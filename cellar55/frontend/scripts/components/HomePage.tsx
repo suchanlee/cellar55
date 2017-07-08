@@ -104,7 +104,7 @@ class HomePage extends React.PureComponent<Props, State> {
   };
 
   private handleFilterApply = () => {
-    const { filterState } = this.props;
+    const { fetchWinesWithNewFilter, filterState } = this.props;
     fetchWinesWithNewFilter(filterState.current);
   };
 
