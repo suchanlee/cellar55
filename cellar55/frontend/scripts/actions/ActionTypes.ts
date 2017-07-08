@@ -8,5 +8,5 @@ export enum ActionType {
   CHANGE_FILTER,
   CLEAR_FILTER,
   TOGGLE_FILTER,
-  SELECT_WINE,
+  SELECT_WINE
 }

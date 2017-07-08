@@ -14,7 +14,6 @@ interface Props {
 }
 
 export class RegionSearchItem extends React.PureComponent<Props, {}> {
-
   private row: any;
 
   public componentDidMount() {
@@ -34,11 +33,15 @@ export class RegionSearchItem extends React.PureComponent<Props, {}> {
         onClick={this.handleClick}
         onMouseOver={this.handleMouseOver}
         className={classNames("region-search-item", {
-          selected: this.props.selected,
+          selected: this.props.selected
         })}
       >
-        <div className="region-search-item-name">{this.props.region.name}</div>
-        <div className="region-search-item-type">{getRegionType(this.props.region.type)}</div>
+        <div className="region-search-item-name">
+          {this.props.region.name}
+        </div>
+        <div className="region-search-item-type">
+          {getRegionType(this.props.region.type)}
+        </div>
       </div>
     );
   }
@@ -46,5 +49,5 @@ export class RegionSearchItem extends React.PureComponent<Props, {}> {
   private handleClick = () => this.props.onClick(this.props.region);
   private handleMouseOver = () => {
     this.props.onMouseOver(this.props.idx);
-  }
+  };
 }

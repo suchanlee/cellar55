@@ -13,7 +13,6 @@ interface Props {
 }
 
 export class ClosedFilters extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <FilterContainer isOpen={this.props.isFilterOpen}>
@@ -22,9 +21,7 @@ export class ClosedFilters extends React.PureComponent<Props, {}> {
             isFilterOpen={false}
             onFilterToggle={this.props.onFilterToggle}
           />
-          <SelectedFilters
-            filter={this.props.currentFilter}
-          />
+          <SelectedFilters filter={this.props.currentFilter} />
         </div>
       </FilterContainer>
     );

@@ -6,7 +6,6 @@ interface Props {
 }
 
 export class AdminEntryPanel extends React.PureComponent<Props, {}> {
-
   public render() {
     let content: React.ReactNode;
     if (this.props.isFetchingEntry) {

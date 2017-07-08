@@ -11,7 +11,6 @@ interface Props {
 }
 
 export class ClosedFilterPanel extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <div className="panel closed filter-panel">

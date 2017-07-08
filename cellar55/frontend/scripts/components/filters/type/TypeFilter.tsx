@@ -12,11 +12,10 @@ import { CheckboxInput } from "../../base/CheckboxInput";
 interface Props {
   wines: IWine[];
   filter: IFilter;
-  onFilterUpdate: (filtersDelta: IFilterDelta) => void;
+  onFilterUpdate: (filtersDelta: IFilterDelta) => void; onFilterUpdatde?: (filtersDelta: IFilterDelta) => void;
 }
 
 export class TypeFilter extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <BaseFilter filterKey="Wine Types">
@@ -39,16 +38,21 @@ export class TypeFilter extends React.PureComponent<Props, {}> {
   }
 
   private getWineTypeFilters(): JSX.Element[] {
-    return map(Constants.WineTypes, (wineType) => {
+    return map(Constants.WineTypes, wineType => {
       const checked = this.props.filter.wine_types.indexOf(wineType) >= 0;
-      return <span className={classNames("item wine-type-filter-item", { checked })} key={wineType}>
-        <CheckboxInput
-          checked={checked}
-          onChange={() => this.handleWineTypeFilterClick(wineType)}
+      return (
+        <span
+          className={classNames("item wine-type-filter-item", { checked })}
+          key={wineType}
         >
-          {wineType === "Rose" ? "Rosé" : wineType}
-        </CheckboxInput>
-      </span>;
+          <CheckboxInput
+            checked={checked}
+            onChange={() => this.handleWineTypeFilterClick(wineType)}
+          >
+            {wineType === "Rose" ? "Rosé" : wineType}
+          </CheckboxInput>
+        </span>
+      );
     });
   }
 }

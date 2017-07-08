@@ -5,6 +5,7 @@
   "main": "bundle.js",
   "scripts": {
     "start": "webpack -w",
+    "prettify": "prettier --write --parser typescript './scripts/**/*.{ts,tsx}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Suchan Lee",
@@ -41,9 +42,12 @@
     "css-loader": "^0.26.1",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "prettier": "^1.5.2",
+    "prettier-webpack-plugin": "^0.2.1",
     "style-loader": "^0.13.1",
     "ts-loader": "^2.0.0",
     "tslint": "^5.4.3",
+    "tslint-config-prettier": "^1.1.0",
     "tslint-loader": "^3.3.0",
     "typescript": "^2.3.4",
     "webpack": "^1.14.0"

@@ -6,8 +6,10 @@ export interface AdminWineSearchProps {
   onQueryChange: (query: string) => void;
 }
 
-export class AdminWineSearch extends React.PureComponent<AdminWineSearchProps, {}> {
-
+export class AdminWineSearch extends React.PureComponent<
+  AdminWineSearchProps,
+  {}
+> {
   public render() {
     return (
       <div className="admin-wine-search">
@@ -22,5 +24,5 @@ export class AdminWineSearch extends React.PureComponent<AdminWineSearchProps, {
 
   private handleChange = (evt: React.SyntheticEvent<HTMLInputElement>) => {
     this.props.onQueryChange(evt.currentTarget.value);
-  }
+  };
 }

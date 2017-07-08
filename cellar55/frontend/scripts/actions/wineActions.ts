@@ -13,7 +13,7 @@ const baseUrl: string = "/api/wine";
 function requestWines(filter: IFilter) {
   return {
     filter,
-    type: ActionType.REQUEST_WINES,
+    type: ActionType.REQUEST_WINES
   };
 }
 
@@ -28,35 +28,37 @@ function receiveWinesSuccess(wineResponse: IWineResponse) {
 function receiveWinesError(error: Response) {
   return {
     error,
-    type: ActionType.RECEIVE_WINES_ERROR,
+    type: ActionType.RECEIVE_WINES_ERROR
   };
 }
 
 function requestEntry(id: number) {
   return {
     id,
-    type: ActionType.REQUEST_ENTRY,
+    type: ActionType.REQUEST_ENTRY
   };
 }
 
 function receiveEntrySuccess(res: IEntryResponse) {
   return {
     res,
-    type: ActionType.RECEIVE_ENTRY_SUCCESS,
+    type: ActionType.RECEIVE_ENTRY_SUCCESS
   };
 }
 
 function receiveEntryError(error: Response) {
   return {
     error,
-    type: ActionType.RECEIVE_ENTRY_ERROR,
+    type: ActionType.RECEIVE_ENTRY_ERROR
   };
 }
 
 function asyncFetchWines(filter: IFilter) {
   return (dispatch: Dispatch<IApp>) => {
     dispatch(requestWines(filter));
-    return fetch(`${baseUrl}?${queryString.stringify(convertToRequestFilter(filter))}`)
+    return fetch(
+      `${baseUrl}?${queryString.stringify(convertToRequestFilter(filter))}`
+    )
       .then((response: Response) => {
         if (response.ok) {
           return response.json();
@@ -65,14 +67,14 @@ function asyncFetchWines(filter: IFilter) {
         }
       })
       .then((data: IWineResponse) => dispatch(receiveWinesSuccess(data)))
-      .catch((error) => dispatch(receiveWinesError(error)));
+      .catch(error => dispatch(receiveWinesError(error)));
   };
 }
 
 function asyncFetchEntry(id: number) {
   return (dispatch: Dispatch<IApp>) => {
     dispatch(requestEntry(id));
-    return fetch (`${baseUrl}/${id}`)
+    return fetch(`${baseUrl}/${id}`)
       .then((response: Response) => {
         if (response.ok) {
           return response.json();
@@ -81,14 +83,23 @@ function asyncFetchEntry(id: number) {
         }
       })
       .then((data: IEntryResponse) => dispatch(receiveEntrySuccess(data)))
-      .catch((error) => receiveEntryError(error));
+      .catch(error => receiveEntryError(error));
   };
 }
 
 function convertToRequestFilter(f: IFilter): IRequestFilter {
-  const countries = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.COUNTRY), "name");
-  const regions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.REGION), "name");
-  const subregions = map<IRegion, string>(filter(f.regions, (r) => r.type === RegionType.SUBREGION), "name");
+  const countries = map<IRegion, string>(
+    filter(f.regions, r => r.type === RegionType.COUNTRY),
+    "name"
+  );
+  const regions = map<IRegion, string>(
+    filter(f.regions, r => r.type === RegionType.REGION),
+    "name"
+  );
+  const subregions = map<IRegion, string>(
+    filter(f.regions, r => r.type === RegionType.SUBREGION),
+    "name"
+  );
   return {
     countries,
     name: f.name,
@@ -98,7 +109,7 @@ function convertToRequestFilter(f: IFilter): IRequestFilter {
     vintage: f.vintage,
     vintage_from: f.vintage_from,
     vintage_to: f.vintage_to,
-    wine_types: f.wine_types,
+    wine_types: f.wine_types
   };
 }
 

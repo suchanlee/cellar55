@@ -4,9 +4,7 @@ interface Props {
   rating: number;
 }
 
-
 export class RatingCircles extends React.PureComponent<Props, {}> {
-
   public render() {
     const numFullCircles: number = Math.floor(this.props.rating);
     const numHalfCircles: number = 2 * (this.props.rating - numFullCircles);
@@ -36,11 +34,16 @@ export class RatingCircles extends React.PureComponent<Props, {}> {
     const circles: JSX.Element[] = [];
     for (let i = 0; i < count; i++) {
       if (circleClass.indexOf("half-circle")) {
-        circles.push(<span key={`${circleClass}-${i}`} className={circleClass}><span /></span>);
+        circles.push(
+          <span key={`${circleClass}-${i}`} className={circleClass}>
+            <span />
+          </span>
+        );
       } else {
-        circles.push(<span key={`${circleClass}-${i}`} className={circleClass} />);
+        circles.push(
+          <span key={`${circleClass}-${i}`} className={circleClass} />
+        );
       }
-
     }
     return circles;
   }

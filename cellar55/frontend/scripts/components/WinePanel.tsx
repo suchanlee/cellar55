@@ -22,7 +22,6 @@ const pluralize = (word: string, count: number, postfix = "s") => {
 };
 
 export class WinePanel extends React.PureComponent<Props, {}> {
-
   public render() {
     let content;
     let countText;
@@ -30,21 +29,26 @@ export class WinePanel extends React.PureComponent<Props, {}> {
       content = <Loading />;
       countText = "wines!";
     } else {
-      content = (
-        <WineList filteredWines={this.props.filteredWines} />
-      );
-      countText = `${this.props.filteredWines.length} ${pluralize("wine", this.props.filteredWines.length)}`;
+      content = <WineList filteredWines={this.props.filteredWines} />;
+      countText = `${this.props.filteredWines.length} ${pluralize(
+        "wine",
+        this.props.filteredWines.length
+      )}`;
     }
     return (
-      <div className={classNames("panel wine-panel", {
-        open: this.props.isFilterOpen,
-      })}>
+      <div
+        className={classNames("panel wine-panel", {
+          open: this.props.isFilterOpen
+        })}
+      >
         <div className="wine-panel-header">
           <SearchFilter
             value={this.props.searchQuery}
             onChange={this.props.onSearchQueryChange}
           />
-          <span className="wine-count">{countText}</span>
+          <span className="wine-count">
+            {countText}
+          </span>
         </div>
         {content}
       </div>

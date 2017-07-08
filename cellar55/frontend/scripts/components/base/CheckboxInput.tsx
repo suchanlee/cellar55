@@ -11,8 +11,10 @@ export interface State {
   checked: boolean;
 }
 
-export class CheckboxInput extends React.PureComponent<ICheckboxInputProps, State> {
-
+export class CheckboxInput extends React.PureComponent<
+  ICheckboxInputProps,
+  State
+> {
   public state: State = {
     checked: false
   };
@@ -49,5 +51,5 @@ export class CheckboxInput extends React.PureComponent<ICheckboxInputProps, Stat
     const { checked } = this.state;
     this.props.onChange(!checked);
     this.setState({ checked });
-  }
+  };
 }

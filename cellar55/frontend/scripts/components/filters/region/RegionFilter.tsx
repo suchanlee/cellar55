@@ -19,7 +19,6 @@ interface Props {
 }
 
 export class RegionFilter extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <BaseFilter filterKey="Region">
@@ -28,24 +27,25 @@ export class RegionFilter extends React.PureComponent<Props, {}> {
           regions={this.getAllRegions()}
           toggleRegionFilter={this.toggleRegionFilter}
         />
-        {this.props.filter.regions.length > 0 ?
-          <ul className="region-filter-list">
-            {map(this.props.filter.regions, (region, idx) => (
-              <RegionFilterItem
-                key={idx}
-                region={region}
-                removeRegionFilter={this.toggleRegionFilter}
-              />
-            ))}
-          </ul> :
-          null
-        }
+        {this.props.filter.regions.length > 0
+          ? <ul className="region-filter-list">
+              {map(this.props.filter.regions, (region, idx) =>
+                <RegionFilterItem
+                  key={idx}
+                  region={region}
+                  removeRegionFilter={this.toggleRegionFilter}
+                />
+              )}
+            </ul>
+          : null}
       </BaseFilter>
     );
   }
 
   private getAllRegions(): IRegion[] {
-    return this.getSubregions().concat(this.getRegions()).concat(this.getCountries());
+    return this.getSubregions()
+      .concat(this.getRegions())
+      .concat(this.getCountries());
   }
 
   private getSubregions(): IRegion[] {
@@ -61,7 +61,7 @@ export class RegionFilter extends React.PureComponent<Props, {}> {
   }
 
   private getRegionsForType(type: RegionType): IRegion[] {
-    const regions: string[] = map(this.props.wines, (wine) => {
+    const regions: string[] = map(this.props.wines, wine => {
       let region: string = "";
       switch (type) {
         case RegionType.COUNTRY:
@@ -78,30 +78,33 @@ export class RegionFilter extends React.PureComponent<Props, {}> {
       return region.replace(removalReg, "").trim();
     });
     return chain(regions)
-        .filter((region) => region.length > 0)
-        .uniq()
-        .join(",")
-        .split(splitReg)
-        .map((region) => region.trim())
-        .uniq()
-        .filter((region) => region.length > 0)
-        .map<IRegion>((region) => {
-          return {
-            name: region,
-            type,
-          };
-        })
-        .value();
+      .filter(region => region.length > 0)
+      .uniq()
+      .join(",")
+      .split(splitReg)
+      .map(region => region.trim())
+      .uniq()
+      .filter(region => region.length > 0)
+      .map<IRegion>(region => {
+        return {
+          name: region,
+          type
+        };
+      })
+      .value();
   }
 
   private toggleRegionFilter = (region: IRegion) => {
     const regions = this.props.filter.regions.slice();
-    const index = findIndex(regions, (r) => r.name === region.name && r.type === region.type);
+    const index = findIndex(
+      regions,
+      r => r.name === region.name && r.type === region.type
+    );
     if (index > -1) {
       regions.splice(index, 1);
     } else {
       regions.push(region);
     }
     this.props.onFilterUpdate({ regions });
-  }
+  };
 }

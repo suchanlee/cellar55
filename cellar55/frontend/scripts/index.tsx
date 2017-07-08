@@ -17,10 +17,12 @@ const store = createCellarStore();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Route path="/" component={ConnectedHomePage} />
-      <Route path="/admin" component={ConnectedAdminPage} />
-      <Route path="/wine/:wineId" component={ConnectedDetailPage} />
+      <div>
+        <Route path="/" component={ConnectedHomePage} />
+        <Route path="/admin" component={ConnectedAdminPage} />
+        <Route path="/wine/:wineId" component={ConnectedDetailPage} />
+      </div>
     </BrowserRouter>
   </Provider>,
-  document.getElementById("app"),
+  document.getElementById("app")
 );

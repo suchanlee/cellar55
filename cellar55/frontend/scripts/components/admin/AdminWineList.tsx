@@ -13,7 +13,6 @@ interface Props {
 }
 
 export class AdminWineList extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <BaseWineList
@@ -24,11 +23,11 @@ export class AdminWineList extends React.PureComponent<Props, {}> {
   }
 
   private getWineIds(): number[] {
-    return map(this.props.filteredWines, (wine) => wine.id);
+    return map(this.props.filteredWines, wine => wine.id);
   }
 
   private renderWineItems(): Array<React.ReactElement<any>> {
-    return map(this.props.filteredWines, (wine) =>
+    return map(this.props.filteredWines, wine =>
       <AdminWineItem
         key={wine.id}
         wine={wine}

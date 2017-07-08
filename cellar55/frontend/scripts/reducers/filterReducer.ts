@@ -3,26 +3,29 @@ import objectAssign = require("object-assign");
 import { initialState, emptyFilter } from "../initialState";
 import { ActionType } from "../actions/ActionTypes";
 
-export default function filterReducer(state = initialState.filterState, action: any) {
+export default function filterReducer(
+  state = initialState.filterState,
+  action: any
+) {
   switch (action.type) {
     case ActionType.CLEAR_FILTER:
       return objectAssign({}, state, {
-        current: emptyFilter,
+        current: emptyFilter
       });
 
     case ActionType.CHANGE_FILTER:
       return objectAssign({}, state, {
-        current: action.filter,
+        current: action.filter
       });
 
     case ActionType.REQUEST_WINES:
       return objectAssign({}, state, {
-        initial: state.current,
+        initial: state.current
       });
 
     case ActionType.TOGGLE_FILTER:
       return objectAssign({}, state, {
-        isOpen: !state.isOpen,
+        isOpen: !state.isOpen
       });
 
     default:

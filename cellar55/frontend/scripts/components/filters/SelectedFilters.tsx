@@ -10,14 +10,9 @@ interface Props {
 }
 
 export class SelectedFilters extends React.PureComponent<Props, {}> {
-
   public render() {
     if (this.isEmptyFilter()) {
-      return (
-        <div className="selected-filters">
-          No filters selected
-        </div>
-      );
+      return <div className="selected-filters">No filters selected</div>;
     }
     return (
       <div className="selected-filters">
@@ -39,8 +34,14 @@ export class SelectedFilters extends React.PureComponent<Props, {}> {
     }
     return (
       <div className="selected-filter-group">
-        <div className="selected-filter-group-type">{filterType}</div>
-        {map(items, (item, idx) => <div key={idx} className="selected-filter-group-item">{item}</div>)}
+        <div className="selected-filter-group-type">
+          {filterType}
+        </div>
+        {map(items, (item, idx) =>
+          <div key={idx} className="selected-filter-group-item">
+            {item}
+          </div>
+        )}
       </div>
     );
   }
@@ -51,11 +52,17 @@ export class SelectedFilters extends React.PureComponent<Props, {}> {
   }
 
   private renderRegionFilters() {
-    return this.renderFilters("regions", map(this.props.filter.regions, (r) => r.name));
+    return this.renderFilters(
+      "regions",
+      map(this.props.filter.regions, r => r.name)
+    );
   }
 
   private renderVarietalFilters() {
-    return this.renderFilters("varietals", map(this.props.filter.varietals, toTitleCase));
+    return this.renderFilters(
+      "varietals",
+      map(this.props.filter.varietals, toTitleCase)
+    );
   }
 
   private renderVintageFilters() {
@@ -63,7 +70,9 @@ export class SelectedFilters extends React.PureComponent<Props, {}> {
     if (filter.vintage.length > 0) {
       return this.renderFilters("vintage", [filter.vintage]);
     } else if (filter.vintage_from.length > 0 || filter.vintage_to.length > 0) {
-      return this.renderFilters("vintage", [`${filter.vintage_from}-${filter.vintage_to}`]);
+      return this.renderFilters("vintage", [
+        `${filter.vintage_from}-${filter.vintage_to}`
+      ]);
     }
     return null;
   }

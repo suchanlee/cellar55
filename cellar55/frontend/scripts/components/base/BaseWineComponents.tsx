@@ -25,8 +25,10 @@ export interface IWineName {
   rest: string;
 }
 
-export class BaseWineList extends React.PureComponent<IWineListProps, IWineListState> {
-
+export class BaseWineList extends React.PureComponent<
+  IWineListProps,
+  IWineListState
+> {
   public state: IWineListState = {
     pages: 1
   };
@@ -46,10 +48,7 @@ export class BaseWineList extends React.PureComponent<IWineListProps, IWineListS
 
   public render() {
     return (
-      <ul
-        className="wine-list"
-        onScroll={this.handleScroll}
-      >
+      <ul className="wine-list" onScroll={this.handleScroll}>
         {this.renderWineItems()}
       </ul>
     );
@@ -64,32 +63,34 @@ export class BaseWineList extends React.PureComponent<IWineListProps, IWineListS
       return this.props.wineItems.slice(0, PAGE_SIZE * this.state.pages);
     }
     return (
-      <div className="wine-list-empty">
-        No wines matching search criteria.
-      </div>
+      <div className="wine-list-empty">No wines matching search criteria.</div>
     );
   }
 
   private handleScroll = (evt: React.SyntheticEvent<HTMLUListElement>) => {
-    const pos = evt.currentTarget.scrollHeight - window.screen.height - evt.currentTarget.scrollTop - 60;
+    const pos =
+      evt.currentTarget.scrollHeight -
+      window.screen.height -
+      evt.currentTarget.scrollTop -
+      60;
     if (pos < BOTTOM_SCROLL_PADDING) {
       this.setState({ pages: this.state.pages + 1 });
     }
-  }
+  };
 }
 
-
-export abstract class BaseWineItem<T extends IWineItemProps> extends React.PureComponent<T, {}> {
-
+export abstract class BaseWineItem<
+  T extends IWineItemProps
+> extends React.PureComponent<T, {}> {
   public render() {
-    return <div></div>;
+    return <div />;
   }
 
   protected getWineName(): IWineName {
     const nameSplit = this.props.wine.name.split(",");
     return {
       rest: nameSplit.slice(1).join(", "),
-      winery: nameSplit[0],
+      winery: nameSplit[0]
     };
   }
 
@@ -97,19 +98,25 @@ export abstract class BaseWineItem<T extends IWineItemProps> extends React.PureC
     const { wine } = this.props;
     return (
       <div className="wine-item-metadata">
-        <span>{this.getRegion()}</span>
-        {this.isEmptyValue(wine.vintage) ? null :
-          <span>
-            <span className="wine-item-metadata-divider" />
-            <span>{wine.vintage}</span>
-          </span>
-        }
-        {this.isEmptyValue(wine.vintage) ? null :
-          <span>
-            <span className="wine-item-metadata-divider" />
-            <span>{wine.varietal}</span>
-          </span>
-        }
+        <span>
+          {this.getRegion()}
+        </span>
+        {this.isEmptyValue(wine.vintage)
+          ? null
+          : <span>
+              <span className="wine-item-metadata-divider" />
+              <span>
+                {wine.vintage}
+              </span>
+            </span>}
+        {this.isEmptyValue(wine.vintage)
+          ? null
+          : <span>
+              <span className="wine-item-metadata-divider" />
+              <span>
+                {wine.varietal}
+              </span>
+            </span>}
       </div>
     );
   }

@@ -10,13 +10,14 @@ interface Props {
 }
 
 export class RegionFilterItem extends React.PureComponent<Props, {}> {
-
   public render() {
     const { region } = this.props;
     return (
       <li className="region-filter-item">
         <div className="region-filter-item-data">
-          <div className="region-filter-item-name">{region.name}</div>
+          <div className="region-filter-item-name">
+            {region.name}
+          </div>
         </div>
         <div
           className="region-filter-item-remove"
@@ -30,5 +31,5 @@ export class RegionFilterItem extends React.PureComponent<Props, {}> {
 
   private handleCrossClick = () => {
     this.props.removeRegionFilter(this.props.region);
-  }
+  };
 }

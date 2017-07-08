@@ -24,7 +24,6 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 class AdminPage extends React.PureComponent<Props, {}> {
-
   public componentDidMount() {
     this.props.fetchWines(emptyFilter);
   }
@@ -39,9 +38,7 @@ class AdminPage extends React.PureComponent<Props, {}> {
           fetchEntry={this.props.fetchEntry}
           selectWine={this.props.selectWine}
         />
-        <AdminEntryPanel
-          isFetchingEntry={this.props.isFetchingEntry}
-        />
+        <AdminEntryPanel isFetchingEntry={this.props.isFetchingEntry} />
       </div>
     );
   }
@@ -52,7 +49,7 @@ function mapStateToProps(state: IApp) {
   return {
     isFetchingEntry: wine.isFetchingEntry,
     selectedWine: wine.selectedWine,
-    wines: state.wine.allWines,
+    wines: state.wine.allWines
   };
 }
 
@@ -60,8 +57,11 @@ function mapDispatchToProps(dispatch: Dispatch<IApp>) {
   return {
     fetchEntry: (entryId: number) => dispatch(fetchEntry(entryId)),
     fetchWines: (filter: IFilter) => dispatch(fetchWines(filter)),
-    selectWine: (wine: IWine) => dispatch(selectWine(wine)),
+    selectWine: (wine: IWine) => dispatch(selectWine(wine))
   };
 }
 
-export const ConnectedAdminPage = connect<StateProps, DispatchProps, {}>(mapStateToProps, mapDispatchToProps)(AdminPage) as React.ComponentClass<any>;
+export const ConnectedAdminPage = connect<StateProps, DispatchProps, {}>(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminPage) as React.ComponentClass<any>;

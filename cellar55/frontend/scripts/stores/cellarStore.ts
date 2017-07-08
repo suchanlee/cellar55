@@ -8,7 +8,7 @@ import filterReducer from "../reducers/filterReducer";
 
 const rootReducer = combineReducers<IApp>({
   filterState: filterReducer,
-  wine: wineReducer,
+  wine: wineReducer
 });
 
 const enhancers = applyMiddleware(thunkMiddleware["default"]);

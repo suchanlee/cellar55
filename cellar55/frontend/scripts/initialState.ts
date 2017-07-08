@@ -9,7 +9,7 @@ export const emptyFilter: IFilter = {
   vintage: "",
   vintage_from: "",
   vintage_to: "",
-  wine_types: [],
+  wine_types: []
 };
 
 export const initialState: IApp = {
@@ -25,6 +25,6 @@ export const initialState: IApp = {
     isFetchingEntry: false,
     isQueryingWines: true,
     selectedWine: undefined,
-    wines: [] as IWine[],
-  },
+    wines: [] as IWine[]
+  }
 };

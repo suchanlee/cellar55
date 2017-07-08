@@ -23,7 +23,6 @@ interface Props {
 }
 
 export class Filters extends React.PureComponent<Props, {}> {
-
   public render() {
     const filterState = this.props.filterState;
     return (
@@ -75,12 +74,8 @@ export class Filters extends React.PureComponent<Props, {}> {
   }
 
   private getAllVintages(): string[] {
-    const vintages = map(this.props.wines, (w) => w.vintage.trim());
-    return chain(vintages)
-        .filter((v) => v.length > 0)
-        .uniq()
-        .sortBy()
-        .value();
+    const vintages = map(this.props.wines, w => w.vintage.trim());
+    return chain(vintages).filter(v => v.length > 0).uniq().sortBy().value();
   }
 
   private handleApplyClick = () => {
@@ -88,11 +83,11 @@ export class Filters extends React.PureComponent<Props, {}> {
     if (!isEqual(filterState.initial, filterState.current)) {
       this.props.onFilterApply();
     }
-  }
+  };
 
   private handleClearClick = () => {
     if (!isEqual(emptyFilter, this.props.filterState.current)) {
       this.props.onFilterClear();
     }
-  }
+  };
 }

@@ -1,11 +1,14 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { IWine } from "../types/wine";
-import { BaseWineItem, IWineItemProps, IWineName } from "./base/BaseWineComponents";
+import {
+  BaseWineItem,
+  IWineItemProps,
+  IWineName
+} from "./base/BaseWineComponents";
 import { WineTypeBox } from "./WineTypeBox";
 
 export class WineItem extends BaseWineItem<IWineItemProps> {
-
   public render() {
     const wine: IWine = this.props.wine;
     const wineName: IWineName = this.getWineName();
@@ -21,8 +24,12 @@ export class WineItem extends BaseWineItem<IWineItemProps> {
           <div className="wine-item-info">
             <WineTypeBox wineType={wine.wine_type} />
             <Link to={`/wine/${wine.id}`} className="wine-name-container">
-              <div className="wine-name">{wineName.winery}</div>
-              <div className="wine-name">{wineName.rest}</div>
+              <div className="wine-name">
+                {wineName.winery}
+              </div>
+              <div className="wine-name">
+                {wineName.rest}
+              </div>
             </Link>
             {this.renderWineMetadata()}
             <div className="wine-item-filler">css :(</div>

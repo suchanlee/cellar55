@@ -7,7 +7,8 @@ import { IFilter, IFilterDelta } from "../../../types/filter";
 import { BaseFilter } from "../BaseFilter";
 
 enum Mode {
-  SINGLE, RANGE
+  SINGLE,
+  RANGE
 }
 
 interface Props {
@@ -21,7 +22,6 @@ interface State {
 }
 
 export class VintageFilter extends React.PureComponent<Props, State> {
-
   public state: State = {
     mode: Mode.SINGLE
   };
@@ -56,42 +56,52 @@ export class VintageFilter extends React.PureComponent<Props, State> {
           </span>
         </div>
         <div className="vintage-filter-container">
-          {this.state.mode === Mode.SINGLE ?
-            <select
-              className="select"
-              value={this.props.filter.vintage}
-              onChange={this.handleSingleVintageChange}
-            >
-              <option key="" value="">Select vintage...</option>
-              {map(this.props.vintages, (v) => (
-                <option key={v} value={v}>{v}</option>
-              ))}
-            </select> :
-            <div>
-              <select
+          {this.state.mode === Mode.SINGLE
+            ? <select
                 className="select"
-                value={this.props.filter.vintage_from}
-                onChange={this.handleVintageFromChange}
+                value={this.props.filter.vintage}
+                onChange={this.handleSingleVintageChange}
               >
-                <option key="" value="">Vintage from...</option>
-                {map(this.props.vintages, (v) => (
-                  <option key={v} value={v}>{v}</option>
-                ))}
+                <option key="" value="">
+                  Select vintage...
+                </option>
+                {map(this.props.vintages, v =>
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                )}
               </select>
-              <span className="vintage-range-filter-dash" />
-              <select
-                className="select"
-                value={this.props.filter.vintage_to}
-                onChange={this.handleVintageToChange}
-              >
-                <option key="" value="">Vintage to...</option>
-                {map(this.props.vintages, (v) => (
-                  <option key={v} value={v}>{v}</option>
-                ))}
-              </select>
-            </div>
-          }
-
+            : <div>
+                <select
+                  className="select"
+                  value={this.props.filter.vintage_from}
+                  onChange={this.handleVintageFromChange}
+                >
+                  <option key="" value="">
+                    Vintage from...
+                  </option>
+                  {map(this.props.vintages, v =>
+                    <option key={v} value={v}>
+                      {v}
+                    </option>
+                  )}
+                </select>
+                <span className="vintage-range-filter-dash" />
+                <select
+                  className="select"
+                  value={this.props.filter.vintage_to}
+                  onChange={this.handleVintageToChange}
+                >
+                  <option key="" value="">
+                    Vintage to...
+                  </option>
+                  {map(this.props.vintages, v =>
+                    <option key={v} value={v}>
+                      {v}
+                    </option>
+                  )}
+                </select>
+              </div>}
         </div>
       </BaseFilter>
     );
@@ -107,27 +117,33 @@ export class VintageFilter extends React.PureComponent<Props, State> {
 
   private handleModeClick = (mode: Mode) => {
     this.setState({ mode });
-  }
+  };
 
-  private handleSingleVintageChange = (evt: React.SyntheticEvent<HTMLSelectElement>) => {
+  private handleSingleVintageChange = (
+    evt: React.SyntheticEvent<HTMLSelectElement>
+  ) => {
     this.props.onFilterUpdate({
       vintage: evt.currentTarget.value,
       vintage_from: "",
       vintage_to: ""
     });
-  }
+  };
 
-  private handleVintageFromChange = (evt: React.SyntheticEvent<HTMLSelectElement>) => {
+  private handleVintageFromChange = (
+    evt: React.SyntheticEvent<HTMLSelectElement>
+  ) => {
     this.props.onFilterUpdate({
       vintage: "",
-      vintage_from: evt.currentTarget.value,
+      vintage_from: evt.currentTarget.value
     });
-  }
+  };
 
-  private handleVintageToChange = (evt: React.SyntheticEvent<HTMLSelectElement>) => {
+  private handleVintageToChange = (
+    evt: React.SyntheticEvent<HTMLSelectElement>
+  ) => {
     this.props.onFilterUpdate({
       vintage: "",
       vintage_to: evt.currentTarget.value
     });
-  }
+  };
 }

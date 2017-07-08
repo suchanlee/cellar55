@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+// var PrettierPlugin = require('prettier-webpack-plugin');
 
 module.exports = {
   entry: './scripts/index.tsx',
@@ -19,6 +20,11 @@ module.exports = {
       { test: /\.less$/, loader: 'style!css!less' }
     ]
   },
+  // plugins: [
+  //   new PrettierPlugin({
+  //     extensions: ['.ts', '.tsx', '.less']
+  //   })
+  // ],
   tslint: {
     emitErrors: true,
     failOnHint: true

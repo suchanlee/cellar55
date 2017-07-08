@@ -10,7 +10,6 @@ interface Props {
 }
 
 export class WineList extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <BaseWineList
@@ -21,11 +20,11 @@ export class WineList extends React.PureComponent<Props, {}> {
   }
 
   private getWineIds(): number[] {
-    return map(this.props.filteredWines, (wine) => wine.id);
+    return map(this.props.filteredWines, wine => wine.id);
   }
 
   private renderWineItems(): JSX.Element[] {
-    return map(this.props.filteredWines, (wine) =>
+    return map(this.props.filteredWines, wine =>
       <WineItem key={wine.id} wine={wine} />
     );
   }

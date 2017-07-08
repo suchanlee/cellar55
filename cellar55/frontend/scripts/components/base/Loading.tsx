@@ -5,7 +5,6 @@ interface Props {
 }
 
 export class Loading extends React.PureComponent<Props, {}> {
-
   public defaultProps = {
     text: "Fetching wines . . ."
   };
@@ -14,7 +13,9 @@ export class Loading extends React.PureComponent<Props, {}> {
     return (
       <div className="wine-loading-container">
         <img src="/static/images/loading.png" alt="Loading wines..." />
-        <div className="wine-loading-text">{this.props.text}</div>
+        <div className="wine-loading-text">
+          {this.props.text}
+        </div>
       </div>
     );
   }

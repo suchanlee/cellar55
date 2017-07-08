@@ -13,9 +13,7 @@ interface Props {
   onFilterToggle: () => void;
 }
 
-
 export class FilterPanel extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <div className="panel filter-panel">

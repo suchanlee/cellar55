@@ -9,7 +9,6 @@ interface Props {
 }
 
 export class FilterToggle extends React.PureComponent<Props, {}> {
-
   public render() {
     return (
       <BaseFilter filterKey={this.getFilterKey()}>
@@ -17,7 +16,7 @@ export class FilterToggle extends React.PureComponent<Props, {}> {
           src="/static/images/arrow.png"
           alt="toggle arrow"
           className={classNames("filter-toggle-arrow", {
-            rotated: this.props.isFilterOpen,
+            rotated: this.props.isFilterOpen
           })}
           onClick={this.props.onFilterToggle}
         />

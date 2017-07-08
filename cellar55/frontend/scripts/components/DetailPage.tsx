@@ -27,7 +27,6 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 class DetailPage extends React.PureComponent<Props, {}> {
-
   public componentDidMount() {
     if (this.props.params != null) {
       this.props.fetchEntry(parseInt(this.props.params.wineId, 10));
@@ -56,12 +55,18 @@ class DetailPage extends React.PureComponent<Props, {}> {
             alt="close"
           />
         </Link>
-        <h1 className="entry-wine-name">{wine.name}</h1>
+        <h1 className="entry-wine-name">
+          {wine.name}
+        </h1>
         <WineTypeBox wineType={wine.wine_type} />
         <p className="entry-wine-details">
           {this.getWineDetails(wine)}
         </p>
-        <img src={`https://${wine.alt_image_url}`} alt={wine.name} className="entry-wine-main-image" />
+        <img
+          src={`https://${wine.alt_image_url}`}
+          alt={wine.name}
+          className="entry-wine-main-image"
+        />
         <div className="entry-wine-ratings">
           <div className="entry-wine-rating-item">
             fruit
@@ -90,28 +95,48 @@ class DetailPage extends React.PureComponent<Props, {}> {
         </div>
         <h3 className="entry-subheading">The Wine</h3>
         {this.renderText(entry.lead, "entry-wine-lead")}
-        <div className="entry-wine-quote">"{entry.quote}"</div>
+        <div className="entry-wine-quote">
+          "{entry.quote}"
+        </div>
         <h3 className="entry-subheading">Ian"s Description</h3>
         <div className="entry-wine-metadata">
           <dl>
             <dt>country</dt>
-            <dd>{wine.country}</dd>
+            <dd>
+              {wine.country}
+            </dd>
             <dt>region</dt>
-            <dd>{wine.region}</dd>
+            <dd>
+              {wine.region}
+            </dd>
             <dt>sub-region</dt>
-            <dd>{wine.subregion}</dd>
+            <dd>
+              {wine.subregion}
+            </dd>
             <dt>varietal</dt>
-            <dd>{wine.varietal}</dd>
+            <dd>
+              {wine.varietal}
+            </dd>
             <dt>production</dt>
-            <dd>{wine.production}</dd>
+            <dd>
+              {wine.production}
+            </dd>
             <dt>alcohol</dt>
-            <dd>{wine.alcohol}</dd>
+            <dd>
+              {wine.alcohol}
+            </dd>
             <dt>oak</dt>
-            <dd>{wine.oak}</dd>
+            <dd>
+              {wine.oak}
+            </dd>
             <dt>soil</dt>
-            <dd>{wine.soil}</dd>
+            <dd>
+              {wine.soil}
+            </dd>
             <dt>farming</dt>
-            <dd>{wine.farming}</dd>
+            <dd>
+              {wine.farming}
+            </dd>
           </dl>
         </div>
         {this.renderText(entry.description, "entry-wine-description")}
@@ -128,14 +153,20 @@ class DetailPage extends React.PureComponent<Props, {}> {
     details = isApplicable(subregion) ? `${subregion}, ` : details;
     details = isApplicable(region) ? details + `${region} ` : details;
     details = isApplicable(vintage) ? details + `${vintage} ` : details;
-    details = isApplicable(varietal) ? details + parseVarietal(varietal) : details;
+    details = isApplicable(varietal)
+      ? details + parseVarietal(varietal)
+      : details;
     return details;
   }
 
   private renderText(text: string, className: string): React.ReactElement<any> {
     return (
       <div className={className}>
-        {text.split("\n").map((blob) => <p>{blob}</p>)}
+        {text.split("\n").map(blob =>
+          <p>
+            {blob}
+          </p>
+        )}
       </div>
     );
   }
@@ -146,7 +177,7 @@ function mapStateToProps(state: IApp) {
   return {
     entry: wine.entry,
     isFetching: wine.isFetchingEntry,
-    wine: wine.selectedWine,
+    wine: wine.selectedWine
   };
 }
 
@@ -156,4 +187,7 @@ function mapDispatchToProps(dispatch: Dispatch<IApp>) {
   };
 }
 
-export const ConnectedDetailPage = connect<StateProps, DispatchProps, {}>(mapStateToProps, mapDispatchToProps)(DetailPage) as React.ComponentClass<any>;
+export const ConnectedDetailPage = connect<StateProps, DispatchProps, {}>(
+  mapStateToProps,
+  mapDispatchToProps
+)(DetailPage) as React.ComponentClass<any>;

@@ -2,7 +2,6 @@ import { map, last, difference, chain } from "lodash";
 
 import { RegionType } from "../types/region";
 
-
 const NOT_APPLICABLE = "n/a";
 
 /**
@@ -13,13 +12,18 @@ export const isApplicable = (attr: string): boolean => {
   return !!attr && attr.length > 0 && attr.toLowerCase() !== NOT_APPLICABLE;
 };
 
-const VARIETAL_SPLIT_REG: RegExp = /,|with|and|balance|is|\/|\&/ig;
+const VARIETAL_SPLIT_REG: RegExp = /,|with|and|balance|is|\/|\&/gi;
 const NUMBER_REG: RegExp = /[0-9]+/g;
 
 const BLENDS = [
   {
     name: "Bordeaux Blend",
-    varietals: ["merlot", "cabernet sauvignon", "petite verdot", "cabernet franc"]
+    varietals: [
+      "merlot",
+      "cabernet sauvignon",
+      "petite verdot",
+      "cabernet franc"
+    ]
   }
 ];
 
@@ -31,18 +35,21 @@ const BLENDS = [
 export const parseVarietal = (varietal: string): string => {
   varietal = varietal.trim();
   const varietals = chain(varietal.split(VARIETAL_SPLIT_REG))
-          .map((v) => v.trim())
-          .filter((v) => v.length > 0 && v.match(NUMBER_REG) === null)
-          .value();
+    .map(v => v.trim())
+    .filter(v => v.length > 0 && v.match(NUMBER_REG) === null)
+    .value();
   if (varietals.length === 1) {
-    if (varietal.indexOf("aka") > - 1) {
+    if (varietal.indexOf("aka") > -1) {
       return last(varietal.split("aka"))!;
     } else {
       return varietal;
     }
   } else {
     for (const blend of BLENDS) {
-      if (difference(map(varietals, (v) => v.toLowerCase()), blend.varietals).length === 0) {
+      if (
+        difference(map(varietals, v => v.toLowerCase()), blend.varietals)
+          .length === 0
+      ) {
         return blend.name;
       }
     }
@@ -64,5 +71,8 @@ export const getRegionType = (regionType: RegionType): string => {
 };
 
 export const toTitleCase = (s: string): string => {
-  return s.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  return s.replace(
+    /\w\S*/g,
+    txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+  );
 };

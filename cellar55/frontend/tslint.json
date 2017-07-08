@@ -5,8 +5,12 @@
    * - the name of an NPM module which has a "main" file that exports a config object
    * - a relative path to a JSON file
    */
-  "extends": "tslint:latest",
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
   "rules": {
+    "arrow-parens": false,
     "no-console": false,
     "no-consecutive-blank-lines": false,
     "no-string-literal": false,
@@ -15,6 +19,7 @@
     "ordered-imports": false,
     "trailing-comma": false,
     "max-line-length": false,
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
   }
 }

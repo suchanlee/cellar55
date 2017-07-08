@@ -1,7 +1,11 @@
 import * as React from "react";
 import * as classNames from "classnames";
 import { IWine } from "../../types/wine";
-import { BaseWineItem, IWineItemProps, IWineName } from "../base/BaseWineComponents";
+import {
+  BaseWineItem,
+  IWineItemProps,
+  IWineName
+} from "../base/BaseWineComponents";
 import { WineTypeBox } from "../WineTypeBox";
 
 interface Props extends IWineItemProps {
@@ -10,7 +14,6 @@ interface Props extends IWineItemProps {
 }
 
 export class AdminWineItem extends BaseWineItem<Props> {
-
   public render() {
     const wine: IWine = this.props.wine;
     const wineName: IWineName = this.getWineName();
@@ -25,8 +28,12 @@ export class AdminWineItem extends BaseWineItem<Props> {
           <div className="wine-item-info">
             <WineTypeBox wineType={wine.wine_type} />
             <div className="wine-name-container">
-              <div className="wine-name">{wineName.winery}</div>
-              <div className="wine-name">{wineName.rest}</div>
+              <div className="wine-name">
+                {wineName.winery}
+              </div>
+              <div className="wine-name">
+                {wineName.rest}
+              </div>
             </div>
             {this.renderWineMetadata()}
           </div>
@@ -37,5 +44,5 @@ export class AdminWineItem extends BaseWineItem<Props> {
 
   private handleClick = () => {
     this.props.selectWine(this.props.wine);
-  }
+  };
 }

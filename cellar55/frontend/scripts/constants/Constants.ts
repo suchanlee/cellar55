@@ -4,7 +4,7 @@ export const WineType = {
   RED: "RED",
   ROSE: "ROSE",
   SPARKLING: "SPARKLING",
-  WHITE: "WHITE",
+  WHITE: "WHITE"
 };
 
 export const GrapeVarietals = [

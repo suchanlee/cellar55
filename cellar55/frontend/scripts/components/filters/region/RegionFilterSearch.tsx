@@ -11,7 +11,7 @@ const Keys = {
   DOWN: 40,
   ENTER: 13,
   ESC: 27,
-  UP: 38,
+  UP: 38
 };
 
 interface IRegionSearchEntry {
@@ -33,19 +33,20 @@ interface State {
 }
 
 export class RegionFilterSearch extends React.PureComponent<Props, State> {
-
   public state: State = {
     focus: false,
     isDropdownShown: false,
     query: "",
-    selectedIdx: 0,
+    selectedIdx: 0
   };
 
   public render() {
     return (
-      <div className={classNames("region-search-container", {
-        focus: this.state.focus,
-      })}>
+      <div
+        className={classNames("region-search-container", {
+          focus: this.state.focus
+        })}
+      >
         <div className="search-input-container">
           <img className="search-icon" src={this.getInputIconSource()} />
           <input
@@ -83,7 +84,10 @@ export class RegionFilterSearch extends React.PureComponent<Props, State> {
         searchEntries.push({ index, region });
       }
     }
-    return map(sortBy(searchEntries, (entry) => entry.index), (entry) => entry.region);
+    return map(
+      sortBy(searchEntries, entry => entry.index),
+      entry => entry.region
+    );
   }
 
   private handleChange = (evt: React.SyntheticEvent<HTMLInputElement>) => {
@@ -91,9 +95,9 @@ export class RegionFilterSearch extends React.PureComponent<Props, State> {
       focus: this.state.focus,
       isDropdownShown: true,
       query: evt.currentTarget.value,
-      selectedIdx: 0,
+      selectedIdx: 0
     });
-  }
+  };
 
   private handleInputKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = evt.keyCode;
@@ -118,36 +122,36 @@ export class RegionFilterSearch extends React.PureComponent<Props, State> {
         break;
       default:
     }
-  }
+  };
 
   private handleItemMouseOver = (idx: number) => {
     this.setState({ selectedIdx: idx });
-  }
+  };
 
   private toggleRegionFilter = (region: IRegion) => {
     this.props.toggleRegionFilter(region);
     this.reset();
-  }
+  };
 
   private reset = () => {
     this.setState({
       focus: this.state.focus,
       isDropdownShown: false,
       query: "",
-      selectedIdx: 0,
+      selectedIdx: 0
     });
-  }
+  };
 
   private handleFocus = () => {
     this.setState({
       focus: true,
       isDropdownShown: false
-     });
-  }
+    });
+  };
 
   private handleBlur = () => {
     this.setState({ focus: false });
-  }
+  };
 
   private getInputIconSource(): string {
     const baseSource = "/static/images/";
