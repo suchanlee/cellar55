@@ -1,22 +1,21 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { Dispatch } from "redux";
 import { fetchEntry } from "../actions/wineActions";
 import { isApplicable, parseVarietal } from "../helpers/helpers";
 import { IApp } from "../types/main";
 import { IEntry, IWine } from "../types/wine";
 import { WineTypeBox } from "./WineTypeBox";
+import { AdminEntryPanel } from "./admin/AdminEntryPanel";
+import { Loading } from "./base/Loading";
 import { RatingCircles } from "./ratings/RatingCircles";
 
-interface IRouteParam {
+interface DetailPageRouteParams {
   wineId: string;
 }
 
 interface StateProps {
-  match?: {
-    params: IRouteParam; // automatically injected by react-router
-  };
   entry: IEntry | undefined;
   wine: IWine | undefined;
   isFetching: boolean;
@@ -26,13 +25,11 @@ interface DispatchProps {
   fetchEntry(entryId: number): void;
 }
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & RouteComponentProps<DetailPageRouteParams>;
 
 class DetailPage extends React.PureComponent<Props, {}> {
   public componentDidMount() {
-    if (this.props.match != null) {
-      this.props.fetchEntry(parseInt(this.props.match.params.wineId, 10));
-    }
+    this.props.fetchEntry(parseInt(this.props.match.params.wineId, 10));
   }
 
   public componentWillReceiveProps(nextProps: Props) {
@@ -46,102 +43,106 @@ class DetailPage extends React.PureComponent<Props, {}> {
   public render() {
     const { entry, wine } = this.props;
     if (this.props.isFetching || wine == null || entry == null) {
-      return <div>Fetching entry...</div>;
+      return <div className="entry-container">
+        <Loading text="Loading..." />
+      </div>;
     }
     return (
       <div className="entry-container">
-        <Link to="/">
+        <div className="entry-column">
+          <Link to="/">
+            <img
+              className="entry-close-button"
+              src="/static/images/close.png"
+              alt="close"
+            />
+          </Link>
+          <h1 className="entry-wine-name">
+            {wine.name}
+          </h1>
+          <WineTypeBox wineType={wine.wine_type} />
+          <p className="entry-wine-details">
+            {this.getWineDetails(wine)}
+          </p>
           <img
-            className="entry-close-button"
-            src="/static/images/close.png"
-            alt="close"
+            src={`https://${wine.alt_image_url}`}
+            alt={wine.name}
+            className="entry-wine-main-image"
           />
-        </Link>
-        <h1 className="entry-wine-name">
-          {wine.name}
-        </h1>
-        <WineTypeBox wineType={wine.wine_type} />
-        <p className="entry-wine-details">
-          {this.getWineDetails(wine)}
-        </p>
-        <img
-          src={`https://${wine.alt_image_url}`}
-          alt={wine.name}
-          className="entry-wine-main-image"
-        />
-        <div className="entry-wine-ratings">
-          <div className="entry-wine-rating-item">
-            fruit
-            <RatingCircles rating={wine.fruit_rating} />
+          <div className="entry-wine-ratings">
+            <div className="entry-wine-rating-item">
+              fruit
+              <RatingCircles rating={wine.fruit_rating} />
+            </div>
+            <div className="entry-wine-rating-item">
+              earth
+              <RatingCircles rating={wine.earth_rating} />
+            </div>
+            <div className="entry-wine-rating-item">
+              body
+              <RatingCircles rating={wine.body_rating} />
+            </div>
+            <div className="entry-wine-rating-item">
+              tannin
+              <RatingCircles rating={wine.tannin_rating} />
+            </div>
+            <div className="entry-wine-rating-item">
+              acidity
+              <RatingCircles rating={wine.acid_rating} />
+            </div>
+            <div className="entry-wine-rating-item">
+              alcohol
+              <RatingCircles rating={wine.alcohol_rating} />
+            </div>
           </div>
-          <div className="entry-wine-rating-item">
-            earth
-            <RatingCircles rating={wine.earth_rating} />
+          <h3 className="entry-subheading">The Wine</h3>
+          {this.renderText(entry.lead, "entry-wine-lead")}
+          <div className="entry-wine-quote">
+            "{entry.quote}"
           </div>
-          <div className="entry-wine-rating-item">
-            body
-            <RatingCircles rating={wine.body_rating} />
+          <h3 className="entry-subheading">Ian"s Description</h3>
+          <div className="entry-wine-metadata">
+            <dl>
+              <dt>country</dt>
+              <dd>
+                {wine.country}
+              </dd>
+              <dt>region</dt>
+              <dd>
+                {wine.region}
+              </dd>
+              <dt>sub-region</dt>
+              <dd>
+                {wine.subregion}
+              </dd>
+              <dt>varietal</dt>
+              <dd>
+                {wine.varietal}
+              </dd>
+              <dt>production</dt>
+              <dd>
+                {wine.production}
+              </dd>
+              <dt>alcohol</dt>
+              <dd>
+                {wine.alcohol}
+              </dd>
+              <dt>oak</dt>
+              <dd>
+                {wine.oak}
+              </dd>
+              <dt>soil</dt>
+              <dd>
+                {wine.soil}
+              </dd>
+              <dt>farming</dt>
+              <dd>
+                {wine.farming}
+              </dd>
+            </dl>
           </div>
-          <div className="entry-wine-rating-item">
-            tannin
-            <RatingCircles rating={wine.tannin_rating} />
-          </div>
-          <div className="entry-wine-rating-item">
-            acidity
-            <RatingCircles rating={wine.acid_rating} />
-          </div>
-          <div className="entry-wine-rating-item">
-            alcohol
-            <RatingCircles rating={wine.alcohol_rating} />
-          </div>
+          {this.renderText(entry.description, "entry-wine-description")}
         </div>
-        <h3 className="entry-subheading">The Wine</h3>
-        {this.renderText(entry.lead, "entry-wine-lead")}
-        <div className="entry-wine-quote">
-          "{entry.quote}"
-        </div>
-        <h3 className="entry-subheading">Ian"s Description</h3>
-        <div className="entry-wine-metadata">
-          <dl>
-            <dt>country</dt>
-            <dd>
-              {wine.country}
-            </dd>
-            <dt>region</dt>
-            <dd>
-              {wine.region}
-            </dd>
-            <dt>sub-region</dt>
-            <dd>
-              {wine.subregion}
-            </dd>
-            <dt>varietal</dt>
-            <dd>
-              {wine.varietal}
-            </dd>
-            <dt>production</dt>
-            <dd>
-              {wine.production}
-            </dd>
-            <dt>alcohol</dt>
-            <dd>
-              {wine.alcohol}
-            </dd>
-            <dt>oak</dt>
-            <dd>
-              {wine.oak}
-            </dd>
-            <dt>soil</dt>
-            <dd>
-              {wine.soil}
-            </dd>
-            <dt>farming</dt>
-            <dd>
-              {wine.farming}
-            </dd>
-          </dl>
-        </div>
-        {this.renderText(entry.description, "entry-wine-description")}
       </div>
     );
   }
@@ -192,4 +193,4 @@ function mapDispatchToProps(dispatch: Dispatch<IApp>) {
 export const ConnectedDetailPage = connect<StateProps, DispatchProps, {}>(
   mapStateToProps,
   mapDispatchToProps
-)(DetailPage) as React.ComponentClass<any>;
+)(DetailPage) as React.ComponentClass<RouteComponentProps<DetailPageRouteParams>>;

@@ -23,7 +23,7 @@ export default function wineReducer(
 
     case ActionType.RECEIVE_WINES_SUCCESS:
       const newState = objectAssign({}, state, {
-        error: null,
+        error: undefined,
         isQueryingWines: false,
         wines: action.wines
       });

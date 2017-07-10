@@ -1,5 +1,5 @@
 import * as React from "react";
-import { isEqual, debounce } from "lodash";
+import { isEqual } from "lodash";
 
 import { IWine } from "../../types/wine";
 
@@ -33,13 +33,6 @@ export class BaseWineList extends React.PureComponent<
     pages: 1
   };
 
-  private debouncedScrollHandler: any;
-
-  public componentDidMount() {
-    this.debouncedScrollHandler = debounce(this.handleScroll, DEBOUNCE_MILLIS);
-    window.addEventListener("scroll", this.debouncedScrollHandler);
-  }
-
   public componentWillReceiveProps(nextProps: IWineListProps) {
     if (!isEqual(this.props.wineIds, nextProps.wineIds)) {
       this.setState({ pages: 1 });
@@ -52,10 +45,6 @@ export class BaseWineList extends React.PureComponent<
         {this.renderWineItems()}
       </ul>
     );
-  }
-
-  public componentWillUnmount() {
-    window.removeEventListener("scroll", this.debouncedScrollHandler);
   }
 
   private renderWineItems(): JSX.Element | JSX.Element[] {
@@ -102,7 +91,7 @@ export abstract class BaseWineItem<
           {this.getRegion()}
         </span>
         {this.isEmptyValue(wine.vintage)
-          ? null
+          ? undefined
           : <span>
               <span className="wine-item-metadata-divider" />
               <span>
@@ -110,7 +99,7 @@ export abstract class BaseWineItem<
               </span>
             </span>}
         {this.isEmptyValue(wine.vintage)
-          ? null
+          ? undefined
           : <span>
               <span className="wine-item-metadata-divider" />
               <span>

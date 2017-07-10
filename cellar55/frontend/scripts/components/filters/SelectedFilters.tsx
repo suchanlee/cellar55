@@ -30,7 +30,7 @@ export class SelectedFilters extends React.PureComponent<Props, {}> {
 
   private renderFilters(filterType: string, items: string[]) {
     if (items.length === 0) {
-      return null;
+      return undefined;
     }
     return (
       <div className="selected-filter-group">
@@ -74,6 +74,6 @@ export class SelectedFilters extends React.PureComponent<Props, {}> {
         `${filter.vintage_from}-${filter.vintage_to}`
       ]);
     }
-    return null;
+    return undefined;
   }
 }

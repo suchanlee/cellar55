@@ -6,7 +6,7 @@ interface Props {
 
 export class Loading extends React.PureComponent<Props, {}> {
   public defaultProps = {
-    text: "Fetching wines . . ."
+    text: "Loading wines..."
   };
 
   public render() {
