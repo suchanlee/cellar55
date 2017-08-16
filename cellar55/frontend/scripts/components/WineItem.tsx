@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { IWine } from "../types/wine";
+import { slugify } from "../helpers/helpers";
 import {
   BaseWineItem,
   IWineItemProps,
@@ -19,7 +20,10 @@ export class WineItem extends BaseWineItem<IWineItemProps> {
             className="wine-item-image-container"
             style={{ backgroundImage: `url(https://${wine.alt_image_url})` }}
           >
-            <Link to={`/wine/${wine.id}`} className="wine-item-image-link" />
+            <Link
+              to={`/wine/${wine.id}/${slugify(wine.name)}`}
+              className="wine-item-image-link"
+            />
           </div>
           <div className="wine-item-info">
             <WineTypeBox wineType={wine.wine_type} />
