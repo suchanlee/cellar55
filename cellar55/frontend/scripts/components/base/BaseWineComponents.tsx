@@ -1,6 +1,5 @@
 import * as React from "react";
-import * as PureRender from "pure-render-decorator";
-import { isEqual, debounce } from "lodash";
+import { isEqual } from "lodash";
 
 import { IWine } from "../../types/wine";
 
@@ -9,122 +8,117 @@ const BOTTOM_SCROLL_PADDING = 100;
 const DEBOUNCE_MILLIS = 50;
 
 export interface IWineListProps {
-    wineIds: number[];
-    wineItems: React.ReactElement<any>[];
+  wineIds: number[];
+  wineItems: JSX.Element[];
 }
 
 export interface IWineItemProps {
-    wine: IWine;
+  wine: IWine;
 }
 
 export interface IWineListState {
-    pages: number;
+  pages: number;
 }
 
 export interface IWineName {
-    winery: string;
-    rest: string;
+  winery: string;
+  rest: string;
 }
 
-@PureRender
-export class BaseWineList extends React.Component<IWineListProps, IWineListState> {
+export class BaseWineList extends React.PureComponent<
+  IWineListProps,
+  IWineListState
+> {
+  public state: IWineListState = {
+    pages: 1
+  };
 
-    state: IWineListState = {
-        pages: 1
+  public componentWillReceiveProps(nextProps: IWineListProps) {
+    if (!isEqual(this.props.wineIds, nextProps.wineIds)) {
+      this.setState({ pages: 1 });
+    }
+  }
+
+  public render() {
+    return (
+      <ul className="wine-list" onScroll={this.handleScroll}>
+        {this.renderWineItems()}
+      </ul>
+    );
+  }
+
+  private renderWineItems(): JSX.Element | JSX.Element[] {
+    if (this.props.wineItems.length > 0) {
+      return this.props.wineItems.slice(0, PAGE_SIZE * this.state.pages);
+    }
+    return (
+      <div className="wine-list-empty">No wines matching search criteria</div>
+    );
+  }
+
+  private handleScroll = (evt: React.SyntheticEvent<HTMLUListElement>) => {
+    const pos =
+      evt.currentTarget.scrollHeight -
+      window.screen.height -
+      evt.currentTarget.scrollTop -
+      60;
+    if (pos < BOTTOM_SCROLL_PADDING) {
+      this.setState({ pages: this.state.pages + 1 });
+    }
+  };
+}
+
+export abstract class BaseWineItem<
+  T extends IWineItemProps
+> extends React.PureComponent<T, {}> {
+  public render() {
+    return <div />;
+  }
+
+  protected getWineName(): IWineName {
+    const nameSplit = this.props.wine.name.split(",");
+    return {
+      rest: nameSplit.slice(1).join(", "),
+      winery: nameSplit[0]
     };
+  }
 
-    private debouncedScrollHandler: any;
+  protected renderWineMetadata(): React.ReactElement<any> {
+    const { wine } = this.props;
+    return (
+      <div className="wine-item-metadata">
+        <span>
+          {this.getRegion()}
+        </span>
+        {this.isEmptyValue(wine.vintage)
+          ? undefined
+          : <span>
+              <span className="wine-item-metadata-divider" />
+              <span>
+                {wine.vintage}
+              </span>
+            </span>}
+        {this.isEmptyValue(wine.vintage)
+          ? undefined
+          : <span>
+              <span className="wine-item-metadata-divider" />
+              <span>
+                {wine.varietal}
+              </span>
+            </span>}
+      </div>
+    );
+  }
 
-    componentDidMount() {
-        this.debouncedScrollHandler = debounce(this.handleScroll, DEBOUNCE_MILLIS);
-        window.addEventListener("scroll", this.debouncedScrollHandler);
+  private getRegion(): string {
+    const { wine } = this.props;
+    if (this.isEmptyValue(wine.subregion)) {
+      return wine.region;
     }
+    return `${wine.subregion}, ${wine.region}`;
+  }
 
-    componentWillReceiveProps(nextProps: IWineListProps) {
-        if (!isEqual(this.props.wineIds, nextProps.wineIds)) {
-            this.setState({ pages: 1 });
-        }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("scroll", this.debouncedScrollHandler);
-    }
-
-    private renderWineItems(): React.ReactElement<any> | React.ReactElement<any>[] {
-        if (this.props.wineItems.length > 0) {
-            return this.props.wineItems.slice(0, PAGE_SIZE * this.state.pages);
-        }
-        return (
-            <div className="wine-list-empty">
-                No wines matching search criteria.
-            </div>
-        );
-    }
-
-    private handleScroll = (evt: Event) => {
-        const pos = evt.target["scrollHeight"] - window.screen.height - evt.target["scrollTop"] - 60;
-        if (pos < BOTTOM_SCROLL_PADDING) {
-            this.setState({ pages: this.state.pages + 1 });
-        }
-    }
-
-    render() {
-        return (
-            <ul
-                className="wine-list"
-                onScroll={this.handleScroll}
-            >
-                {this.renderWineItems()}
-            </ul>
-        );
-    }
-}
-
-@PureRender
-export abstract class BaseWineItem<T extends IWineItemProps> extends React.Component<T, void> {
-
-    protected getWineName(): IWineName {
-        const nameSplit = this.props.wine.name.split(",");
-        return {
-            winery: nameSplit[0],
-            rest: nameSplit.slice(1).join(", ")
-        };
-    }
-
-    private getRegion(): string {
-        const { wine } = this.props;
-        if (this.isEmptyValue(wine.subregion)) {
-            return wine.region;
-        }
-        return `${wine.subregion}, ${wine.region}`;
-    }
-
-    private isEmptyValue(value: string): boolean {
-        return value.trim().length === 0 || value.toLowerCase() === "n/a";
-    }
-
-    protected renderWineMetadata(): React.ReactElement<any> {
-        const { wine } = this.props;
-        return (
-            <div className="wine-item-metadata">
-                <span>{this.getRegion()}</span>
-                {this.isEmptyValue(wine.vintage) ? null :
-                    <span>
-                        <span className="wine-item-metadata-divider" />
-                        <span>{wine.vintage}</span>
-                    </span>
-                }
-                {this.isEmptyValue(wine.vintage) ? null :
-                    <span>
-                        <span className="wine-item-metadata-divider" />
-                        <span>{wine.varietal}</span>
-                    </span>
-                }
-            </div>
-        );
-    }
-
-    render() {
-        return null;
-    }
+  private isEmptyValue(value: string): boolean {
+    return value.trim().length === 0 || value.toLowerCase() === "n/a";
+  }
 }

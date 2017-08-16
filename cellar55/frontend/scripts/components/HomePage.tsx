@@ -1,127 +1,144 @@
-import * as React from "react";
-import * as PureRender from "pure-render-decorator";
-import objectAssign = require("object-assign");
-import { connect } from "react-redux";
 import { filter } from "lodash";
-
+import * as objectAssign from "object-assign";
+import * as React from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { setFilter, clearFilter, toggleFilter } from "../actions/filterActions";
 import { fetchWines, fetchWinesWithNewFilter } from "../actions/wineActions";
-import { changeFilter, clearFilter, toggleFilter } from "../actions/filterActions";
+import { IFilter, IFilterDelta, IFilterState } from "../types/filter";
 import { IApp } from "../types/main";
-import { IFilterDelta, IFilterState } from "../types/filter";
 import { IWine } from "../types/wine";
 import { emptyFilter } from "../initialState";
+import { ClosedFilterPanel } from "./ClosedFilterPanel";
+import { FilterPanel } from "./FilterPanel";
+import { WinePanel } from "./WinePanel";
 
-import FilterPanel from "./FilterPanel";
-import WinePanel from "./WinePanel";
-import ClosedFilterPanel from "./ClosedFilterPanel";
-
-interface Props {
-    dispatch?: any;
-    filterState: IFilterState;
-    isQueryingWines: boolean;
-    wines: IWine[];
-    allWines: IWine[];
+interface StateProps {
+  filterState: IFilterState;
+  isQueryingWines: boolean;
+  wines: IWine[];
+  allWines: IWine[];
 }
+
+interface DispatchProps {
+  clearFilter(): void;
+  fetchWines(filter: IFilter): void;
+  fetchWinesWithNewFilter(filter: IFilter): void;
+  setFilter(filter: IFilter): void;
+  toggleFilter(): void;
+}
+
+type Props = StateProps & DispatchProps;
 
 interface State {
-    searchQuery: string;
+  searchQuery: string;
 }
 
-@PureRender
-class HomePage extends React.Component<Props, State> {
+class HomePage extends React.PureComponent<Props, State> {
+  public state: State = {
+    searchQuery: ""
+  };
 
-    state: State = {
-        searchQuery: ""
-    };
+  public componentWillMount() {
+    document.title = "Cellar 55";
+  }
 
-    componentWillMount() {
-        document.title = "Cellar 55";
+  public componentDidMount() {
+    if (this.props.wines.length === 0) {
+      const { filterState } = this.props;
+      this.props.fetchWines(filterState.current);
     }
+  }
 
-    componentDidMount() {
-        if (this.props.wines.length === 0) {
-            const { dispatch, filterState } = this.props;
-            dispatch(fetchWines(filterState.current));
-        }
-    }
+  public render() {
+    const filteredWines = this.getFilteredWines();
+    return (
+      <div className="panel-container">
+        {this.props.filterState.isOpen
+          ? <FilterPanel
+              wines={this.props.allWines}
+              filterState={this.props.filterState}
+              onFilterUpdate={this.handleFilterUpdate}
+              onFilterApply={this.handleFilterApply}
+              onFilterClear={this.handleFilterClear}
+              onFilterToggle={this.handleFilterToggle}
+            />
+          : <ClosedFilterPanel
+              currentFilter={this.props.filterState.current}
+              onFilterToggle={this.handleFilterToggle}
+              isFilterOpen={this.props.filterState.isOpen}
+            />}
+        <WinePanel
+          filteredWines={filteredWines}
+          searchQuery={this.state.searchQuery}
+          onSearchQueryChange={this.handleSearchQueryChange}
+          isFilterOpen={this.props.filterState.isOpen}
+          isQueryingWines={this.props.isQueryingWines}
+        />
+      </div>
+    );
+  }
 
-    private getFilteredWines(): IWine[] {
-        const searchQuery = this.state.searchQuery.trim().toLowerCase();
-        if (searchQuery.length === 0) {
-            return this.props.wines;
-        }
-        const wines = filter(this.props.wines, (wine) => {
-            const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}
-             ${wine.varietal} ${wine.wine_type} ${wine.vintage}`.toLowerCase();
-             return content.indexOf(searchQuery) > - 1;
-        });
-        return wines;
+  private getFilteredWines(): IWine[] {
+    const searchQuery = this.state.searchQuery.trim().toLowerCase();
+    if (searchQuery.length === 0) {
+      return this.props.wines;
     }
+    const wines = filter(this.props.wines, wine => {
+      const content = `${wine.name} ${wine.country} ${wine.region} ${wine.subregion}${wine.varietal}
+      ${wine.wine_type} ${wine.vintage}`.toLowerCase();
+      return content.indexOf(searchQuery) > -1;
+    });
+    return wines;
+  }
 
-    private handleFilterUpdate = (delta: IFilterDelta) => {
-        this.props.dispatch(changeFilter(objectAssign({}, this.props.filterState.current, delta)));
-    }
+  private handleFilterUpdate = (delta: IFilterDelta) => {
+    this.props.setFilter(
+      objectAssign({}, this.props.filterState.current, delta)
+    );
+  };
 
-    private handleFilterClear = () => {
-        const { dispatch } = this.props;
-        dispatch(clearFilter());
-        dispatch(fetchWinesWithNewFilter(emptyFilter));
-    }
+  private handleFilterClear = () => {
+    this.props.clearFilter();
+    this.props.fetchWinesWithNewFilter(emptyFilter);
+  };
 
-    private handleFilterApply = () => {
-        const { dispatch, filterState } = this.props;
-        dispatch(fetchWinesWithNewFilter(filterState.current));
-    }
+  private handleFilterApply = () => {
+    const { fetchWinesWithNewFilter, filterState } = this.props;
+    fetchWinesWithNewFilter(filterState.current);
+  };
 
-    private handleFilterToggle = () => {
-        this.props.dispatch(toggleFilter());
-    }
+  private handleFilterToggle = () => {
+    this.props.toggleFilter();
+  };
 
-    private handleSearchQueryChange = (value: string) => {
-        this.setState({
-            searchQuery: value
-         } as State);
-    }
-
-    render() {
-        const filteredWines = this.getFilteredWines();
-        return (
-            <div className="panel-container">
-                {this.props.filterState.isOpen ?
-                    <FilterPanel
-                        wines={this.props.allWines}
-                        filterState={this.props.filterState}
-                        onFilterUpdate={this.handleFilterUpdate}
-                        onFilterApply={this.handleFilterApply}
-                        onFilterClear={this.handleFilterClear}
-                        onFilterToggle={this.handleFilterToggle}
-                    /> :
-                    <ClosedFilterPanel
-                        currentFilter={this.props.filterState.current}
-                        onFilterToggle={this.handleFilterToggle}
-                        isFilterOpen={this.props.filterState.isOpen}
-                    />
-                }
-                 <WinePanel
-                    filteredWines={filteredWines}
-                    searchQuery={this.state.searchQuery}
-                    onSearchQueryChange={this.handleSearchQueryChange}
-                    isFilterOpen={this.props.filterState.isOpen}
-                    isQueryingWines={this.props.isQueryingWines}
-                 />
-            </div>
-        );
-    }
+  private handleSearchQueryChange = (value: string) => {
+    this.setState({ searchQuery: value });
+  };
 }
 
-function mapStateToProps(state: IApp): Props {
-    const { isQueryingWines, wines, allWines } = state.wine;
-    return {
-        filterState: state.filterState,
-        isQueryingWines,
-        wines,
-        allWines
-    };
+function mapStateToProps(state: IApp) {
+  const { isQueryingWines, wines, allWines } = state.wine;
+  return {
+    allWines,
+    filterState: state.filterState,
+    isQueryingWines,
+    wines
+  };
 }
 
-export default connect(mapStateToProps)(HomePage);
+function mapDispatchToProps(dispatch: Dispatch<IApp>) {
+  return {
+    clearFilter: () => dispatch(clearFilter()),
+    fetchWines: (filter: IFilter) => dispatch(fetchWines(filter)),
+    fetchWinesWithNewFilter: (filter: IFilter) =>
+      dispatch(fetchWinesWithNewFilter(filter)),
+    setFilter: (filter: IFilter) => dispatch(setFilter(filter)),
+    toggleFilter: () => dispatch(toggleFilter())
+  };
+}
+
+export const ConnectedHomePage = connect<StateProps, DispatchProps, {}>(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomePage) as React.ComponentClass<any>;

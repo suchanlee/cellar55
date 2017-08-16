@@ -1,68 +1,25 @@
 {
-    "rules": {
-        "class-name": true,
-        "comment-format": [
-            true,
-            "check-space"
-        ],
-        "curly": true,
-        "eofline": true,
-        "indent": [
-            true,
-            "spaces"
-        ],
-        "no-construct": true,
-        "no-duplicate-key": true,
-        "no-duplicate-variable": true,
-        "no-eval": true,
-        "no-internal-module": true,
-        "no-trailing-whitespace": true,
-        "no-var-keyword": true,
-        "no-unused-variable": [true, "react"],
-        "no-unreachable": true,
-        "use-isnan": true,
-        "use-strict": true,
-        "one-line": [
-            true,
-            "check-open-brace",
-            "check-whitespace"
-        ],
-        "quotemark": [
-            true,
-            "double"
-        ],
-        "semicolon": [
-            true,
-            "always"
-        ],
-        "trailing-comma": [false],
-        "triple-equals": [
-            true,
-            "allow-null-check"
-        ],
-        "typedef-whitespace": [
-            true,
-            {
-                "call-signature": "nospace",
-                "index-signature": "nospace",
-                "parameter": "nospace",
-                "property-declaration": "nospace",
-                "variable-declaration": "nospace"
-            }
-        ],
-        "variable-name": [
-            true,
-            "check-format",
-            "allow-pascal-case",
-            "ban-keywords"
-        ],
-        "whitespace": [
-            true,
-            "check-branch",
-            "check-decl",
-            "check-operator",
-            "check-separator",
-            "check-type"
-        ]
-    }
+  /*
+   * Possible values:
+   * - the name of a built-in config
+   * - the name of an NPM module which has a "main" file that exports a config object
+   * - a relative path to a JSON file
+   */
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "arrow-parens": false,
+    "no-console": [false],
+    "no-consecutive-blank-lines": false,
+    "no-string-literal": false,
+    "no-empty-interface": false,
+    "interface-name": [false],
+    "ordered-imports": [false],
+    "trailing-comma": [false],
+    "max-line-length": [false],
+    "max-classes-per-file": [false],
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
+  }
 }

@@ -1,10 +1,17 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "module": "commonjs",
     "jsx": "react",
-    "module": "CommonJS",
     "sourceMap": true,
-    "experimentalDecorators": true
+    "pretty": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true
   },
   "exclude": [
     "*.json",

@@ -1,54 +1,67 @@
 import * as React from "react";
-import * as PureRender from "pure-render-decorator";
 import { connect } from "react-redux";
-import { isUndefined } from "lodash";
-
-import { emptyFilter } from "../../initialState";
+import { Dispatch } from "redux";
+import { fetchEntry, fetchWines, selectWine } from "../../actions/wineActions";
+import { IFilter } from "../../types/filter";
 import { IApp } from "../../types/main";
 import { IWine } from "../../types/wine";
-import { fetchWines } from "../../actions/wineActions";
+import { emptyFilter } from "../../initialState";
+import { AdminEntryPanel } from "./AdminEntryPanel";
+import { AdminWinePanel } from "./AdminWinePanel";
 
-import AdminWinePanel from "./AdminWinePanel";
-import AdminEntryPanel from "./AdminEntryPanel";
-
-interface Props {
-    dispatch?: any;
-    wines: IWine[];
-    selectedWine: IWine;
-    isFetchingEntry: boolean;
+interface StateProps {
+  wines: IWine[];
+  selectedWine: IWine | undefined;
+  isFetchingEntry: boolean;
 }
 
-@PureRender
-class AdminPage extends React.Component<Props, void> {
-
-    componentDidMount() {
-        this.props.dispatch(fetchWines(emptyFilter));
-    }
-
-    render() {
-        const selectedWine = this.props.selectedWine;
-        return (
-            <div className="admin-page">
-                <AdminWinePanel
-                    wines={this.props.wines}
-                    dispatch={this.props.dispatch}
-                    selectedWineId={isUndefined(selectedWine) ? undefined : selectedWine.id}
-                />
-                <AdminEntryPanel
-                    isFetchingEntry={this.props.isFetchingEntry}
-                />
-            </div>
-        );
-    }
+interface DispatchProps {
+  fetchEntry(entryId: number): void;
+  fetchWines(filter: IFilter): void;
+  selectWine(wine: IWine): void;
 }
 
-function mapStateToProps(state: IApp): Props {
-    const { wine } = state;
-    return {
-        wines: state.wine.allWines,
-        selectedWine: wine.selectedWine,
-        isFetchingEntry: wine.isFetchingEntry
-    };
+type Props = StateProps & DispatchProps;
+
+class AdminPage extends React.PureComponent<Props, {}> {
+  public componentDidMount() {
+    this.props.fetchWines(emptyFilter);
+  }
+
+  public render() {
+    const selectedWine = this.props.selectedWine;
+    return (
+      <div className="admin-page">
+        <AdminWinePanel
+          wines={this.props.wines}
+          selectedWineId={selectedWine == null ? undefined : selectedWine.id}
+          fetchEntry={this.props.fetchEntry}
+          selectWine={this.props.selectWine}
+        />
+        <AdminEntryPanel isFetchingEntry={this.props.isFetchingEntry} />
+      </div>
+    );
+  }
 }
 
-export default connect(mapStateToProps)(AdminPage);
+function mapStateToProps(state: IApp) {
+  const { wine } = state;
+  return {
+    isFetchingEntry: wine.isFetchingEntry,
+    selectedWine: wine.selectedWine,
+    wines: state.wine.allWines
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch<IApp>) {
+  return {
+    fetchEntry: (entryId: number) => dispatch(fetchEntry(entryId)),
+    fetchWines: (filter: IFilter) => dispatch(fetchWines(filter)),
+    selectWine: (wine: IWine) => dispatch(selectWine(wine))
+  };
+}
+
+export const ConnectedAdminPage = connect<StateProps, DispatchProps, {}>(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminPage) as React.ComponentClass<any>;
