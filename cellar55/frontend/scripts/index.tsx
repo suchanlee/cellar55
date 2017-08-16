@@ -17,7 +17,7 @@ ReactDOM.render(
       <div>
         <Route path="/" component={ConnectedHomePage} />
         <Route path="/admin" component={ConnectedAdminPage} />
-        <Route path="/wine/:wineId" component={ConnectedDetailPage} />
+        <Route path="/wine/:wineId/:slug" component={ConnectedDetailPage} />
       </div>
     </BrowserRouter>
   </Provider>,

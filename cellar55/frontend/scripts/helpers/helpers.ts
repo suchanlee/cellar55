@@ -76,3 +76,7 @@ export const toTitleCase = (s: string): string => {
     txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
   );
 };
+
+export const slugify = (s: string): string => {
+  return s.toLowerCase().replace(/[^a-z0-9\s]+/g, "").replace(/\s/g, "-");
+};
