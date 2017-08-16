@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Dispatch } from "redux";
 import { fetchEntry } from "../actions/wineActions";
+import { HOME_TITLE } from "../constants/Constants";
 import { isApplicable, parseVarietal } from "../helpers/helpers";
 import { IApp } from "../types/main";
 import { IEntry, IWine } from "../types/wine";
@@ -29,15 +30,24 @@ type Props = StateProps & DispatchProps & RouteComponentProps<DetailPageRoutePar
 
 class DetailPage extends React.PureComponent<Props, {}> {
   public componentDidMount() {
+    if (this.props.wine != null) {
+      this.setDocumentTitle(this.props.wine);
+    }
     this.props.fetchEntry(parseInt(this.props.match.params.wineId, 10));
   }
 
   public componentWillReceiveProps(nextProps: Props) {
     if (nextProps.wine != null) {
-      if (this.props.wine != null && this.props.wine.id !== nextProps.wine.id) {
-        document.title = nextProps.wine.name;
+      const wineLoaded = this.props.wine == null && nextProps.wine != null;
+      const wineChanged = this.props.wine != null && this.props.wine.id !== nextProps.wine.id;
+      if (wineLoaded || wineChanged) {
+        this.setDocumentTitle(nextProps.wine);
       }
     }
+  }
+
+  public componentWillUnmount() {
+    this.resetDocumentTitle();
   }
 
   public render() {
@@ -145,6 +155,14 @@ class DetailPage extends React.PureComponent<Props, {}> {
         </div>
       </div>
     );
+  }
+
+  private setDocumentTitle(wine: IWine) {
+    document.title = wine.name;
+  }
+
+  private resetDocumentTitle() {
+    document.title = HOME_TITLE;
   }
 
   private getWineDetails(wine: IWine): string {

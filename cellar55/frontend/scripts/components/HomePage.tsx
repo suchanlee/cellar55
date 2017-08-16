@@ -3,8 +3,9 @@ import * as objectAssign from "object-assign";
 import * as React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { setFilter, clearFilter, toggleFilter } from "../actions/filterActions";
+import { clearFilter, setFilter, toggleFilter } from "../actions/filterActions";
 import { fetchWines, fetchWinesWithNewFilter } from "../actions/wineActions";
+import { HOME_TITLE } from "../constants/Constants";
 import { IFilter, IFilterDelta, IFilterState } from "../types/filter";
 import { IApp } from "../types/main";
 import { IWine } from "../types/wine";
@@ -40,7 +41,7 @@ class HomePage extends React.PureComponent<Props, State> {
   };
 
   public componentWillMount() {
-    document.title = "Cellar 55";
+    document.title = HOME_TITLE;
   }
 
   public componentDidMount() {
