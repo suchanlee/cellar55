@@ -28,12 +28,31 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps & RouteComponentProps<DetailPageRouteParams>;
 
+const ESC_KEY_CODE = 27;
+
+function getWineDetails(wine: IWine): string {
+  let details: string = "";
+  const subregion = wine.subregion.trim();
+  const region = wine.region.trim();
+  const vintage = wine.vintage.trim();
+  const varietal = wine.varietal.trim();
+  details = isApplicable(subregion) ? `${subregion}, ` : details;
+  details = isApplicable(region) ? details + `${region} ` : details;
+  details = isApplicable(vintage) ? details + `${vintage} ` : details;
+  details = isApplicable(varietal)
+    ? details + parseVarietal(varietal)
+    : details;
+  return details;
+}
+
 class DetailPage extends React.PureComponent<Props, {}> {
+
   public componentDidMount() {
     if (this.props.wine != null) {
       this.setDocumentTitle(this.props.wine);
     }
     this.props.fetchEntry(parseInt(this.props.match.params.wineId, 10));
+    this.bindKeysToDocument();
   }
 
   public componentWillReceiveProps(nextProps: Props) {
@@ -48,6 +67,7 @@ class DetailPage extends React.PureComponent<Props, {}> {
 
   public componentWillUnmount() {
     this.resetDocumentTitle();
+    this.unbindKeysFromDocument();
   }
 
   public render() {
@@ -72,7 +92,7 @@ class DetailPage extends React.PureComponent<Props, {}> {
           </h1>
           <WineTypeBox wineType={wine.wine_type} />
           <p className="entry-wine-details">
-            {this.getWineDetails(wine)}
+            {getWineDetails(wine)}
           </p>
           <img
             src={`https://${wine.alt_image_url}`}
@@ -157,30 +177,7 @@ class DetailPage extends React.PureComponent<Props, {}> {
     );
   }
 
-  private setDocumentTitle(wine: IWine) {
-    document.title = wine.name;
-  }
-
-  private resetDocumentTitle() {
-    document.title = HOME_TITLE;
-  }
-
-  private getWineDetails(wine: IWine): string {
-    let details: string = "";
-    const subregion = wine.subregion.trim();
-    const region = wine.region.trim();
-    const vintage = wine.vintage.trim();
-    const varietal = wine.varietal.trim();
-    details = isApplicable(subregion) ? `${subregion}, ` : details;
-    details = isApplicable(region) ? details + `${region} ` : details;
-    details = isApplicable(vintage) ? details + `${vintage} ` : details;
-    details = isApplicable(varietal)
-      ? details + parseVarietal(varietal)
-      : details;
-    return details;
-  }
-
-  private renderText(text: string, className: string): React.ReactElement<any> {
+  private renderText(text: string, className: string): React.ReactNode {
     return (
       <div className={className}>
         {text.split("\n").map(blob =>
@@ -190,6 +187,28 @@ class DetailPage extends React.PureComponent<Props, {}> {
         )}
       </div>
     );
+  }
+
+  private setDocumentTitle(wine: IWine) {
+    document.title = wine.name;
+  }
+
+  private resetDocumentTitle() {
+    document.title = HOME_TITLE;
+  }
+
+  private bindKeysToDocument() {
+    document.addEventListener("keyup", this.handleDocumentKeyUp);
+  }
+
+  private unbindKeysFromDocument() {
+    document.removeEventListener("keyup", this.handleDocumentKeyUp);
+  }
+
+  private handleDocumentKeyUp = (event: KeyboardEvent) => {
+    if (event.keyCode === ESC_KEY_CODE) {
+      this.props.history.push("/");
+    }
   }
 }
 
