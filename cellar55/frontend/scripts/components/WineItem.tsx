@@ -17,7 +17,7 @@ export class WineItem extends BaseWineItem<IWineItemProps> {
         <div className="wine-item-container">
           <div
             className="wine-item-image-container"
-            style={{ backgroundImage: `url(https://${wine.alt_image_url})` }}
+            style={{ backgroundImage: `url(${this.getImageUrl()})` }}
           >
             <Link to={`/wine/${wine.id}`} className="wine-item-image-link" />
           </div>
@@ -37,5 +37,9 @@ export class WineItem extends BaseWineItem<IWineItemProps> {
         </div>
       </li>
     );
+  }
+
+  private getImageUrl() {
+    return `http://edge.zimage.io/?url=https://${this.props.wine.alt_image_url}&w=400`;
   }
 }
