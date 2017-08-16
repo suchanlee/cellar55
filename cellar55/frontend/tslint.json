@@ -11,15 +11,15 @@
   ],
   "rules": {
     "arrow-parens": false,
-    "no-console": false,
+    "no-console": [false],
     "no-consecutive-blank-lines": false,
     "no-string-literal": false,
     "no-empty-interface": false,
-    "interface-name": false,
-    "ordered-imports": false,
-    "trailing-comma": false,
-    "max-line-length": false,
-    "max-classes-per-file": false,
+    "interface-name": [false],
+    "ordered-imports": [false],
+    "trailing-comma": [false],
+    "max-line-length": [false],
+    "max-classes-per-file": [false],
     "semicolon": [true, "always", "ignore-bound-class-methods"]
   }
 }
