@@ -9,8 +9,8 @@ def get_api_route(subpath):
     return '/api/{0}'.format(subpath)
 
 @app.route('/', methods=['GET'])
-@app.route('/wine/<int:wineid>', methods=['GET'])
-def index(wineid=None):
+@app.route('/wine/<int:wineid>/<string:slug>', methods=['GET'])
+def index(wineid=None, slug=None):
     return render_template('index.html', js_build=url_for('static', filename='build/bundle.js'))
 
 @app.route(get_api_route('wine'), methods=['GET'])
@@ -102,9 +102,3 @@ def is_within_range(number, low, high):
         return number >= low
     else:
         return number >= low and number <= high
-
-@app.route('/wine/<id>', methods=['GET'])
-def wine(id):
-    wine = Wine.query.get_or_404(id)
-    return jsonify(wine.json())
-
