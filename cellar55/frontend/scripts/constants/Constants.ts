@@ -1,3 +1,5 @@
+export const HOME_TITLE = "Cellar 55";
+
 export const WineTypes = ["Red", "White", "Rose", "Sparkling"];
 
 export const WineType = {
