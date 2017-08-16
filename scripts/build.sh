@@ -13,6 +13,5 @@ cd "$rootdir/cellar55"
 
 # build frontend resources
 cd "$rootdir/cellar55/cellar55/frontend"
-npm install
-typings install
+yarn
 ./node_modules/webpack/bin/webpack.js --optimize-minimize --optimize-dedupe --output-path "$rootdir/cellar55/static/build" --output-filename bundle.js
